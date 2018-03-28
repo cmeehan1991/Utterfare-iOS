@@ -7,13 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		439A565D90D512DC5EDC44BD /* Pods_Utterfare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9C29510AA1D594FB8B313B /* Pods_Utterfare.framework */; };
+		A216CC701E200A6100A5951C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216CC6F1E200A6100A5951C /* SearchViewController.swift */; };
+		A216CC721E200A6E00A5951C /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216CC711E200A6E00A5951C /* ResultsViewController.swift */; };
+		A216CC751E200F3E00A5951C /* ResultCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216CC741E200F3E00A5951C /* ResultCellViewController.swift */; };
+		A216CC771E20170600A5951C /* ViewItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216CC761E20170600A5951C /* ViewItemController.swift */; };
+		A238836F20597DE30041F6FF /* ViewItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A238836E20597DE30041F6FF /* ViewItemModel.swift */; };
 		A2AB1F981DF7578C009928BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AB1F971DF7578C009928BF /* AppDelegate.swift */; };
-		A2AB1F9A1DF7578C009928BF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AB1F991DF7578C009928BF /* ViewController.swift */; };
 		A2AB1F9D1DF7578C009928BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2AB1F9B1DF7578C009928BF /* Main.storyboard */; };
 		A2AB1F9F1DF7578C009928BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2AB1F9E1DF7578C009928BF /* Assets.xcassets */; };
 		A2AB1FA21DF7578C009928BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2AB1FA01DF7578C009928BF /* LaunchScreen.storyboard */; };
 		A2AB1FAD1DF7578C009928BF /* UtterfareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AB1FAC1DF7578C009928BF /* UtterfareTests.swift */; };
 		A2AB1FB81DF7578C009928BF /* UtterfareUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AB1FB71DF7578C009928BF /* UtterfareUITests.swift */; };
+		A2AB1FCA1DF770B3009928BF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2AB1FC91DF770B3009928BF /* CoreLocation.framework */; };
+		A2B00E451E22A5D9004CACCF /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B00E441E22A5D9004CACCF /* SearchModel.swift */; };
+		E2F6981F33B3258ACDEF8034 /* Pods_UtterfareUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA5E46EA3B9C26C49DFDFFB /* Pods_UtterfareUITests.framework */; };
+		F290D91E831E20B3B672A3D3 /* Pods_UtterfareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09E843D5DA1C138C7E25A19B /* Pods_UtterfareTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +43,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04942A706D9F2AEEFA0B81DF /* Pods-UtterfareUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtterfareUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UtterfareUITests/Pods-UtterfareUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		068C34851883620C30C92EFE /* Pods-Utterfare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Utterfare.release.xcconfig"; path = "Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare.release.xcconfig"; sourceTree = "<group>"; };
+		09E843D5DA1C138C7E25A19B /* Pods_UtterfareTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UtterfareTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		191438673DBEAE6FE1C10B26 /* Pods-UtterfareUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtterfareUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UtterfareUITests/Pods-UtterfareUITests.release.xcconfig"; sourceTree = "<group>"; };
+		4221C6E5957A61B8DBFB4ECD /* Pods-UtterfareTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtterfareTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UtterfareTests/Pods-UtterfareTests.debug.xcconfig"; sourceTree = "<group>"; };
+		609F55E0384BD3FC6B2C3E86 /* Pods-UtterfareTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtterfareTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UtterfareTests/Pods-UtterfareTests.release.xcconfig"; sourceTree = "<group>"; };
+		9E448123B855267EBE06B77A /* Pods-Utterfare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Utterfare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare.debug.xcconfig"; sourceTree = "<group>"; };
+		A216CC6F1E200A6100A5951C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		A216CC711E200A6E00A5951C /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		A216CC741E200F3E00A5951C /* ResultCellViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultCellViewController.swift; sourceTree = "<group>"; };
+		A216CC761E20170600A5951C /* ViewItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewItemController.swift; sourceTree = "<group>"; };
+		A238836E20597DE30041F6FF /* ViewItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewItemModel.swift; sourceTree = "<group>"; };
 		A2AB1F941DF7578C009928BF /* Utterfare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Utterfare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2AB1F971DF7578C009928BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A2AB1F991DF7578C009928BF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A2AB1F9C1DF7578C009928BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A2AB1F9E1DF7578C009928BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A2AB1FA11DF7578C009928BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +67,10 @@
 		A2AB1FB31DF7578C009928BF /* UtterfareUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UtterfareUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2AB1FB71DF7578C009928BF /* UtterfareUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtterfareUITests.swift; sourceTree = "<group>"; };
 		A2AB1FB91DF7578C009928BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A2AB1FC91DF770B3009928BF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A2B00E441E22A5D9004CACCF /* SearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		CBA5E46EA3B9C26C49DFDFFB /* Pods_UtterfareUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UtterfareUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE9C29510AA1D594FB8B313B /* Pods_Utterfare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Utterfare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +78,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2AB1FCA1DF770B3009928BF /* CoreLocation.framework in Frameworks */,
+				439A565D90D512DC5EDC44BD /* Pods_Utterfare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F290D91E831E20B3B672A3D3 /* Pods_UtterfareTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,12 +95,46 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2F6981F33B3258ACDEF8034 /* Pods_UtterfareUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		71A8B28643A203BC8391E1D1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9E448123B855267EBE06B77A /* Pods-Utterfare.debug.xcconfig */,
+				068C34851883620C30C92EFE /* Pods-Utterfare.release.xcconfig */,
+				4221C6E5957A61B8DBFB4ECD /* Pods-UtterfareTests.debug.xcconfig */,
+				609F55E0384BD3FC6B2C3E86 /* Pods-UtterfareTests.release.xcconfig */,
+				04942A706D9F2AEEFA0B81DF /* Pods-UtterfareUITests.debug.xcconfig */,
+				191438673DBEAE6FE1C10B26 /* Pods-UtterfareUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A238837020597DE80041F6FF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A216CC711E200A6E00A5951C /* ResultsViewController.swift */,
+				A216CC741E200F3E00A5951C /* ResultCellViewController.swift */,
+				A216CC761E20170600A5951C /* ViewItemController.swift */,
+				A216CC6F1E200A6100A5951C /* SearchViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		A238837120597DF30041F6FF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A238836E20597DE30041F6FF /* ViewItemModel.swift */,
+				A2B00E441E22A5D9004CACCF /* SearchModel.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		A2AB1F8B1DF7578C009928BF = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +142,8 @@
 				A2AB1FAB1DF7578C009928BF /* UtterfareTests */,
 				A2AB1FB61DF7578C009928BF /* UtterfareUITests */,
 				A2AB1F951DF7578C009928BF /* Products */,
+				A2AB1FC81DF770B3009928BF /* Frameworks */,
+				71A8B28643A203BC8391E1D1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,8 +160,10 @@
 		A2AB1F961DF7578C009928BF /* Utterfare */ = {
 			isa = PBXGroup;
 			children = (
+				A238837120597DF30041F6FF /* Models */,
+				A238837020597DE80041F6FF /* Controllers */,
+				A2AB1FC51DF759CF009928BF /* Images */,
 				A2AB1F971DF7578C009928BF /* AppDelegate.swift */,
-				A2AB1F991DF7578C009928BF /* ViewController.swift */,
 				A2AB1F9B1DF7578C009928BF /* Main.storyboard */,
 				A2AB1F9E1DF7578C009928BF /* Assets.xcassets */,
 				A2AB1FA01DF7578C009928BF /* LaunchScreen.storyboard */,
@@ -125,6 +190,24 @@
 			path = UtterfareUITests;
 			sourceTree = "<group>";
 		};
+		A2AB1FC51DF759CF009928BF /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		A2AB1FC81DF770B3009928BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A2AB1FC91DF770B3009928BF /* CoreLocation.framework */,
+				DE9C29510AA1D594FB8B313B /* Pods_Utterfare.framework */,
+				09E843D5DA1C138C7E25A19B /* Pods_UtterfareTests.framework */,
+				CBA5E46EA3B9C26C49DFDFFB /* Pods_UtterfareUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +215,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A2AB1FBC1DF7578C009928BF /* Build configuration list for PBXNativeTarget "Utterfare" */;
 			buildPhases = (
+				D1709F3C706622EB39411A83 /* [CP] Check Pods Manifest.lock */,
 				A2AB1F901DF7578C009928BF /* Sources */,
 				A2AB1F911DF7578C009928BF /* Frameworks */,
 				A2AB1F921DF7578C009928BF /* Resources */,
+				48E226189BF9A9297E49887B /* [CP] Embed Pods Frameworks */,
+				6BB0762FA7E58B3982AF2677 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,9 +235,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A2AB1FBF1DF7578C009928BF /* Build configuration list for PBXNativeTarget "UtterfareTests" */;
 			buildPhases = (
+				B8B727BD4B3523FAD09CF9DC /* [CP] Check Pods Manifest.lock */,
 				A2AB1FA41DF7578C009928BF /* Sources */,
 				A2AB1FA51DF7578C009928BF /* Frameworks */,
 				A2AB1FA61DF7578C009928BF /* Resources */,
+				3101EF2C5CB14159A75429AB /* [CP] Embed Pods Frameworks */,
+				9FCCAF9B2D91EFDCB3F50E5D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +256,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A2AB1FC21DF7578C009928BF /* Build configuration list for PBXNativeTarget "UtterfareUITests" */;
 			buildPhases = (
+				A502747B37F21B164D055D7C /* [CP] Check Pods Manifest.lock */,
 				A2AB1FAF1DF7578C009928BF /* Sources */,
 				A2AB1FB01DF7578C009928BF /* Frameworks */,
 				A2AB1FB11DF7578C009928BF /* Resources */,
+				B5B9121BDE44F80AA646FEB9 /* [CP] Embed Pods Frameworks */,
+				AAD176383B9CCC5E5032D852 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -188,23 +280,26 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
-				ORGANIZATIONNAME = "CBM Web Development";
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = Utterfare;
 				TargetAttributes = {
 					A2AB1F931DF7578C009928BF = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = B76P79Q988;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					A2AB1FA71DF7578C009928BF = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = B76P79Q988;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = A2AB1F931DF7578C009928BF;
 					};
 					A2AB1FB21DF7578C009928BF = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = B76P79Q988;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = A2AB1F931DF7578C009928BF;
 					};
@@ -257,13 +352,172 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3101EF2C5CB14159A75429AB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UtterfareTests/Pods-UtterfareTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		48E226189BF9A9297E49887B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
+				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6BB0762FA7E58B3982AF2677 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9FCCAF9B2D91EFDCB3F50E5D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UtterfareTests/Pods-UtterfareTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A502747B37F21B164D055D7C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UtterfareUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AAD176383B9CCC5E5032D852 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UtterfareUITests/Pods-UtterfareUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B5B9121BDE44F80AA646FEB9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UtterfareUITests/Pods-UtterfareUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B8B727BD4B3523FAD09CF9DC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UtterfareTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1709F3C706622EB39411A83 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Utterfare-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A2AB1F901DF7578C009928BF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2AB1F9A1DF7578C009928BF /* ViewController.swift in Sources */,
+				A216CC701E200A6100A5951C /* SearchViewController.swift in Sources */,
+				A216CC751E200F3E00A5951C /* ResultCellViewController.swift in Sources */,
+				A2B00E451E22A5D9004CACCF /* SearchModel.swift in Sources */,
+				A216CC771E20170600A5951C /* ViewItemController.swift in Sources */,
 				A2AB1F981DF7578C009928BF /* AppDelegate.swift in Sources */,
+				A216CC721E200A6E00A5951C /* ResultsViewController.swift in Sources */,
+				A238836F20597DE30041F6FF /* ViewItemModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,7 +581,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -335,15 +591,26 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Connor Meehan (B76P79Q988)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Connor Meehan (B76P79Q988)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = B76P79Q988;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Users/cmeehan/Documents/iOS,
+					"Projects/Utterfare/Pods/**",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -358,9 +625,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "85f40b80-0c06-47a4-bc02-98ae598b841d";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -377,7 +645,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -385,15 +655,26 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Connor Meehan (B76P79Q988)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Connor Meehan (B76P79Q988)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = B76P79Q988;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Users/cmeehan/Documents/iOS,
+					"Projects/Utterfare/Pods/**",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -402,8 +683,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "85f40b80-0c06-47a4-bc02-98ae598b841d";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -413,32 +695,51 @@
 		};
 		A2AB1FBD1DF7578C009928BF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E448123B855267EBE06B77A /* Pods-Utterfare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B76P79Q988;
 				INFOPLIST_FILE = Utterfare/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.Utterfare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Utterfare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		A2AB1FBE1DF7578C009928BF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 068C34851883620C30C92EFE /* Pods-Utterfare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B76P79Q988;
 				INFOPLIST_FILE = Utterfare/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.Utterfare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Utterfare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		A2AB1FC01DF7578C009928BF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4221C6E5957A61B8DBFB4ECD /* Pods-UtterfareTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -447,13 +748,15 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.UtterfareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Utterfare.app/Utterfare";
 			};
 			name = Debug;
 		};
 		A2AB1FC11DF7578C009928BF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 609F55E0384BD3FC6B2C3E86 /* Pods-UtterfareTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -462,13 +765,15 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.UtterfareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Utterfare.app/Utterfare";
 			};
 			name = Release;
 		};
 		A2AB1FC31DF7578C009928BF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04942A706D9F2AEEFA0B81DF /* Pods-UtterfareUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = B76P79Q988;
@@ -476,13 +781,15 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.UtterfareUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Utterfare;
 			};
 			name = Debug;
 		};
 		A2AB1FC41DF7578C009928BF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 191438673DBEAE6FE1C10B26 /* Pods-UtterfareUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = B76P79Q988;
@@ -490,7 +797,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.UtterfareUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Utterfare;
 			};
 			name = Release;
@@ -514,6 +822,7 @@
 				A2AB1FBE1DF7578C009928BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A2AB1FBF1DF7578C009928BF /* Build configuration list for PBXNativeTarget "UtterfareTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +831,7 @@
 				A2AB1FC11DF7578C009928BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A2AB1FC21DF7578C009928BF /* Build configuration list for PBXNativeTarget "UtterfareUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +840,7 @@
 				A2AB1FC41DF7578C009928BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

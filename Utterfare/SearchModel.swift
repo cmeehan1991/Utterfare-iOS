@@ -10,16 +10,16 @@ import Foundation
 import UIKit
 
 protocol SearchControllerProtocol: class{
-    func itemsDownloaded(hasResults: Bool, itemNames: NSArray, restaurantNames: NSArray, itemImages: [UIImage], itemDescriptions: NSArray, restaurantURLs: NSArray, restaurantDistances: NSArray, restaurantPhones: NSArray, restaurantAddresses: NSArray)
+    func itemsDownloaded(hasResults: Bool, itemIds: Array<String>, dataTables: Array<String>, itemNames: Array<String>, restaurantNames: Array<String>, restaurantIds: Array<String>, itemImages: Array<String>)
 }
 
-class SearchController: NSObject{
-    weak var delegate: SearchControllerProtocal!
+class SearchModel: NSObject{
+    weak var delegate: SearchControllerProtocol!
     var location : String = String(), terms : String = String(), offset : String = String(), distance : String = String()
     var jsonData : Data = Data()
     
     func doSearch(terms: String, distance: String, location: String, offset: String){
-        let requestURL = URL(string: "https://www.utterfare.com/ufdev/includes/php/ios-search.php");
+        let requestURL = URL(string: "https://www.utterfare.com/includes/php/ios-search.php")
         var request = URLRequest(url: requestURL!)
         request.httpMethod = "POST"
         
@@ -33,11 +33,11 @@ class SearchController: NSObject{
         let task = URLSession.shared.dataTask(with: request){
             data, response, error in
             if error != nil{
-                print("Task Error: \(error)")
-            }else{
-                self.jsonData = data!
-                self.parseJSON();
+                return
             }
+            self.jsonData = data!
+            self.parseJSON();
+            
         }
         task.resume()
     }
@@ -48,48 +48,39 @@ class SearchController: NSObject{
             var haveResults: Bool = Bool()
             if jsonResults == nil {
                 haveResults = false;
+                return
             }else{
                 haveResults = true;
             }
             if let results = jsonResults {
-                let itemName : NSMutableArray = NSMutableArray()
-                let restaurantName: NSMutableArray = NSMutableArray()
-                var itemImage: Array<UIImage> = Array<UIImage>()
-                let itemDescription : NSMutableArray = NSMutableArray()
-                let restaurantURL : NSMutableArray = NSMutableArray()
-                let restaurantDistance : NSMutableArray = NSMutableArray()
-                let restaurantContact : NSMutableArray = NSMutableArray()
-                let restaurantAddress : NSMutableArray = NSMutableArray()
-                
+                var itemId : Array<String> = Array()
+                var dataTable : Array<String> = Array()
+                var itemImage : Array<String> = Array()
+                var itemName : Array<String> = Array()
+                var restaurantName : Array<String> = Array()
+                var restaurantId : Array<String> = Array()
                 
                 for i in 0..<(results.count){
                     let result = results[i] as! NSDictionary
                     
-                    // Convert the image url to a UIImage and add to the itemImage array
-                    let itemImageURL = result["image_url"] as! String
-                    let url = URL(string: itemImageURL)!
-                    let imageData = NSData(contentsOf: url)
-                    let image = UIImage(data: imageData as! Data)
-                    itemImage.append(image!);
-                    
-                    
-                    itemName.add(result["NAME"] as! String)
-                    restaurantName.add(result["COMPANY"] as! String)
-                    itemDescription.add(result["DESCRIPTION"] as! String)
-                    restaurantURL.add(result["LINK"] as! String)
-                    restaurantDistance.add(result["DISTANCE"] as! String)
-                    restaurantContact.add(result["PHONE"] as! String)
-                    restaurantAddress.add(result["ADDRESS"] as! String)
-                    
+                    itemId.append(result["ITEM_ID"] as! String)
+                    dataTable.append(result["DATA_TABLE"] as! String)
+                    itemImage.append(result["IMAGE_URL"] as! String)
+                    itemName.append(result["NAME"] as! String)
+                    restaurantName.append(result["COMPANY"] as! String)
+                    restaurantId.append(result["COMPANY_ID"] as! String)
                 }
                 
-                
                 DispatchQueue.main.async {
-                    self.delegate.itemsDownloaded(hasResults: haveResults, itemNames: itemName, restaurantNames: restaurantName, itemImages: itemImage, itemDescriptions: itemDescription, restaurantURLs: restaurantURL, restaurantDistances: restaurantDistance, restaurantPhones: restaurantContact, restaurantAddresses: restaurantAddress)
+                    if self.delegate != nil{
+                        self.delegate.itemsDownloaded(hasResults: haveResults, itemIds: itemId, dataTables: dataTable, itemNames: itemName, restaurantNames: restaurantName, restaurantIds: restaurantId, itemImages: itemImage)
+                    }
                 }
             }
         }catch{
-            print(error)
+            DispatchQueue.main.async{
+                self.delegate.itemsDownloaded(hasResults: false, itemIds: Array(), dataTables: Array(), itemNames: Array(), restaurantNames: Array(), restaurantIds: Array(), itemImages: Array())
+            }
         }
         
     }

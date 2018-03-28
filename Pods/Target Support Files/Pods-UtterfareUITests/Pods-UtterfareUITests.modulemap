@@ -1,0 +1,6 @@
+framework module Pods_UtterfareUITests {
+  umbrella header "Pods-UtterfareUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
