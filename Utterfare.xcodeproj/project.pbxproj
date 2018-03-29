@@ -12,6 +12,8 @@
 		A216CC721E200A6E00A5951C /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216CC711E200A6E00A5951C /* ResultsViewController.swift */; };
 		A216CC751E200F3E00A5951C /* ResultCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216CC741E200F3E00A5951C /* ResultCellViewController.swift */; };
 		A216CC771E20170600A5951C /* ViewItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216CC761E20170600A5951C /* ViewItemController.swift */; };
+		A21CCFA3206D1DAB001C5797 /* UserSignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21CCFA2206D1DAB001C5797 /* UserSignInController.swift */; };
+		A21CCFA8206D1F1E001C5797 /* UserSignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21CCFA7206D1F1E001C5797 /* UserSignInModel.swift */; };
 		A238836F20597DE30041F6FF /* ViewItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A238836E20597DE30041F6FF /* ViewItemModel.swift */; };
 		A2AB1F981DF7578C009928BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AB1F971DF7578C009928BF /* AppDelegate.swift */; };
 		A2AB1F9D1DF7578C009928BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2AB1F9B1DF7578C009928BF /* Main.storyboard */; };
@@ -54,6 +56,8 @@
 		A216CC711E200A6E00A5951C /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		A216CC741E200F3E00A5951C /* ResultCellViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultCellViewController.swift; sourceTree = "<group>"; };
 		A216CC761E20170600A5951C /* ViewItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewItemController.swift; sourceTree = "<group>"; };
+		A21CCFA2206D1DAB001C5797 /* UserSignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignInController.swift; sourceTree = "<group>"; };
+		A21CCFA7206D1F1E001C5797 /* UserSignInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignInModel.swift; sourceTree = "<group>"; };
 		A238836E20597DE30041F6FF /* ViewItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewItemModel.swift; sourceTree = "<group>"; };
 		A2AB1F941DF7578C009928BF /* Utterfare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Utterfare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2AB1F971DF7578C009928BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,24 +119,61 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		A238837020597DE80041F6FF /* Controllers */ = {
+		A21CCF9E206D1D80001C5797 /* Sign In */ = {
 			isa = PBXGroup;
 			children = (
-				A216CC711E200A6E00A5951C /* ResultsViewController.swift */,
-				A216CC741E200F3E00A5951C /* ResultCellViewController.swift */,
-				A216CC761E20170600A5951C /* ViewItemController.swift */,
-				A216CC6F1E200A6100A5951C /* SearchViewController.swift */,
+				A21CCFA2206D1DAB001C5797 /* UserSignInController.swift */,
+				A21CCFA7206D1F1E001C5797 /* UserSignInModel.swift */,
 			);
-			name = Controllers;
+			name = "Sign In";
 			sourceTree = "<group>";
 		};
-		A238837120597DF30041F6FF /* Models */ = {
+		A21CCF9F206D1D8A001C5797 /* Sign Up */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Sign Up";
+			sourceTree = "<group>";
+		};
+		A21CCFA0206D1D91001C5797 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Items;
+			sourceTree = "<group>";
+		};
+		A21CCFA1206D1D9B001C5797 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Account;
+			sourceTree = "<group>";
+		};
+		A21CCFA4206D1EDB001C5797 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				A2B00E441E22A5D9004CACCF /* SearchModel.swift */,
+				A216CC6F1E200A6100A5951C /* SearchViewController.swift */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		A21CCFA5206D1EE1001C5797 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				A216CC741E200F3E00A5951C /* ResultCellViewController.swift */,
+				A216CC711E200A6E00A5951C /* ResultsViewController.swift */,
+			);
+			name = Results;
+			sourceTree = "<group>";
+		};
+		A21CCFA6206D1EE6001C5797 /* Single Item */ = {
 			isa = PBXGroup;
 			children = (
 				A238836E20597DE30041F6FF /* ViewItemModel.swift */,
-				A2B00E441E22A5D9004CACCF /* SearchModel.swift */,
+				A216CC761E20170600A5951C /* ViewItemController.swift */,
 			);
-			name = Models;
+			name = "Single Item";
 			sourceTree = "<group>";
 		};
 		A2AB1F8B1DF7578C009928BF = {
@@ -160,8 +201,13 @@
 		A2AB1F961DF7578C009928BF /* Utterfare */ = {
 			isa = PBXGroup;
 			children = (
-				A238837120597DF30041F6FF /* Models */,
-				A238837020597DE80041F6FF /* Controllers */,
+				A21CCFA6206D1EE6001C5797 /* Single Item */,
+				A21CCFA5206D1EE1001C5797 /* Results */,
+				A21CCFA4206D1EDB001C5797 /* Search */,
+				A21CCFA1206D1D9B001C5797 /* Account */,
+				A21CCFA0206D1D91001C5797 /* Items */,
+				A21CCF9F206D1D8A001C5797 /* Sign Up */,
+				A21CCF9E206D1D80001C5797 /* Sign In */,
 				A2AB1FC51DF759CF009928BF /* Images */,
 				A2AB1F971DF7578C009928BF /* AppDelegate.swift */,
 				A2AB1F9B1DF7578C009928BF /* Main.storyboard */,
@@ -511,12 +557,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A21CCFA3206D1DAB001C5797 /* UserSignInController.swift in Sources */,
 				A216CC701E200A6100A5951C /* SearchViewController.swift in Sources */,
 				A216CC751E200F3E00A5951C /* ResultCellViewController.swift in Sources */,
 				A2B00E451E22A5D9004CACCF /* SearchModel.swift in Sources */,
 				A216CC771E20170600A5951C /* ViewItemController.swift in Sources */,
 				A2AB1F981DF7578C009928BF /* AppDelegate.swift in Sources */,
 				A216CC721E200A6E00A5951C /* ResultsViewController.swift in Sources */,
+				A21CCFA8206D1F1E001C5797 /* UserSignInModel.swift in Sources */,
 				A238836F20597DE30041F6FF /* ViewItemModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
