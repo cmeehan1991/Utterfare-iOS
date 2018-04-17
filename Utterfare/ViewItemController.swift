@@ -109,6 +109,25 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol{
         
     }
     
+    func saveItem(){
+        print("Item saved")
+    }
+    
+    @objc func saveItemAction(){
+        let alert = UIAlertController(title: "Save Item", message: "Save this item to your favorites.", preferredStyle: .actionSheet)
+        let saveItemAction = UIAlertAction(title: "Save", style: .default, handler: {action in
+            self.saveItem()
+        })
+        alert.addAction(saveItemAction)
+        self.navigationController?.present(alert, animated: true, completion: nil)
+    }
+    
+    func saveItemButton() -> UIBarButtonItem{
+        let item = UIBarButtonItem(barButtonSystemItem: .action, target: self, action:#selector(saveItemAction))
+        item.tintColor = UIColor.white
+        return item
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let viewItemModel = ViewItemModel()
@@ -118,7 +137,9 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol{
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        self.loadingIndicator.startAnimating();  
+        self.loadingIndicator.startAnimating();
+        
+        self.navigationItem.rightBarButtonItem = saveItemButton()
     }
     
 }

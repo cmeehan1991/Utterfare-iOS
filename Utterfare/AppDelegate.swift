@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UINavigationBar.appearance().tintColor = UIColor(red: 0.01, green: 0.66, blue: 0.96, alpha: 1.0)
             UINavigationBar.appearance().isTranslucent = false
             UINavigationBar.appearance().backgroundColor = UIColor(red: 96, green: 125, blue: 139, alpha: 1.0)
-            
         return true
     }
 
