@@ -22,7 +22,7 @@ class UserSignInModel: NSObject{
         var parameters = "username=" + username
         parameters += "&password=" + password
         parameters += "&action=" + "log_in"
-        
+        print(parameters)
         request.httpBody = parameters.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: request){
@@ -38,11 +38,12 @@ class UserSignInModel: NSObject{
     func parseData(data: Data){
         do{
             let jsonData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSDictionary
+            print(jsonData)
             if jsonData["RESPONSE"] as? String != "FAIL"{
                 let userId = jsonData["ID"] as? String
                 delegate.userSignIn(isSignedIn: true, userId: userId!)
             }else{
-                delegate.userSignIn(isSignedIn: false, userId: "")
+                delegate.userSignIn(isSignedIn: false, userId: "N/A")
             }
         }catch{
             print("JSON Error: ", error.localizedDescription)

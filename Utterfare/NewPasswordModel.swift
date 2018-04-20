@@ -21,7 +21,7 @@ class NewPasswordModel: NSObject{
         var urlRequest = URLRequest(url: requestUrl!)
         urlRequest.httpMethod = "post"
         
-        var params = "action=" + "reset_password"
+        var params = "action=" + "set_new_password"
         params += "&user_id=" + userId
         params += "&password=" + password
         

@@ -12,7 +12,7 @@ class RequestPasswordResetController: UIViewController, ResetPasswordRequestProt
     @IBOutlet weak var emailTextField: UITextField!
     let passwordResetRequest: RequestPasswordResetModel = RequestPasswordResetModel()
     let customAlert: CustomAlerts = CustomAlerts()
-    var loadingAlert: UIAlertController = UIAlertController()
+    var loadingAlert: UIView = UIView()
     let defaults = UserDefaults.standard
    
     func requestSubmitted(success: Bool, response: String) {
@@ -22,7 +22,7 @@ class RequestPasswordResetController: UIViewController, ResetPasswordRequestProt
     }
     
     func requestFinished(success: Bool, response: String){
-        loadingAlert.dismiss(animated: true, completion: nil)
+        self.loadingAlert.removeFromSuperview()
         if success == true{
             self.defaults.set(self.emailTextField.text, forKey: "USERNAME")
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "PasswordResetCodeController") as! PasswordResetCodeController
@@ -34,8 +34,8 @@ class RequestPasswordResetController: UIViewController, ResetPasswordRequestProt
     }
     
     func requestReset(){
-        self.loadingAlert = customAlert.loadingAlert(title: "Requesting Code", message: "Requesting Reset Code")
-        self.present(loadingAlert, animated: true, completion: nil)
+        self.loadingAlert = customAlert.loadingAlert(uiView: self.view)
+        self.view.addSubview(self.loadingAlert)
         self.passwordResetRequest.submitRequest(email: self.emailTextField.text!)
     }
     

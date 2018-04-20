@@ -16,21 +16,27 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     @IBOutlet weak var facebookLoginButton: LoginButton!
     
     let defaults = UserDefaults.standard
+    let customAlert: CustomAlerts = CustomAlerts()
+    var loadingView: UIView = UIView()
     let backToItem: Bool = Bool()
     var username: String = String(), password: String = String()
-    var loadingAlert: UIAlertController = UIAlertController()
-    var loadingIndicator : UIActivityIndicatorView = UIActivityIndicatorView()
     
     func userSignIn(isSignedIn: Bool, userId: String) {
+        DispatchQueue.main.async {
+            self.handleResponse(isSignedIn: isSignedIn, userId: userId)
+        }
+    }
+    
+    func handleResponse(isSignedIn: Bool, userId: String){
         defaults.set(isSignedIn, forKey: "IS_LOGGED_IN")
         defaults.set(userId, forKey: "USER_ID")
-        self.loadingAlert.dismiss(animated: true, completion: {
-            if isSignedIn{
-                self.goToView()
-            }else{
-                self.showErrorAlert()
-            }
-        })
+        if isSignedIn{
+            self.goToView()
+            self.loadingView.removeFromSuperview()
+        }else{
+            self.loadingView.removeFromSuperview()
+            self.showErrorAlert()
+        }
     }
     
     func showErrorAlert(){
@@ -38,11 +44,15 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     }
     
     func goToView(){
+        print(self.navigationController?.viewControllers)
         self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
     
     func signIn(){
+        self.view.isUserInteractionEnabled = false
+        self.view.addSubview(loadingView)
+        
         let signInModel = UserSignInModel()
         signInModel.signIn(username: username, password: password)
     }
@@ -55,12 +65,6 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
         loadingIndicator.startAnimating()
         
         return loadingIndicator
-    }
-    
-    func loadingAlertController ()->UIAlertController{
-        let loadingAlert : UIAlertController = UIAlertController(title: "Loading", message: "Please wait...", preferredStyle: .alert)
-        loadingAlert.view.addSubview(loadingIndicator)
-        return loadingAlert
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -82,7 +86,8 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     @IBAction func signInButtonAction(){
         username = usernameTextField.text!
         password = passwordTextField.text!
-        self.present(loadingAlert, animated: true, completion: nil)
+        
+        //self.present(loadingAlert, animated: true, completion: nil)
         let signInModel = UserSignInModel()
         signInModel.delegate = self
         signInModel.signIn(username: username, password: password)
@@ -128,6 +133,7 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.loadingView = customAlert.loadingAlert(uiView: self.view)
         
         // Set the textfield delegate to self
         usernameTextField.delegate = self
@@ -135,10 +141,6 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
         
         // Set the facebook login button
         facebookLoginButton = LoginButton(readPermissions: [.publicProfile, .email])
-        
-        // Initialize the alert controller and indicator
-        loadingAlert = self.loadingAlertController()
-        loadingIndicator = self.loadingIndicatorView()
         
         // Disable interaction with the navigation controller
         self.navigationController?.navigationBar.isUserInteractionEnabled = false

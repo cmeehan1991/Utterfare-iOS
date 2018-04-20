@@ -14,12 +14,15 @@
 		A20178F82077E3A40058E190 /* NewPasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20178F72077E3A40058E190 /* NewPasswordModel.swift */; };
 		A20178FC2077E5BF0058E190 /* CustomAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20178FB2077E5BF0058E190 /* CustomAlerts.swift */; };
 		A20178FF207FA8A00058E190 /* CustomCodeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20178FE207FA8A00058E190 /* CustomCodeField.swift */; };
+		A21169C22088C41400F3BD1B /* UpdatePasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21169C12088C41400F3BD1B /* UpdatePasswordController.swift */; };
 		A216CC701E200A6100A5951C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216CC6F1E200A6100A5951C /* SearchViewController.swift */; };
 		A216CC721E200A6E00A5951C /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216CC711E200A6E00A5951C /* ResultsViewController.swift */; };
 		A216CC751E200F3E00A5951C /* ResultCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216CC741E200F3E00A5951C /* ResultCellViewController.swift */; };
 		A216CC771E20170600A5951C /* ViewItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A216CC761E20170600A5951C /* ViewItemController.swift */; };
 		A21CCFA3206D1DAB001C5797 /* UserSignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21CCFA2206D1DAB001C5797 /* UserSignInController.swift */; };
 		A21CCFA8206D1F1E001C5797 /* UserSignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21CCFA7206D1F1E001C5797 /* UserSignInModel.swift */; };
+		A230CB162087F31C00282618 /* UserInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A230CB152087F31C00282618 /* UserInformationController.swift */; };
+		A230CB1A2087F34600282618 /* UserInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A230CB192087F34600282618 /* UserInformationModel.swift */; };
 		A238836F20597DE30041F6FF /* ViewItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A238836E20597DE30041F6FF /* ViewItemModel.swift */; };
 		A265CF622077C66500D104BB /* RequestPasswordResetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265CF612077C66500D104BB /* RequestPasswordResetController.swift */; };
 		A265CF642077C69500D104BB /* RequestPasswordResetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265CF632077C69500D104BB /* RequestPasswordResetModel.swift */; };
@@ -71,12 +74,15 @@
 		A20178F72077E3A40058E190 /* NewPasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordModel.swift; sourceTree = "<group>"; };
 		A20178FB2077E5BF0058E190 /* CustomAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlerts.swift; sourceTree = "<group>"; };
 		A20178FE207FA8A00058E190 /* CustomCodeField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCodeField.swift; sourceTree = "<group>"; };
+		A21169C12088C41400F3BD1B /* UpdatePasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordController.swift; sourceTree = "<group>"; };
 		A216CC6F1E200A6100A5951C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		A216CC711E200A6E00A5951C /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		A216CC741E200F3E00A5951C /* ResultCellViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultCellViewController.swift; sourceTree = "<group>"; };
 		A216CC761E20170600A5951C /* ViewItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewItemController.swift; sourceTree = "<group>"; };
 		A21CCFA2206D1DAB001C5797 /* UserSignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignInController.swift; sourceTree = "<group>"; };
 		A21CCFA7206D1F1E001C5797 /* UserSignInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignInModel.swift; sourceTree = "<group>"; };
+		A230CB152087F31C00282618 /* UserInformationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationController.swift; sourceTree = "<group>"; };
+		A230CB192087F34600282618 /* UserInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationModel.swift; sourceTree = "<group>"; };
 		A238836E20597DE30041F6FF /* ViewItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewItemModel.swift; sourceTree = "<group>"; };
 		A265CF612077C66500D104BB /* RequestPasswordResetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPasswordResetController.swift; sourceTree = "<group>"; };
 		A265CF632077C69500D104BB /* RequestPasswordResetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPasswordResetModel.swift; sourceTree = "<group>"; };
@@ -223,6 +229,16 @@
 			name = "Single Item";
 			sourceTree = "<group>";
 		};
+		A230CB142087F30500282618 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				A230CB152087F31C00282618 /* UserInformationController.swift */,
+				A230CB192087F34600282618 /* UserInformationModel.swift */,
+				A21169C12088C41400F3BD1B /* UpdatePasswordController.swift */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
 		A265CF602077C65100D104BB /* Password Reset */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +277,7 @@
 		A2AB1F961DF7578C009928BF /* Utterfare */ = {
 			isa = PBXGroup;
 			children = (
+				A230CB142087F30500282618 /* User */,
 				A20178FD207FA8870058E190 /* Custom Fields */,
 				A20178F92077E59F0058E190 /* Alerts */,
 				A265CF602077C65100D104BB /* Password Reset */,
@@ -637,18 +654,21 @@
 				A21CCFA3206D1DAB001C5797 /* UserSignInController.swift in Sources */,
 				A216CC701E200A6100A5951C /* SearchViewController.swift in Sources */,
 				A20178FC2077E5BF0058E190 /* CustomAlerts.swift in Sources */,
+				A230CB1A2087F34600282618 /* UserInformationModel.swift in Sources */,
 				A2AFF9A2206FCDC1008851F9 /* UserSignUpModel.swift in Sources */,
 				A27C6638206ED82500015274 /* MyItemsTableCellController.swift in Sources */,
 				A216CC751E200F3E00A5951C /* ResultCellViewController.swift in Sources */,
 				A27C6634206EBFB200015274 /* MyItemsViewController.swift in Sources */,
 				A20178F62077E39C0058E190 /* NewPasswordController.swift in Sources */,
 				A2B00E451E22A5D9004CACCF /* SearchModel.swift in Sources */,
+				A230CB162087F31C00282618 /* UserInformationController.swift in Sources */,
 				A216CC771E20170600A5951C /* ViewItemController.swift in Sources */,
 				A265CF622077C66500D104BB /* RequestPasswordResetController.swift in Sources */,
 				A20178F42077E38C0058E190 /* PasswordResetCodeModel.swift in Sources */,
 				A20178F22077E3500058E190 /* PasswordResetCodeController.swift in Sources */,
 				A27C6636206ED80B00015274 /* MyItemsModel.swift in Sources */,
 				A265CF642077C69500D104BB /* RequestPasswordResetModel.swift in Sources */,
+				A21169C22088C41400F3BD1B /* UpdatePasswordController.swift in Sources */,
 				A2AB1F981DF7578C009928BF /* AppDelegate.swift in Sources */,
 				A216CC721E200A6E00A5951C /* ResultsViewController.swift in Sources */,
 				A21CCFA8206D1F1E001C5797 /* UserSignInModel.swift in Sources */,

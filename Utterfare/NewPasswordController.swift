@@ -14,20 +14,27 @@ class NewPasswordController: UIViewController, UITextFieldDelegate, NewPasswordP
     @IBOutlet weak var confirmNewPasswordTextField: UITextField!
     
     let customAlert: CustomAlerts = CustomAlerts()
-    var loadingAlert: UIAlertController = UIAlertController()
+    var loadingAlert: UIView = UIView()
     
     var userId: String = String(), newPassword: String = String(), confirmNewPassword: String = String()
     
     func verifyChange(verifyChange: Bool) {
-        self.loadingAlert.dismiss(animated: true, completion: {
-            if verifyChange{
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserSignInController") as! UserSignInController
-                self.navigationController?.popToViewController(vc, animated: true)
-            }else{
-                let error: UIAlertController = self.customAlert.errorAlert(title: "Error Resetting Password", message: "There was an error with resetting your password. Please try again.")
-                self.present(error, animated: true, completion: nil)
-            }
-        })
+        DispatchQueue.main.async {
+            self.handleResponse(verifyChange: verifyChange)
+        }
+       
+    }
+    
+    func handleResponse(verifyChange: Bool){
+        self.loadingAlert.removeFromSuperview()
+        if verifyChange{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserSignInController") as! UserSignInController
+            self.navigationController?.pushViewController(vc, animated: true)
+
+        }else{
+            let error: UIAlertController = self.customAlert.errorAlert(title: "Error Resetting Password", message: "There was an error with resetting your password. Please try again.")
+            self.present(error, animated: true, completion: nil)
+        }
     }
     
     func validatePassword()->Bool{
@@ -61,8 +68,8 @@ class NewPasswordController: UIViewController, UITextFieldDelegate, NewPasswordP
         let newPasswordModel = NewPasswordModel()
         newPasswordModel.delegate = self;
         newPasswordModel.changePassword(password: newPassword, userId: userId)
-        self.loadingAlert = customAlert.loadingAlert(title: "Resetting Password", message: "Please wait")
-        self.present(loadingAlert, animated: true, completion: nil)
+        self.loadingAlert = customAlert.loadingAlert(uiView: self.view)
+        self.view.addSubview(self.loadingAlert)
     }
     
     override func viewDidLoad() {

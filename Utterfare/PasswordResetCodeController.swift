@@ -16,7 +16,7 @@ class PasswordResetCodeController: UIViewController, UITextFieldDelegate, Passwo
     @IBOutlet weak var fourthNumberTextField: UITextField!
     
     let customAlert: CustomAlerts = CustomAlerts()
-    var loadingAlert: UIAlertController = UIAlertController()
+    var loadingAlert: UIView = UIView()
     var passwordResetCode: PasswordResetCodeModel = PasswordResetCodeModel()
     let defaults = UserDefaults.standard
     
@@ -28,7 +28,7 @@ class PasswordResetCodeController: UIViewController, UITextFieldDelegate, Passwo
     }
     
     func parseResponse(response: Bool, userId: String){
-        loadingAlert.dismiss(animated: true, completion: nil)
+        self.loadingAlert.removeFromSuperview()
         if response {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "NewPasswordController") as! NewPasswordController
             vc.userId = userId
@@ -50,7 +50,8 @@ class PasswordResetCodeController: UIViewController, UITextFieldDelegate, Passwo
     }
     
     @IBAction func submitResetCodeAction(){
-        loadingAlert = customAlert.loadingAlert(title: "", message: "Verifying the Rest Code")
+        self.loadingAlert = customAlert.loadingAlert(uiView: self.view)
+        self.view.addSubview(self.loadingAlert)
         submitResetCode()
     }
     

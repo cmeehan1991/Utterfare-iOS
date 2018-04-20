@@ -9,8 +9,8 @@
 import UIKit
 import SDWebImage
 
-class ViewItemController: UIViewController, ViewItemControllerProtocol{
-    
+class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemProtocol{
+   
     // Outlets
     @IBOutlet weak var itemDescriptionTextArea: UITextView!
     @IBOutlet weak var restaurantURLButton: UIButton!
@@ -24,6 +24,25 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol{
     
     // Initialize the variables
     var itemId: String = String(), dataTable: String = String(), itemName : String = String(), itemImage : String = String(), itemDescription : String = String(), companyName : String = String(), url : String = String(), phone: String = String(), address : String = String(), restaurantDistance : String = String()
+    let customAlert: CustomAlerts = CustomAlerts()
+    let defaults: UserDefaults = UserDefaults()
+    var myItems: MyItemsModel = MyItemsModel()
+    var loadingView: UIView = UIView()
+    
+    func addItemProtocol(status: Bool, response: String) {
+        self.loadingView.removeFromSuperview()
+        if status{
+            let alert = UIAlertController(title: "Item Added", message: "", preferredStyle: .actionSheet)
+            self.navigationController?.present(alert, animated: true, completion: nil)
+            let delay = DispatchTime.now() + 5
+            DispatchQueue.main.asyncAfter(deadline: delay, execute: {
+                alert.dismiss(animated: true, completion: nil)
+            })
+        }else{
+            let alert = customAlert.errorAlert(title: "Save Item Failed", message: response)
+            self.present(alert, animated: true)
+        }
+    }
     
     func itemsDownloaded(companyName: String, address: String, phone: String, link: String, itemName: String, itemDescription: String, itemImage: String) {
         self.itemName = itemName
@@ -72,23 +91,6 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol{
         }else{
             UIApplication.shared.openURL(url!)
         }
-       /* let confirmationAlert = UIAlertController(title: "Call \(self.companyName)", message: "Call \(self.companyName)?", preferredStyle: .alert)
-        let callNumber = UIAlertAction(title: "Call", style: .default, handler: {
-            alert -> Void in
-            print(self.phone)
-            if let url = URL(string: "tel://\(self.phone)"){
-                print(url)
-                if #available(iOS 10, *){
-                    UIApplication.shared.open(url)
-                }else{
-                    UIApplication.shared.openURL(url)
-                }
-            }
-        })
-        let cancelAction = UIAlertAction(title:"Cancel", style: .default, handler:nil)
-        confirmationAlert.addAction(callNumber)
-        confirmationAlert.addAction(cancelAction)
-        self.present(confirmationAlert, animated: true, completion: nil)*/
     }
     
     func loadItemView(){
@@ -110,16 +112,25 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol{
     }
     
     func saveItem(){
-        print("Item saved")
+        self.loadingView = customAlert.loadingAlert(uiView: self.view)
+        self.view.addSubview(loadingView)
+        self.myItems.delegateAddItem = self
+        self.myItems.addItem(userId: self.defaults.string(forKey: "USER_ID")!, itemId: self.itemId, itemName: self.itemName, dataTable: self.dataTable, itemImageUrl: self.itemImage)
     }
     
     @objc func saveItemAction(){
-        let alert = UIAlertController(title: "Save Item", message: "Save this item to your favorites.", preferredStyle: .actionSheet)
-        let saveItemAction = UIAlertAction(title: "Save", style: .default, handler: {action in
-            self.saveItem()
-        })
-        alert.addAction(saveItemAction)
-        self.navigationController?.present(alert, animated: true, completion: nil)
+        let isSignedIn = defaults.bool(forKey: "IS_LOGGED_IN")
+        if isSignedIn{
+            let alert = UIAlertController(title: "Save Item", message: "Save this item to your favorites.", preferredStyle: .actionSheet)
+            let saveItemAction = UIAlertAction(title: "Save", style: .default, handler: {action in
+                self.saveItem()
+            })
+            alert.addAction(saveItemAction)
+            self.navigationController?.present(alert, animated: true, completion: nil)
+        }else{
+            let alert = customAlert.errorAlert(title: "Not Signed In", message: "You must be signed in to use this feature.")
+            self.present(alert, animated:true)
+        }
     }
     
     func saveItemButton() -> UIBarButtonItem{
