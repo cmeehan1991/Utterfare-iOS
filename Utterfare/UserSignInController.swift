@@ -21,6 +21,8 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     var loadingView: UIView = UIView()
     let backToItem: Bool = Bool()
     var username: String = String(), password: String = String()
+    var activeField: UITextField = UITextField()
+
     
     func userSignIn(isSignedIn: Bool, userId: String) {
         DispatchQueue.main.async {
@@ -139,6 +141,32 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.activeField = textField
+        return true
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+            let aRect = self.view.frame
+            if !aRect.contains(self.activeField.frame.origin){
+                self.scrollView.scrollRectToVisible(aRect, animated: true)
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        let contentInsets = UIEdgeInsets.zero
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        
+    }
+    
+    deinit{
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -170,6 +198,13 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyItemsViewController") as! MyItemsViewController
             self.navigationController?.pushViewController(vc, animated: true)
         }
+        
+        self.usernameTextField.delegate = self
+        self.passwordTextField.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
 }

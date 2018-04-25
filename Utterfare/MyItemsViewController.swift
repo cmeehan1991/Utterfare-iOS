@@ -49,6 +49,10 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func removeItemsProtocol(status: Bool, response: String) {
         self.loadingView.removeFromSuperview()
         if status{
+            self.itemIds.remove(at: self.indexToRemove.row)
+            self.itemNames.remove(at: self.indexToRemove.row)
+            self.itemImages.remove(at: self.indexToRemove.row)
+            self.itemDatatables.remove(at: self.indexToRemove.row)
             self.itemsTableView.deleteRows(at: [self.indexToRemove], with: .fade)
         }else{
             let alert = customAlert.errorAlert(title: "Failed to Delete Item", message: response)
@@ -143,6 +147,13 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.itemsModel.delegateGetItems = self
         self.itemsModel.getItems(userId: defaults.string(forKey: "USER_ID")!)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.loadingView.isDescendant(of: self.view){
+            self.loadingView.removeFromSuperview()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -23,7 +23,7 @@ class PasswordResetCodeModel: NSObject{
         var params = "action=" + "verify_reset_code"
         params += "&username=" + username
         params += "&reset_code=" + code
-        print(params)
+
         urlRequest.httpBody = params.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: urlRequest){

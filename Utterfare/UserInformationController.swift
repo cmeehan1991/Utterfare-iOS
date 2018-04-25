@@ -8,18 +8,22 @@
 
 import UIKit
 
-class UserInformationController: UIViewController, GetUserInformationProtocol, SetUserInformationProtocol, RemoveUserProtocol{
+class UserInformationController: UIViewController, UITextFieldDelegate, GetUserInformationProtocol, SetUserInformationProtocol, RemoveUserProtocol{
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var emailAddressTextField: UITextField!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     let defaults = UserDefaults()
     let customAlert: CustomAlerts = CustomAlerts()
     let userInformationModel: UserInformationModel = UserInformationModel()
     var loadingView: UIView = UIView()
     var firstName: String = String(), lastName: String = String(), city: String = String(), state: String = String(), emailAddress: String = String()
+    var activeField: UITextField = UITextField()
+    
+
     
     func setVariables(){
         self.firstName = firstNameTextField.text!
@@ -118,6 +122,32 @@ class UserInformationController: UIViewController, GetUserInformationProtocol, S
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.activeField = textField
+        return true
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+            let aRect = self.view.frame
+            if !aRect.contains(self.activeField.frame.origin){
+                self.scrollView.scrollRectToVisible(aRect, animated: true)
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        let contentInsets = UIEdgeInsets.zero
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        
+    }
+    
+    deinit{
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -126,6 +156,17 @@ class UserInformationController: UIViewController, GetUserInformationProtocol, S
         
         // Get the user's information
         getUserInformation()
+        
+        // Set textfields delegate
+        self.firstNameTextField.delegate = self
+        self.lastNameTextField.delegate = self
+        self.cityTextField.delegate = self
+        self.stateTextField.delegate = self
+        self.emailAddressTextField.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
 }

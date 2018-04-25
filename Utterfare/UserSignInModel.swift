@@ -22,7 +22,7 @@ class UserSignInModel: NSObject{
         var parameters = "username=" + username
         parameters += "&password=" + password
         parameters += "&action=" + "log_in"
-        print(parameters)
+
         request.httpBody = parameters.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: request){

@@ -37,7 +37,7 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
         if status{
             let alert = UIAlertController(title: "Item Added", message: "", preferredStyle: .actionSheet)
             self.navigationController?.present(alert, animated: true, completion: nil)
-            let delay = DispatchTime.now() + 5
+            let delay = DispatchTime.now() + 2
             DispatchQueue.main.asyncAfter(deadline: delay, execute: {
                 alert.dismiss(animated: true, completion: nil)
             })
@@ -81,7 +81,7 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
         
         if UIApplication.shared.canOpenURL(gMapsURL!){
             let gMapsAction = UIAlertAction(title: "Google Maps", style: .default, handler:{(alert: UIAlertAction!) in
-                let directionsUrlString = "comgooglemaps://?saddr=" + self.address.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+                let directionsUrlString = "comgooglemaps://?daddr=" + self.address.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
                 let directionsUrl = URL(string: directionsUrlString)
                 UIApplication.shared.open(directionsUrl!, options: [:], completionHandler: nil)
             })

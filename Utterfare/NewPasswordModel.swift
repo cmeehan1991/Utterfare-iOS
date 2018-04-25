@@ -24,9 +24,7 @@ class NewPasswordModel: NSObject{
         var params = "action=" + "set_new_password"
         params += "&user_id=" + userId
         params += "&password=" + password
-        
-        print(params)
-        
+                
         urlRequest.httpBody = params.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: urlRequest){

@@ -42,6 +42,8 @@ class MyItemsModel: NSObject{
         
         print(parameters)
         
+        print(parameters)
+        
         request.httpBody = parameters.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: request){
@@ -130,6 +132,7 @@ class MyItemsModel: NSObject{
                 var itemImages: Array<String> = Array()
                 for i in 0..<(results.count){
                     let item = results[i] as! NSDictionary
+
                     itemIds.append(item["ITEM_ID"] as! String)
                     dataTables.append(item["ITEM_DATA_TABLE"] as! String)
                     itemNames.append(item["ITEM_NAME"] as! String)
