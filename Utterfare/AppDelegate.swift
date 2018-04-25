@@ -12,17 +12,18 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    let defaults = UserDefaults.standard
+    var isLoggedIn: Bool = Bool()
+    var initialViewController: UIViewController = UIViewController()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-            UIApplication.shared.statusBarStyle = .lightContent
-            //let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-            //statusBar?.backgroundColor = UIColor(red:0.01, green:0.53, blue:0.82, alpha:1.0)
-            UINavigationBar.appearance().barTintColor = UIColor(red:0.01, green:0.66, blue:0.96, alpha:1.0)
-            UINavigationBar.appearance().tintColor = UIColor(red: 0.01, green: 0.66, blue: 0.96, alpha: 1.0)
-            UINavigationBar.appearance().isTranslucent = false
-            UINavigationBar.appearance().backgroundColor = UIColor(red: 96, green: 125, blue: 139, alpha: 1.0)
+        UIApplication.shared.statusBarStyle = .lightContent
+        UINavigationBar.appearance().barTintColor = UIColor(red:0.01, green:0.66, blue:0.96, alpha:1.0)
+        UINavigationBar.appearance().tintColor = UIColor(red: 0.01, green: 0.66, blue: 0.96, alpha: 1.0)
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().backgroundColor = UIColor(red: 96, green: 125, blue: 139, alpha: 1.0)
+        
         return true
     }
 

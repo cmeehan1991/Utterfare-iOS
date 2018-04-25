@@ -14,6 +14,7 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var facebookLoginButton: LoginButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     let defaults = UserDefaults.standard
     let customAlert: CustomAlerts = CustomAlerts()
@@ -44,9 +45,14 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     }
     
     func goToView(){
-        print(self.navigationController?.viewControllers)
-        self.navigationController?.popViewController(animated: true)
-        self.dismiss(animated: true, completion: nil)
+        let vcs = self.navigationController?.viewControllers
+        if (vcs?.count)! > 1{
+            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
+        }else{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyItemsViewController") as! MyItemsViewController
+            self.navigationController?.pushViewController(vc, animated: true)        }
+
     }
     
     func signIn(){
@@ -104,6 +110,8 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
                 print("User cancelled login.")
             case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                 print(grantedPermissions)
+                print(declinedPermissions)
+                print(accessToken)
                 print("Logged in!")
             }
         }
@@ -131,6 +139,10 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadingView = customAlert.loadingAlert(uiView: self.view)
@@ -143,6 +155,21 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
         facebookLoginButton = LoginButton(readPermissions: [.publicProfile, .email])
         
         // Disable interaction with the navigation controller
+        self.navigationController?.dismiss(animated: true, completion: nil)
         self.navigationController?.navigationBar.isUserInteractionEnabled = false
+        
+        // Dismiss keyboard on swipe
+        scrollView.keyboardDismissMode = .interactive
+        
     }
+
+    override func loadView(){
+        super.loadView()
+        let isLoggedIn: Bool = defaults.bool(forKey: "IS_LOGGED_IN")
+        if isLoggedIn {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyItemsViewController") as! MyItemsViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
 }

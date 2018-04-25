@@ -92,6 +92,16 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     /*
+    * Show single item when selected
+    */
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewItemController") as! ViewItemController
+        vc.itemId = self.itemIds[indexPath.row]
+        vc.dataTable = self.itemDatatables[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /*
     * Handle the item removal.
     * Before we just remove the item we are going to confirm with the user
     * that they actually want tot delete that item.
@@ -124,22 +134,7 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.itemsModel.removeItem(userId: userId!, itemId: itemId, dataTable: dataTable)
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Check if the user is logged in.
-        // If not we are going to redirect them to the login page.
-        let isLoggedIn = defaults.bool(forKey: "IS_LOGGED_IN")
-        if isLoggedIn == false{
-            let vc : UserSignInController = self.storyboard?.instantiateViewController(withIdentifier: "UserSignInController") as! UserSignInController
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        
-        // Deletagate and set the datasource for the items table.
-        self.itemsTableView.delegate = self
-        self.itemsTableView.dataSource = self
-        
+    func getItems(){
         // Initialize the loading view
         self.loadingView = customAlert.loadingAlert(uiView: self.view)
         
@@ -148,5 +143,32 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.itemsModel.delegateGetItems = self
         self.itemsModel.getItems(userId: defaults.string(forKey: "USER_ID")!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let loggedIn: Bool = defaults.bool(forKey: "IS_LOGGED_IN")
+        if loggedIn{
+            getItems()
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Deletagate and set the datasource for the items table.
+        self.itemsTableView.delegate = self
+        self.itemsTableView.dataSource = self
+    }
+    
+    override func loadView(){
+        super.loadView()        
+        // Check if the user is logged in.
+        // If not we are going to redirect them to the login page.
+        let isLoggedIn = defaults.bool(forKey: "IS_LOGGED_IN")
+        if !isLoggedIn{
+            let vc : UserSignInController = self.storyboard?.instantiateViewController(withIdentifier: "UserSignInController") as! UserSignInController
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

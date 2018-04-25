@@ -95,7 +95,7 @@ class MyItemsModel: NSObject{
         let task = URLSession.shared.dataTask(with: request){
             data, response, error in
             if error != nil{
-                print("Task Error: \(error?.localizedDescription)")
+                print("Task Error: \(String(describing: error?.localizedDescription))")
                 return
             }
             self.parseRemoveItem(data: data!)

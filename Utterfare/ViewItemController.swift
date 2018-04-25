@@ -17,7 +17,6 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
     @IBOutlet weak var restaurantPhoneNumberButton: UIButton!
     @IBOutlet weak var itemImageView: UIImageView!
     @IBOutlet weak var itemNameLabel: UILabel!
-    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var restaurantNameButton: UIButton!
 
@@ -26,9 +25,13 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
     var itemId: String = String(), dataTable: String = String(), itemName : String = String(), itemImage : String = String(), itemDescription : String = String(), companyName : String = String(), url : String = String(), phone: String = String(), address : String = String(), restaurantDistance : String = String()
     let customAlert: CustomAlerts = CustomAlerts()
     let defaults: UserDefaults = UserDefaults()
+    let viewItemModel = ViewItemModel()
     var myItems: MyItemsModel = MyItemsModel()
     var loadingView: UIView = UIView()
     
+    /*
+    * Handle the response from adding the item to the user's saved items list
+    */
     func addItemProtocol(status: Bool, response: String) {
         self.loadingView.removeFromSuperview()
         if status{
@@ -44,6 +47,9 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
         }
     }
     
+    /*
+    * Handle the response from retreiving the single item.
+    */
     func itemsDownloaded(companyName: String, address: String, phone: String, link: String, itemName: String, itemDescription: String, itemImage: String) {
         self.itemName = itemName
         self.companyName = companyName
@@ -55,10 +61,42 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
         
         loadItemView()
     }
+    
+    /*
+    * Open Maps if the location is tapped.
+    */
     @IBAction func openMap(){
-        let directionsUrlString =  "http://maps.apple.com/?daddr=" + address.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-        let directionsUrl = URL(string: directionsUrlString)
-        UIApplication.shared.open(directionsUrl!, options: [:], completionHandler: nil)
+        let selectApp = UIAlertController(title: "Select Maps App", message: "Which App would you like to use?", preferredStyle: .actionSheet)
+        let wazeURL = URL(string:"waze://")
+        let gMapsURL = URL(string:"comgooglemaps://")
+        
+        if UIApplication.shared.canOpenURL(wazeURL!){
+            let wazeAction = UIAlertAction(title: "Waze", style: .default, handler: {(alert: UIAlertAction!) in
+                let directionsUrlString = "waze://ul?q=" + self.address.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+                let directionsUrl = URL(string: directionsUrlString)
+                UIApplication.shared.open(directionsUrl!, options: [:], completionHandler: nil)
+            })
+            selectApp.addAction(wazeAction)
+        }
+        
+        if UIApplication.shared.canOpenURL(gMapsURL!){
+            let gMapsAction = UIAlertAction(title: "Google Maps", style: .default, handler:{(alert: UIAlertAction!) in
+                let directionsUrlString = "comgooglemaps://?saddr=" + self.address.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+                let directionsUrl = URL(string: directionsUrlString)
+                UIApplication.shared.open(directionsUrl!, options: [:], completionHandler: nil)
+            })
+            selectApp.addAction(gMapsAction)
+        }
+        
+        let appleMapsAction = UIAlertAction(title: "Maps", style: .default, handler: {(alert: UIAlertAction!) in
+            let directionsUrlString =  "http://maps.apple.com/?daddr=" + self.address.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+            let directionsUrl = URL(string: directionsUrlString)
+            UIApplication.shared.open(directionsUrl!, options: [:], completionHandler: nil)
+        })
+        selectApp.addAction(appleMapsAction)
+        
+        self.navigationController?.present(selectApp, animated: true, completion: nil)
+        
     }
     
     @IBAction func goBack(){
@@ -94,6 +132,8 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
     }
     
     func loadItemView(){
+        self.loadingView.removeFromSuperview()
+        
         self.itemNameLabel.text = self.itemName
         self.restaurantNameButton.setTitleColor(UIColor.black, for: .normal)
         self.restaurantNameButton.setTitle(self.companyName, for: .normal)
@@ -106,9 +146,6 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
         
         // Hide the loading indicator
         self.scrollView.isHidden = false;
-        self.loadingIndicator.stopAnimating()
-        self.loadingIndicator.isHidden = true
-        
     }
     
     func saveItem(){
@@ -139,18 +176,15 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
         return item
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let viewItemModel = ViewItemModel()
-        viewItemModel.delegate = self
-        viewItemModel.doSearch(itemId: itemId, dataTable: dataTable)
-    }
-    
     override func viewDidLoad(){
         super.viewDidLoad()
-        self.loadingIndicator.startAnimating();
-        
+
+        self.loadingView = customAlert.loadingAlert(uiView: self.view)
+        self.view.addSubview(self.loadingView)
+       
+        viewItemModel.delegate = self
+        viewItemModel.doSearch(itemId: itemId, dataTable: dataTable)
+
         self.navigationItem.rightBarButtonItem = saveItemButton()
-    }
-    
+    }    
 }

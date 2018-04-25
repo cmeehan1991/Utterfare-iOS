@@ -39,6 +39,7 @@
 		A2AFF9A0206FCB8A008851F9 /* UserSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AFF99F206FCB8A008851F9 /* UserSignUpViewController.swift */; };
 		A2AFF9A2206FCDC1008851F9 /* UserSignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AFF9A1206FCDC1008851F9 /* UserSignUpModel.swift */; };
 		A2B00E451E22A5D9004CACCF /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B00E441E22A5D9004CACCF /* SearchModel.swift */; };
+		A2E6AA452090C5C3002E93B7 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E6AA442090C5C3002E93B7 /* MainTabBarController.swift */; };
 		E2F6981F33B3258ACDEF8034 /* Pods_UtterfareUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA5E46EA3B9C26C49DFDFFB /* Pods_UtterfareUITests.framework */; };
 		F290D91E831E20B3B672A3D3 /* Pods_UtterfareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09E843D5DA1C138C7E25A19B /* Pods_UtterfareTests.framework */; };
 /* End PBXBuildFile section */
@@ -105,6 +106,7 @@
 		A2AFF99F206FCB8A008851F9 /* UserSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpViewController.swift; sourceTree = "<group>"; };
 		A2AFF9A1206FCDC1008851F9 /* UserSignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpModel.swift; sourceTree = "<group>"; };
 		A2B00E441E22A5D9004CACCF /* SearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		A2E6AA442090C5C3002E93B7 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		CBA5E46EA3B9C26C49DFDFFB /* Pods_UtterfareUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UtterfareUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE9C29510AA1D594FB8B313B /* Pods_Utterfare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Utterfare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -223,8 +225,8 @@
 		A21CCFA6206D1EE6001C5797 /* Single Item */ = {
 			isa = PBXGroup;
 			children = (
-				A238836E20597DE30041F6FF /* ViewItemModel.swift */,
 				A216CC761E20170600A5951C /* ViewItemController.swift */,
+				A238836E20597DE30041F6FF /* ViewItemModel.swift */,
 			);
 			name = "Single Item";
 			sourceTree = "<group>";
@@ -277,6 +279,7 @@
 		A2AB1F961DF7578C009928BF /* Utterfare */ = {
 			isa = PBXGroup;
 			children = (
+				A2E6AA432090C5B2002E93B7 /* Tab Bar Controller */,
 				A230CB142087F30500282618 /* User */,
 				A20178FD207FA8870058E190 /* Custom Fields */,
 				A20178F92077E59F0058E190 /* Alerts */,
@@ -332,6 +335,14 @@
 				CBA5E46EA3B9C26C49DFDFFB /* Pods_UtterfareUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A2E6AA432090C5B2002E93B7 /* Tab Bar Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A2E6AA442090C5C3002E93B7 /* MainTabBarController.swift */,
+			);
+			name = "Tab Bar Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -661,6 +672,7 @@
 				A27C6634206EBFB200015274 /* MyItemsViewController.swift in Sources */,
 				A20178F62077E39C0058E190 /* NewPasswordController.swift in Sources */,
 				A2B00E451E22A5D9004CACCF /* SearchModel.swift in Sources */,
+				A2E6AA452090C5C3002E93B7 /* MainTabBarController.swift in Sources */,
 				A230CB162087F31C00282618 /* UserInformationController.swift in Sources */,
 				A216CC771E20170600A5951C /* ViewItemController.swift in Sources */,
 				A265CF622077C66500D104BB /* RequestPasswordResetController.swift in Sources */,

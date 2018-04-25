@@ -22,9 +22,9 @@ class ViewItemModel: NSObject{
         var request = URLRequest(url: requestURL!)
         request.httpMethod = "POST"
         
-        var parameters = "item_id= " + itemId
+        var parameters = "item_id=" + itemId
         parameters += "&data_table=" + dataTable
-        
+        print(parameters)
         request.httpBody = parameters.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: request){

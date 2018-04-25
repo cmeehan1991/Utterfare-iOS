@@ -51,10 +51,15 @@ class UserInformationController: UIViewController, GetUserInformationProtocol, S
     
     func removeUserProtocol(status: Bool, response: String){
         self.loadingView.removeFromSuperview()
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserSignInController") as! UserSignInController
-        self.navigationController?.dismiss(animated: true, completion: {
+        if status{
+            defaults.set(false, forKey: "IS_LOGGED_IN")
+            defaults.set("", forKey:"USER_ID")
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserSignInController") as! UserSignInController
             self.navigationController?.pushViewController(vc, animated: true)
-        })
+        }else{
+            let errorAlert = customAlert.errorAlert(title: "Failed to Remove User", message: response)
+            self.present(errorAlert, animated: true, completion: nil)
+        }
     }
     
     func getUserInformation(){
@@ -73,7 +78,7 @@ class UserInformationController: UIViewController, GetUserInformationProtocol, S
     }
     
     func removeUserAccount(){
-        let alert = UIAlertController(title: "Permanently Delete Account", message: "Are you sure you want to permanently delete your account. All of your data will be removed and CANNOT be recovered once you do this.", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Permanently Delete Account", message: "Are you sure you want to permanently delete your account. You will not be able to access your account data and your CANNOT be recovered once you do this.", preferredStyle: .actionSheet)
         let confirmAction = UIAlertAction(title: "Delete My Account", style: .destructive, handler: {(alert: UIAlertAction!) in
             self.view.isUserInteractionEnabled = false
             self.view.addSubview(self.loadingView)
@@ -111,7 +116,6 @@ class UserInformationController: UIViewController, GetUserInformationProtocol, S
         defaults.set(false, forKey: "IS_LOGGED_IN")
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserSignInController") as! UserSignInController
         self.navigationController?.pushViewController(vc, animated: true)
-        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {

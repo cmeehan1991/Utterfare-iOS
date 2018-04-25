@@ -43,8 +43,17 @@ class UserSignupModel: NSObject{
     func parseData(data: Data){
         do{
             let jsonResponse = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSDictionary
-            self.delegate.userSignUp(success: jsonResponse["SUCCESS"] as! Bool, response: jsonResponse["RESPONSE"] as! String, userId: (jsonResponse["USER_ID"] as? String)!)
+            let success: Bool = jsonResponse["SUCCESS"] as! Bool
+            let response = jsonResponse["RESPONSE"] as! String
+            let userId = jsonResponse["ID"] as! String
+            
+            DispatchQueue.main.async{
+                self.delegate.userSignUp(success: success, response: response, userId: userId)
+            }
         }catch{
+            DispatchQueue.main.async{
+                self.delegate.userSignUp(success: false, response: error.localizedDescription, userId: String())
+            }
             print("JSON Error: ", error.localizedDescription)
         }
     }

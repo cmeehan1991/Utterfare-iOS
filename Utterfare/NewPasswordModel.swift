@@ -25,12 +25,14 @@ class NewPasswordModel: NSObject{
         params += "&user_id=" + userId
         params += "&password=" + password
         
+        print(params)
+        
         urlRequest.httpBody = params.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: urlRequest){
             data, response, error in
             if error != nil{
-                print("Task error: \(error?.localizedDescription)")
+                print("Task error: \(String(describing: error?.localizedDescription))")
             }
             self.parseResponse(data: data!)
         }
