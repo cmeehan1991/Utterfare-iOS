@@ -64,6 +64,10 @@ class NewPasswordController: UIViewController, UITextFieldDelegate, NewPasswordP
         return true
     }
     
+    @IBAction func popNavigation(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func submitNewPasswordAction(){
         let newPasswordModel = NewPasswordModel()
         newPasswordModel.delegate = self;

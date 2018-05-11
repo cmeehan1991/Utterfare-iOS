@@ -49,6 +49,10 @@ class PasswordResetCodeController: UIViewController, UITextFieldDelegate, Passwo
         self.passwordResetCode.checkCode(code: resetCode, username: defaults.string(forKey: "USERNAME")!)
     }
     
+    @IBAction func popNavigation(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func submitResetCodeAction(){
         self.loadingAlert = customAlert.loadingAlert(uiView: self.view)
         self.view.addSubview(self.loadingAlert)

@@ -43,7 +43,9 @@ class RequestPasswordResetController: UIViewController, ResetPasswordRequestProt
         return true
     }
     
-    
+    @IBAction func popNavigation(){
+        self.navigationController?.popViewController(animated: true)
+    }
     @IBAction func requestResetCodeAction(){
         requestReset()
     }

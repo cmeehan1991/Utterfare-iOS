@@ -67,6 +67,8 @@ class MyItemsModel: NSObject{
         var parameters = "action=" + "get_items"
         parameters += "&user_id=" + userId
         
+        print(parameters)
+        
         urlRequest.httpBody = parameters.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: urlRequest){
@@ -123,6 +125,7 @@ class MyItemsModel: NSObject{
     * Parse the data returned from the requested user's items
     */
     private func parseGetItems(data: Data){
+        print(String.init(data: data, encoding: .utf8))
         do{
             let jsonResponse = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSArray
             if let results = jsonResponse{

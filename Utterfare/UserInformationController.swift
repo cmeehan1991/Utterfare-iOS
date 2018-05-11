@@ -116,7 +116,7 @@ class UserInformationController: UIViewController, UITextFieldDelegate, GetUserI
     }
     
     @IBAction func logOutAction(){
-        defaults.set(nil, forKey: "USER_ID")
+        defaults.set(String(), forKey: "USER_ID")
         defaults.set(false, forKey: "IS_LOGGED_IN")
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserSignInController") as! UserSignInController
         self.navigationController?.pushViewController(vc, animated: true)

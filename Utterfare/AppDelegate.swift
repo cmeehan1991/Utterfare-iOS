@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let defaults = UserDefaults.standard
     var isLoggedIn: Bool = Bool()
     var initialViewController: UIViewController = UIViewController()
+    let currentDevice = UIDevice.current.userInterfaceIdiom
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

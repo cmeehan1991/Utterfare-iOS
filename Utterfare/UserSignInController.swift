@@ -16,6 +16,8 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     @IBOutlet weak var facebookLoginButton: LoginButton!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     let defaults = UserDefaults.standard
     let customAlert: CustomAlerts = CustomAlerts()
     var loadingView: UIView = UIView()
@@ -121,18 +123,18 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     
     @IBAction func forgotUsernamePasswordButtonAction(){
         let alert = UIAlertController(title: "Forgot Username/Password", message: "Choose One", preferredStyle: .actionSheet)
-        let usernameAction = UIAlertAction(title: "Forgot my username", style: .default, handler: {(alert: UIAlertAction!) in
-            print("Reset Username")
-        })
         
         let passwordAction = UIAlertAction(title: "Reset my password", style:.default, handler: {(alert: UIAlertAction!) in
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "RequestPasswordResetController") as! RequestPasswordResetController
             self.navigationController?.pushViewController(vc, animated: true)
         })
         
-        alert.addAction(usernameAction)
-        alert.addAction(passwordAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style:.destructive, handler: nil)
         
+        alert.addAction(passwordAction)
+        alert.addAction(cancelAction)
+        
+
         self.navigationController?.present(alert, animated: true, completion: nil)
     }
     
@@ -169,6 +171,12 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        print("View will appear")
+        self.navigationController?.dismiss(animated: false, completion: nil)
+        self.navigationController?.navigationBar.isUserInteractionEnabled = false
+        
+        self.navigationController?.viewControllers = [self]
     }
     
     override func viewDidLoad() {

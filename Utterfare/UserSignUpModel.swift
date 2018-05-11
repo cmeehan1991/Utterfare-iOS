@@ -28,6 +28,8 @@ class UserSignupModel: NSObject{
         parameters += "&city=" + city
         parameters += "&state=" + state
         
+        print(parameters)
+        
         request.httpBody = parameters.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: request){

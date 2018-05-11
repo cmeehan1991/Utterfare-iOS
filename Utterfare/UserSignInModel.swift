@@ -38,7 +38,7 @@ class UserSignInModel: NSObject{
     func parseData(data: Data){
         do{
             let jsonData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSDictionary
-            print(jsonData)
+
             if jsonData["RESPONSE"] as? String != "FAIL"{
                 let userId = jsonData["ID"] as? String
                 delegate.userSignIn(isSignedIn: true, userId: userId!)

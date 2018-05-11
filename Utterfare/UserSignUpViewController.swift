@@ -72,6 +72,10 @@ class UserSignUpViewController: UIViewController, UITextFieldDelegate, UserSignU
         return true
     }
     
+    @IBAction func popNavigation(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func signUpAction(){
         password = self.passwordTextField.text!
         confirmPassword = self.confirmPasswordTextField.text!

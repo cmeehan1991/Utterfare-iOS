@@ -28,6 +28,8 @@ class SearchModel: NSObject{
         parameters += "&location=" + location
         parameters += "&offset=" + offset
         
+        print(parameters)
+        
         request.httpBody = parameters.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: request){
@@ -45,6 +47,7 @@ class SearchModel: NSObject{
     func parseJSON(){
         do{
             let jsonResults = try JSONSerialization.jsonObject(with: self.jsonData, options: .allowFragments) as? NSArray
+            print(jsonResults)
             var haveResults: Bool = Bool()
             if jsonResults == nil {
                 haveResults = false;

@@ -95,6 +95,9 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
         })
         selectApp.addAction(appleMapsAction)
         
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        selectApp.addAction(cancelAction)
+        
         self.navigationController?.present(selectApp, animated: true, completion: nil)
         
     }
@@ -163,6 +166,10 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
                 self.saveItem()
             })
             alert.addAction(saveItemAction)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+            alert.addAction(cancelAction)
+            
             self.navigationController?.present(alert, animated: true, completion: nil)
         }else{
             let alert = customAlert.errorAlert(title: "Not Signed In", message: "You must be signed in to use this feature.")
