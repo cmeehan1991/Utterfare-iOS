@@ -11,6 +11,10 @@ target 'Utterfare' do
   
   pod 'MaterialComponents/Snackbar'
 
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
+
   target 'UtterfareTests' do
     inherit! :search_paths
     # Pods for testing
