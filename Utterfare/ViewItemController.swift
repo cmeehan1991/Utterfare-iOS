@@ -140,8 +140,8 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
         self.itemNameLabel.text = self.itemName
         self.restaurantNameButton.setTitleColor(UIColor.black, for: .normal)
         self.restaurantNameButton.setTitle(self.companyName, for: .normal)
-        self.restaurantURLButton.setTitle(self.url, for: .normal)
-        self.restaurantPhoneNumberButton.setTitle(self.phone, for: UIControlState.normal)
+        //self.restaurantURLButton.setTitle(self.url, for: .normal)
+        //self.restaurantPhoneNumberButton.setTitle(self.phone, for: UIControlState.normal)
         self.itemImageView.sd_setImage(with: URL(string: self.itemImage))
         self.itemDescriptionTextArea.text = self.itemDescription
         self.title = "Utterfare"

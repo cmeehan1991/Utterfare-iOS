@@ -28,7 +28,7 @@ class SearchModel: NSObject{
         parameters += "&location=" + location
         parameters += "&offset=" + offset
         
-        print(parameters)
+        print(parametersURL)
         
         request.httpBody = parameters.data(using: .utf8)
         
