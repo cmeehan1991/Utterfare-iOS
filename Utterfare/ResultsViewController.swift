@@ -8,7 +8,6 @@
 
 import UIKit
 import SDWebImage
-import MaterialComponents.MaterialSnackbar
 
 class ResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SearchControllerProtocol {
     
@@ -44,9 +43,9 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
             
         }else{
             print("No more")
-            let message = MDCSnackbarMessage()
-            message.text = "There are no more items"
-            MDCSnackbarManager.show(message)
+            //let message = MDCSnackbarMessage()
+            //message.text = "There are no more items"
+            //MDCSnackbarManager.show(message)
         }
     }
     

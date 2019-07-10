@@ -9,12 +9,6 @@ target 'Utterfare' do
 
   pod ‘SDWebImage’, ‘~>3.8’
   
-  pod 'MaterialComponents/Snackbar'
-
-  pod 'FacebookCore'
-  pod 'FacebookLogin'
-  pod 'FacebookShare'
-
   target 'UtterfareTests' do
     inherit! :search_paths
     # Pods for testing

@@ -8,12 +8,10 @@
 
 import Foundation
 import UIKit
-import FacebookLogin
 
 class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDelegate{
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var facebookLoginButton: LoginButton!
     @IBOutlet weak var scrollView: UIScrollView!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -102,25 +100,7 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
         signInModel.delegate = self
         signInModel.signIn(username: username, password: password)
     }
-    
-    @IBAction func signInWithFacebookButtonAction(){
-        let loginManager = LoginManager()
-        loginManager.logIn(readPermissions: [.publicProfile, .email], viewController: self){ loginResult in
-            
-            switch loginResult{
-            case .failed(let error):
-                print(error)
-            case .cancelled:
-                print("User cancelled login.")
-            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                print(grantedPermissions)
-                print(declinedPermissions)
-                print(accessToken)
-                print("Logged in!")
-            }
-        }
-    }
-    
+     
     @IBAction func forgotUsernamePasswordButtonAction(){
         let alert = UIAlertController(title: "Forgot Username/Password", message: "Choose One", preferredStyle: .actionSheet)
         
@@ -188,8 +168,7 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
         passwordTextField.delegate = self
         
         // Set the facebook login button
-        facebookLoginButton = LoginButton(readPermissions: [.publicProfile, .email])
-        
+       
         // Disable interaction with the navigation controller
         self.navigationController?.dismiss(animated: true, completion: nil)
         self.navigationController?.navigationBar.isUserInteractionEnabled = false

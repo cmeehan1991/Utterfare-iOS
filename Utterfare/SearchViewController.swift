@@ -196,7 +196,7 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     override func loadView(){
         super.loadView()
-        self.activityIndicatorView.hidesWhenStopped = true
+       // self.activityIndicatorView.hidesWhenStopped = true
         getUserLocation()
     }
     
@@ -206,13 +206,13 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         title = "Utterfare"
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         self.navigationController?.navigationBar.tintColor = UIColor(red: 0.01, green: 0.66, blue: 0.96, alpha: 1.0)
-        activityIndicatorView.hidesWhenStopped = true
-        self.searchButton.layer.cornerRadius = 2
-        self.searchDistancePicker.delegate = self
-        self.searchDistancePicker.dataSource = self
-        self.searchTermsInput.delegate = self
+       // activityIndicatorView.hidesWhenStopped = true
+        //self.searchButton.layer.cornerRadius = 2
+        //self.searchDistancePicker.delegate = self
+        //self.searchDistancePicker.dataSource = self
+        //self.searchTermsInput.delegate = self
         
-        self.distance = distances[0]
+        //self.distance = distances[0]
     }
     
     override func viewWillAppear(_ animated: Bool) {

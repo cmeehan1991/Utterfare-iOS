@@ -28,8 +28,6 @@ class SearchModel: NSObject{
         parameters += "&location=" + location
         parameters += "&offset=" + offset
         
-        print(parametersURL)
-        
         request.httpBody = parameters.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: request){
