@@ -39,6 +39,9 @@
 		A2AFF9A0206FCB8A008851F9 /* UserSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AFF99F206FCB8A008851F9 /* UserSignUpViewController.swift */; };
 		A2AFF9A2206FCDC1008851F9 /* UserSignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AFF9A1206FCDC1008851F9 /* UserSignUpModel.swift */; };
 		A2B00E451E22A5D9004CACCF /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B00E441E22A5D9004CACCF /* SearchModel.swift */; };
+		A2C836EF22D7C26A009C78A3 /* Home Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C836EE22D7C26A009C78A3 /* Home Controller.swift */; };
+		A2C836F122D7C405009C78A3 /* CollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C836F022D7C405009C78A3 /* CollectionViewCellController.swift */; };
+		A2C836F722D7C6A7009C78A3 /* HomeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C836F622D7C6A7009C78A3 /* HomeProtocol.swift */; };
 		A2E6AA452090C5C3002E93B7 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E6AA442090C5C3002E93B7 /* MainTabBarController.swift */; };
 		E2F6981F33B3258ACDEF8034 /* Pods_UtterfareUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA5E46EA3B9C26C49DFDFFB /* Pods_UtterfareUITests.framework */; };
 		F290D91E831E20B3B672A3D3 /* Pods_UtterfareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09E843D5DA1C138C7E25A19B /* Pods_UtterfareTests.framework */; };
@@ -106,6 +109,9 @@
 		A2AFF99F206FCB8A008851F9 /* UserSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpViewController.swift; sourceTree = "<group>"; };
 		A2AFF9A1206FCDC1008851F9 /* UserSignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpModel.swift; sourceTree = "<group>"; };
 		A2B00E441E22A5D9004CACCF /* SearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		A2C836EE22D7C26A009C78A3 /* Home Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Home Controller.swift"; sourceTree = "<group>"; };
+		A2C836F022D7C405009C78A3 /* CollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellController.swift; sourceTree = "<group>"; };
+		A2C836F622D7C6A7009C78A3 /* HomeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProtocol.swift; sourceTree = "<group>"; };
 		A2E6AA442090C5C3002E93B7 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		CBA5E46EA3B9C26C49DFDFFB /* Pods_UtterfareUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UtterfareUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE9C29510AA1D594FB8B313B /* Pods_Utterfare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Utterfare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -279,6 +285,7 @@
 		A2AB1F961DF7578C009928BF /* Utterfare */ = {
 			isa = PBXGroup;
 			children = (
+				A2C836ED22D7C252009C78A3 /* Home */,
 				A2E6AA432090C5B2002E93B7 /* Tab Bar Controller */,
 				A230CB142087F30500282618 /* User */,
 				A20178FD207FA8870058E190 /* Custom Fields */,
@@ -335,6 +342,16 @@
 				CBA5E46EA3B9C26C49DFDFFB /* Pods_UtterfareUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A2C836ED22D7C252009C78A3 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				A2C836EE22D7C26A009C78A3 /* Home Controller.swift */,
+				A2C836F022D7C405009C78A3 /* CollectionViewCellController.swift */,
+				A2C836F622D7C6A7009C78A3 /* HomeProtocol.swift */,
+			);
+			name = Home;
 			sourceTree = "<group>";
 		};
 		A2E6AA432090C5B2002E93B7 /* Tab Bar Controller */ = {
@@ -442,6 +459,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -565,6 +583,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A21CCFA3206D1DAB001C5797 /* UserSignInController.swift in Sources */,
+				A2C836F122D7C405009C78A3 /* CollectionViewCellController.swift in Sources */,
 				A216CC701E200A6100A5951C /* SearchViewController.swift in Sources */,
 				A20178FC2077E5BF0058E190 /* CustomAlerts.swift in Sources */,
 				A230CB1A2087F34600282618 /* UserInformationModel.swift in Sources */,
@@ -590,6 +609,8 @@
 				A2AFF9A0206FCB8A008851F9 /* UserSignUpViewController.swift in Sources */,
 				A238836F20597DE30041F6FF /* ViewItemModel.swift in Sources */,
 				A20178F82077E3A40058E190 /* NewPasswordModel.swift in Sources */,
+				A2C836EF22D7C26A009C78A3 /* Home Controller.swift in Sources */,
+				A2C836F722D7C6A7009C78A3 /* HomeProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,6 +19,7 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
     @IBOutlet weak var itemNameLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var restaurantNameButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     
     // Initialize the variables
@@ -135,7 +136,6 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
     }
     
     func loadItemView(){
-        self.loadingView.removeFromSuperview()
         
         self.itemNameLabel.text = self.itemName
         self.restaurantNameButton.setTitleColor(UIColor.black, for: .normal)
@@ -148,6 +148,7 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
         
         
         // Hide the loading indicator
+        activityIndicator.stopAnimating()
         self.scrollView.isHidden = false;
     }
     
@@ -185,13 +186,13 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
     
     override func viewDidLoad(){
         super.viewDidLoad()
-
-        self.loadingView = customAlert.loadingAlert(uiView: self.view)
-        self.view.addSubview(self.loadingView)
        
         viewItemModel.delegate = self
-        viewItemModel.doSearch(itemId: itemId, dataTable: dataTable)
+        viewItemModel.doSearch(itemId: itemId)
 
         self.navigationItem.rightBarButtonItem = saveItemButton()
+        
+        activityIndicator.startAnimating()
+        scrollView.isHidden = true
     }    
 }
