@@ -88,7 +88,7 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*
     * Add the delete editing style
     */
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             self.indexToRemove = indexPath
             self.removeItem()

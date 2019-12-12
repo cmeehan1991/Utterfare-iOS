@@ -435,20 +435,20 @@
 					A2AB1F931DF7578C009928BF = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = B76P79Q988;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 					};
 					A2AB1FA71DF7578C009928BF = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = B76P79Q988;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 						TestTargetID = A2AB1F931DF7578C009928BF;
 					};
 					A2AB1FB21DF7578C009928BF = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = B76P79Q988;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 						TestTargetID = A2AB1F931DF7578C009928BF;
 					};
@@ -803,7 +803,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -825,7 +825,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -842,7 +842,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.UtterfareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Utterfare.app/Utterfare";
 			};
 			name = Debug;
@@ -859,7 +859,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.UtterfareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Utterfare.app/Utterfare";
 			};
 			name = Release;
@@ -875,7 +875,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.UtterfareUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = Utterfare;
 			};
 			name = Debug;
@@ -891,7 +891,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.UtterfareUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = Utterfare;
 			};
 			name = Release;

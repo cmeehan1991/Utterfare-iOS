@@ -75,7 +75,7 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
             let wazeAction = UIAlertAction(title: "Waze", style: .default, handler: {(alert: UIAlertAction!) in
                 let directionsUrlString = "waze://ul?q=" + self.address.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
                 let directionsUrl = URL(string: directionsUrlString)
-                UIApplication.shared.open(directionsUrl!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(directionsUrl!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             })
             selectApp.addAction(wazeAction)
         }
@@ -84,7 +84,7 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
             let gMapsAction = UIAlertAction(title: "Google Maps", style: .default, handler:{(alert: UIAlertAction!) in
                 let directionsUrlString = "comgooglemaps://?daddr=" + self.address.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
                 let directionsUrl = URL(string: directionsUrlString)
-                UIApplication.shared.open(directionsUrl!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(directionsUrl!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             })
             selectApp.addAction(gMapsAction)
         }
@@ -92,7 +92,7 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
         let appleMapsAction = UIAlertAction(title: "Maps", style: .default, handler: {(alert: UIAlertAction!) in
             let directionsUrlString =  "http://maps.apple.com/?daddr=" + self.address.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
             let directionsUrl = URL(string: directionsUrlString)
-            UIApplication.shared.open(directionsUrl!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(directionsUrl!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         })
         selectApp.addAction(appleMapsAction)
         
@@ -168,7 +168,7 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
             })
             alert.addAction(saveItemAction)
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
             alert.addAction(cancelAction)
             
             self.navigationController?.present(alert, animated: true, completion: nil)
@@ -195,4 +195,9 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
         activityIndicator.startAnimating()
         scrollView.isHidden = true
     }    
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

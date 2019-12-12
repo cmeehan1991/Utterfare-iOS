@@ -66,10 +66,10 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     }
     
     func loadingIndicatorView() -> UIActivityIndicatorView{
-        let loadingIndicator : UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge) as UIActivityIndicatorView
+        let loadingIndicator : UIActivityIndicatorView = UIActivityIndicatorView(style: .whiteLarge) as UIActivityIndicatorView
         loadingIndicator.center = self.view.center;
         loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        loadingIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         loadingIndicator.startAnimating()
         
         return loadingIndicator
@@ -129,7 +129,7 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
             let aRect = self.view.frame
             if !aRect.contains(self.activeField.frame.origin){
@@ -189,8 +189,8 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
         self.usernameTextField.delegate = self
         self.passwordTextField.delegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     

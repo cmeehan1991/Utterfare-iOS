@@ -138,7 +138,6 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }else{
-            print("Not enabled")
             let locationAlert = UIAlertController(title: "Location Required", message: "You must add a location to use this application.", preferredStyle: .alert)
             
             locationAlert.addTextField(configurationHandler: manualLocationConfigurationHandler)

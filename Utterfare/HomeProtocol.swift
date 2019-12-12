@@ -97,7 +97,6 @@ class HomeItems: NSObject{
                                 
                 if section == "topPicks" {
                     DispatchQueue.main.async{
-                        print(itemImageUrls)
                         self.delegate.downloadTopPicks(itemIds: itemIds, itemNames: itemNames, itemImages: itemImageUrls)
                     }
                 }

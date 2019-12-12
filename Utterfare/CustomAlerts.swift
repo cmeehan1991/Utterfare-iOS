@@ -15,7 +15,7 @@ class CustomAlerts: UIAlertController{
     private func alertActivity(view: UIView) -> UIActivityIndicatorView{
         let activity: UIActivityIndicatorView = UIActivityIndicatorView()
         activity.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
-        activity.activityIndicatorViewStyle = .whiteLarge
+        activity.style = .whiteLarge
         activity.center = CGPoint(x: view.frame.size.width / 2, y: view.frame.size.height / 2)
         activity.hidesWhenStopped = true
         activity.startAnimating()

@@ -170,7 +170,7 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                     self.zip = placemark.postalCode!
                     self.city = placemark.subThoroughfare! + " " + placemark.thoroughfare! + ", " + placemark.locality!
                     self.state = placemark.administrativeArea!
-                    self.locationButton.setTitle(self.city + ", " + self.state, for: UIControlState.normal)
+                    self.locationButton.setTitle(self.city + ", " + self.state, for: UIControl.State.normal)
                     self.currentLocation = String(describing: placemark.location?.coordinate.latitude as! Double) + ":" +  String(describing: placemark.location?.coordinate.longitude as! Double)
                 }
             }
@@ -180,12 +180,12 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     func requestLocation()->Bool{
         var approved = false
         let locationURL = URL(string: "App-Prefs:root=Privacy&path=LOCATION")
-        let alert = UIAlertController(title: "Request Location", message: "Please allow Utterfare to access your location. Your location will be used to provide more accurate search results and will be displayed on the search window. Your location will not be shared with other users or vendors.", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Request Location", message: "Please allow Utterfare to access your location. Your location will be used to provide more accurate search results and will be displayed on the search window. Your location will not be shared with other users or vendors.", preferredStyle: UIAlertController.Style.alert)
         let cancelAction = UIAlertAction(title:"Cancel", style: .cancel, handler:{_ in
             approved = false
         })
         let approveAction = UIAlertAction(title:"Settings", style: .default, handler: {_ in
-            UIApplication.shared.open(locationURL!, options: [:], completionHandler:nil)
+            UIApplication.shared.open(locationURL!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler:nil)
             approved = true
         })
         alert.addAction(cancelAction)
@@ -224,4 +224,9 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }
