@@ -11,12 +11,11 @@ import CoreLocation
 import SDWebImage
 
 
-class SearchViewController: UIViewController,CLLocationManagerDelegate, ExplorerItemsProtocol, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource{
+class SearchViewController: UIViewController,CLLocationManagerDelegate, UITextFieldDelegate{
 
     @IBOutlet weak var searchInput: UISearchBar!
     @IBOutlet weak var locationField: UITextField!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet weak var explorerCollectionView: UICollectionView!
     
     let locationText = NSMutableAttributedString(string: "Location - ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)])
     
@@ -34,7 +33,6 @@ class SearchViewController: UIViewController,CLLocationManagerDelegate, Explorer
     var itemIds: NSArray = NSArray(), itemImages: NSArray = NSArray()
     
     func updateCurrentSearchLocation(location: String){
-        print("Update")
         self.searchLocation = location
         self.locationField.text = self.searchLocation
         
@@ -53,53 +51,6 @@ class SearchViewController: UIViewController,CLLocationManagerDelegate, Explorer
         self.navigationController?.pushViewController(locationVc, animated: true)
     }
     
-    func downloadExplorerItems(itemIds: NSArray, itemImages: NSArray){
-        // Set the data
-        self.itemIds = itemIds
-        self.itemImages = itemImages
-        
-        // Reload the explorer view data
-        self.explorerCollectionView.reloadData()
-        
-        // Hide the activity indicator
-        activityIndicatorView.stopAnimating()
-    }
-    
-    /*
-     * Set the image content in the reusable explorer cells
-     */
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print(self.itemImages[indexPath.row])
-        
-        let cell = explorerCollectionView.dequeueReusableCell(withReuseIdentifier: "explorerCollectionViewCell", for: indexPath) as! ExplorerCollectionViewCellController
-        //cell.itemImage.sd_setImage(with: URL(string: self.itemImages[indexPath.row] as! String))
-        
-        cell.itemImage.sd_setImage(with: URL(string: self.itemImages[indexPath.row] as! String), placeholderImage: UIImage(named: "home"))
-        cell.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 1.0)
-        
-        let size = explorerCollectionView.collectionViewLayout.collectionViewContentSize.width/3
-        cell.sizeThatFits(CGSize(width: size, height: size))
-        
-        return cell
-        
-    }
-    
-    /*
-     * Set the number of cells
-     */
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.itemIds.count
-    }
-    
-    /*
-     * Handle cell selection
-     */
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(itemIds[indexPath.row])
-    }
-    
-    
-    
     /*
      * Do the search on submit
      */
@@ -114,13 +65,6 @@ class SearchViewController: UIViewController,CLLocationManagerDelegate, Explorer
         self.offset = "0"
         searchModel.doSearch(terms: self.searchTerms, distance: self.distance, location: self.currentLocation, offset: self.offset)
         return false
-    }
-    
-    /*
-     * Set up the picker views
-     */
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
     }
     
     // Get the user's location
@@ -169,7 +113,6 @@ class SearchViewController: UIViewController,CLLocationManagerDelegate, Explorer
                     locationText.append(attributedCurrentLocation)
                                         
                     self.locationField.attributedText = locationText
-                    self.explorerItems.getExplorerItems(currentLocation: attributedCurrentLocation.string)
                 }
             }
              
@@ -204,12 +147,7 @@ class SearchViewController: UIViewController,CLLocationManagerDelegate, Explorer
     override func viewDidLoad(){
         super.viewDidLoad()
         title = "Utterfare"
-        
-        self.explorerCollectionView.delegate = self
-        self.explorerCollectionView.dataSource = self
-        
-        self.explorerItems = ExplorerItems()
-        self.explorerItems.delegate = self
+
         //UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         //self.navigationController?.navigationBar.tintColor = UIColor(red: 0.01, green: 0.66, blue: 0.96, alpha: 1.0)
         

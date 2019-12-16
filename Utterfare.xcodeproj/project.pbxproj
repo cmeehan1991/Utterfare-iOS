@@ -26,6 +26,7 @@
 		A238836F20597DE30041F6FF /* ViewItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A238836E20597DE30041F6FF /* ViewItemModel.swift */; };
 		A23F3CF523A3ED27000546DC /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23F3CF423A3ED27000546DC /* LocationViewController.swift */; };
 		A23F3CF723A3F337000546DC /* LocationTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23F3CF623A3F337000546DC /* LocationTableViewCellController.swift */; };
+		A23F3CF923A78E2C000546DC /* ExplorerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23F3CF823A78E2C000546DC /* ExplorerViewController.swift */; };
 		A265CF622077C66500D104BB /* RequestPasswordResetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265CF612077C66500D104BB /* RequestPasswordResetController.swift */; };
 		A265CF642077C69500D104BB /* RequestPasswordResetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265CF632077C69500D104BB /* RequestPasswordResetModel.swift */; };
 		A27C6634206EBFB200015274 /* MyItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C6633206EBFB200015274 /* MyItemsViewController.swift */; };
@@ -94,6 +95,7 @@
 		A238836E20597DE30041F6FF /* ViewItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewItemModel.swift; sourceTree = "<group>"; };
 		A23F3CF423A3ED27000546DC /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		A23F3CF623A3F337000546DC /* LocationTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCellController.swift; sourceTree = "<group>"; };
+		A23F3CF823A78E2C000546DC /* ExplorerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerViewController.swift; sourceTree = "<group>"; };
 		A265CF612077C66500D104BB /* RequestPasswordResetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPasswordResetController.swift; sourceTree = "<group>"; };
 		A265CF632077C69500D104BB /* RequestPasswordResetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPasswordResetModel.swift; sourceTree = "<group>"; };
 		A27C6633206EBFB200015274 /* MyItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyItemsViewController.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 			children = (
 				A2930D6523A2E292004384A0 /* ExplorerCollectionViewCellController.swift */,
 				A2930D6723A2EC63004384A0 /* ExplorerProtocol.swift */,
+				A23F3CF823A78E2C000546DC /* ExplorerViewController.swift */,
 			);
 			name = Explorer;
 			sourceTree = "<group>";
@@ -662,6 +665,7 @@
 				A216CC721E200A6E00A5951C /* ResultsViewController.swift in Sources */,
 				A21CCFA8206D1F1E001C5797 /* UserSignInModel.swift in Sources */,
 				A20178FF207FA8A00058E190 /* CustomCodeField.swift in Sources */,
+				A23F3CF923A78E2C000546DC /* ExplorerViewController.swift in Sources */,
 				A2AFF9A0206FCB8A008851F9 /* UserSignUpViewController.swift in Sources */,
 				A2930D6623A2E292004384A0 /* ExplorerCollectionViewCellController.swift in Sources */,
 				A238836F20597DE30041F6FF /* ViewItemModel.swift in Sources */,
