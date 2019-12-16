@@ -11,26 +11,69 @@ import CoreLocation
 import SDWebImage
 
 
-class SearchViewController: UIViewController,CLLocationManagerDelegate, UITextFieldDelegate{
+class SearchViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, SearchControllerProtocol, UITextFieldDelegate{
 
-    @IBOutlet weak var searchInput: UISearchBar!
+    @IBOutlet weak var searchInput: UITextField!
     @IBOutlet weak var locationField: UITextField!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var resultsTable: UITableView!
     
+    var searchModel: SearchModel!
     let locationText = NSMutableAttributedString(string: "Location - ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)])
-    
     var explorerItems: ExplorerItems!
     var searchLocation: String = String()
+    var latitude: CLLocationDegrees = CLLocationDegrees(), longitude: CLLocationDegrees = CLLocationDegrees()
     var jsonData : Data = Data()
-    var displayDistance = ["1 mi.", "2 mi.", "5 mi.", "10 mi.", "15 mi.", "20 mi.", "25 mi."]
-    var distances = ["1","2","5", "10", "15", "20", "25"]
-    var distance : String = String(), searchTerms : String = String(), offset: String = String()
-    var latitude : CLLocationDegrees = CLLocationDegrees()
-    var longitude : CLLocationDegrees = CLLocationDegrees()
+    var distance : String = String("10"), searchTerms : String = String(), offset: String = String(), page: String = String()
     let locationManager = CLLocationManager()
-    var manualLocation : Bool = Bool()
     var zip : String = String(), city: String = String(), state : String = String(), currentLocation : String = String()
-    var itemIds: NSArray = NSArray(), itemImages: NSArray = NSArray()
+    var itemsId: Array<String> = Array(), itemsName: Array<String> = Array(), restaurantsName: Array<String> = Array(), itemsImage: Array<String> = Array(), itemsShortDescription: Array<String> = Array()
+    
+    func itemsDownloaded(hasResults: Bool, itemsId: Array<String>, itemsNames itemsName: Array<String>, restaurantsNames restaurantsName: Array<String>, itemsImages itemsImage: Array<String>, itemsShortDescription: Array<String>) {
+                
+        if hasResults == true{
+            
+            self.itemsId = itemsId
+            self.itemsName = itemsName
+            self.restaurantsName = restaurantsName
+            self.itemsImage = itemsImage
+            self.itemsShortDescription = itemsShortDescription
+                        
+            self.resultsTable.reloadData()
+            self.resultsTable.isHidden = false
+            self.activityIndicatorView.stopAnimating()
+        }else{
+            handleNoResults()
+        }
+    }
+    
+    func handleNoResults(){
+        print("No results")
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = resultsTable.dequeueReusableCell(withIdentifier: "ResultCell") as! ResultCellViewController
+        cell.itemName.text = self.itemsName[indexPath.row]
+        cell.restaurantName.text = self.restaurantsName[indexPath.row]
+        cell.itemImage.sd_setImage(with: URL(string: self.itemsImage[indexPath.row]))
+        cell.itemShortDescription.text = self.itemsShortDescription[indexPath.row]
+        cell.itemShortDescription.textContainer.lineBreakMode = .byWordWrapping
+        cell.itemShortDescription.sizeToFit()
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return itemsId.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "ViewItemController") as! ViewItemController
+        vc.itemId = self.itemsId[indexPath.row] as! String
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     func updateCurrentSearchLocation(location: String){
         self.searchLocation = location
@@ -56,14 +99,17 @@ class SearchViewController: UIViewController,CLLocationManagerDelegate, UITextFi
      */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true);
-        self.searchTerms = (searchInput.text)!
+                
+        self.searchTerms = searchInput.text!
         
         activityIndicatorView.startAnimating()
-        
-        let searchModel = SearchModel()
-        //searchModel.delegate = self
+
         self.offset = "0"
-        searchModel.doSearch(terms: self.searchTerms, distance: self.distance, location: self.currentLocation, offset: self.offset)
+        self.page = "1"
+        
+
+        searchModel.doSearch(terms: self.searchTerms, distance: self.distance, location: self.currentLocation, offset: self.offset, page: self.page)
+        
         return false
     }
     
@@ -76,7 +122,6 @@ class SearchViewController: UIViewController,CLLocationManagerDelegate, UITextFi
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
-        }else{
         }
     }
     
@@ -91,7 +136,6 @@ class SearchViewController: UIViewController,CLLocationManagerDelegate, UITextFi
     */
     func getAddress(){
         
-        
         let location = CLLocation(latitude: self.latitude, longitude: self.longitude)
         CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error)->Void in
             if error != nil{
@@ -104,8 +148,8 @@ class SearchViewController: UIViewController,CLLocationManagerDelegate, UITextFi
                     self.zip = placemark.postalCode!
                     self.city = placemark.subThoroughfare! + " " + placemark.thoroughfare! + ", " + placemark.locality!
                     self.state = placemark.administrativeArea!
-                    self.currentLocation = String(describing: placemark.location?.coordinate.latitude as! Double) + ":" +  String(describing: placemark.location?.coordinate.longitude as! Double)
-                    
+
+                    self.currentLocation = self.city + ", " + self.state + " " + self.zip
                     let attributedCurrentLocation:NSAttributedString = NSAttributedString(string: self.city + ", " + self.state + " " + self.zip, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)])
                                         
                     let locationText = NSMutableAttributedString(string: "Location - ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)])
@@ -117,7 +161,6 @@ class SearchViewController: UIViewController,CLLocationManagerDelegate, UITextFi
             }
              
         })
-        
         
     }
     
@@ -140,29 +183,35 @@ class SearchViewController: UIViewController,CLLocationManagerDelegate, UITextFi
     
     override func loadView(){
         super.loadView()
-       // self.activityIndicatorView.hidesWhenStopped = true
-        getUserLocation()
+       
+        // Initialize the results table
+        self.resultsTable.isHidden = true
+        self.resultsTable.delegate = self
+        self.resultsTable.dataSource = self
+        
+        // Initialize the textfield
+        self.searchInput.delegate = self
+        
+    
     }
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        title = "Utterfare"
-
-        //UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
-        //self.navigationController?.navigationBar.tintColor = UIColor(red: 0.01, green: 0.66, blue: 0.96, alpha: 1.0)
+        activityIndicatorView.stopAnimating()
         
-        //activityIndicatorView.stopAnimating()
+        // Instantiate the search model
+        self.searchModel = SearchModel()
+        self.searchModel.delegate = self
+        getUserLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
 
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        //self.locationField.isUserInteractionEnabled = false
     }
 }
 

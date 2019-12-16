@@ -115,6 +115,8 @@ class HomeItems: NSObject{
             }
         }catch{
             print("JSON Error: ", error.localizedDescription )
+            let str = String(data: data, encoding: .utf8)
+            print(str)
         }
     }
 }

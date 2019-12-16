@@ -10,6 +10,8 @@ import UIKit
 import SDWebImage
 
 class ResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SearchControllerProtocol {
+
+    
     
     @IBOutlet weak var resultsTable : UITableView!
     @IBOutlet weak var back: UIBarButtonItem!
@@ -24,30 +26,7 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         self.navigationController?.popViewController(animated: true)
     }
     
-    func itemsDownloaded(hasResults: Bool, itemIds: Array<String>, dataTables: Array<String>, itemNames: Array<String>, restaurantNames: Array<String>, restaurantIds: Array<String>, itemImages: Array<String>) {
-        doingSearch = false;
-        if hasResults == true{
-            self.itemIds.append(contentsOf: itemIds)
-            self.dataTables.append(contentsOf: dataTables)
-            self.itemNames.append(contentsOf: itemNames)
-            self.restaurantNames.append(contentsOf: restaurantNames)
-            self.restaurantIds.append(contentsOf: restaurantIds)
-            self.itemImages.append(contentsOf: itemImages)
-            
-            // Reload the data
-            if resultsTable.tableFooterView?.isHidden == false{
-                resultsTable.tableFooterView?.isHidden = true
-                spinner.stopAnimating()
-            }
-            resultsTable.reloadData()
-            
-        }else{
-            print("No more")
-            //let message = MDCSnackbarMessage()
-            //message.text = "There are no more items"
-            //MDCSnackbarManager.show(message)
-        }
-    }
+    func itemsDownloaded(hasResults: Bool, itemsId: Array<String>, itemsNames: Array<String>, restaurantsNames: Array<String>, itemsImages: Array<String>, itemsShortDescription: Array<String>){}
     
     func indexPath()->[IndexPath]{
         let indexPath = [IndexPath(item: resultsTable.numberOfRows(inSection: resultsTable.numberOfSections - 1)-1, section: resultsTable.numberOfSections-1)]
@@ -95,7 +74,7 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
                 searchModel.delegate = self
                 doingSearch = true;
                 print("Loading more")
-                searchModel.doSearch(terms: self.terms, distance: self.distance, location: self.location, offset: String(offset))
+                //searchModel.doSearch(terms: self.terms, distance: self.distance, location: self.location, offset: String(offset))
                 
             }
         }
@@ -111,7 +90,7 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         searchModel.delegate = self
         doingSearch = true;
         print("Loading more")
-        searchModel.doSearch(terms: self.terms, distance: self.distance, location: self.location, offset: String(offset))
+        //searchModel.doSearch(terms: self.terms, distance: self.distance, location: self.location, offset: String(offset))
     }
     
     

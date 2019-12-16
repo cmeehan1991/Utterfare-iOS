@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol SearchControllerProtocol: class{
-    func itemsDownloaded(hasResults: Bool, itemIds: Array<String>, dataTables: Array<String>, itemNames: Array<String>, restaurantNames: Array<String>, restaurantIds: Array<String>, itemImages: Array<String>)
+    func itemsDownloaded(hasResults: Bool, itemsId: Array<String>, itemsNames: Array<String>, restaurantsNames: Array<String>, itemsImages: Array<String>, itemsShortDescription: Array<String>)
 }
 
 class SearchModel: NSObject{
@@ -18,8 +18,8 @@ class SearchModel: NSObject{
     var location : String = String(), terms : String = String(), offset : String = String(), distance : String = String()
     var jsonData : Data = Data()
     
-    func doSearch(terms: String, distance: String, location: String, offset: String){
-        let requestURL = URL(string: "https://www.utterfare.com/includes/php/ios-search.php")
+    func doSearch(terms: String, distance: String, location: String, offset: String, page: String){
+        let requestURL = URL(string: "https://www.utterfare.com/includes/php/search.php")
         var request = URLRequest(url: requestURL!)
         request.httpMethod = "POST"
         
@@ -27,7 +27,10 @@ class SearchModel: NSObject{
         parameters += "&distance=" + distance
         parameters += "&location=" + location
         parameters += "&offset=" + offset
-        
+        parameters += "&page=" + page
+        parameters += "&limit=" + "25"
+        parameters += "&action=search"
+            
         request.httpBody = parameters.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: request){
@@ -43,9 +46,9 @@ class SearchModel: NSObject{
     }
     
     func parseJSON(){
+
         do{
             let jsonResults = try JSONSerialization.jsonObject(with: self.jsonData, options: .allowFragments) as? NSArray
-            print(jsonResults)
             var haveResults: Bool = Bool()
             if jsonResults == nil {
                 haveResults = false;
@@ -54,34 +57,37 @@ class SearchModel: NSObject{
                 haveResults = true;
             }
             if let results = jsonResults {
-                var itemId : Array<String> = Array()
-                var dataTable : Array<String> = Array()
-                var itemImage : Array<String> = Array()
-                var itemName : Array<String> = Array()
-                var restaurantName : Array<String> = Array()
-                var restaurantId : Array<String> = Array()
+                var itemsId : Array<String> = Array()
+                var itemsImage : Array<String> = Array()
+                var itemsName : Array<String> = Array()
+                var restaurantsName : Array<String> = Array()
+                var itemsShortDescription : Array<String> = Array()
                 
                 for i in 0..<(results.count){
                     let result = results[i] as! NSDictionary
                     
-                    itemId.append(result["ITEM_ID"] as! String)
-                    dataTable.append(result["DATA_TABLE"] as! String)
-                    itemImage.append(result["IMAGE_URL"] as! String)
-                    itemName.append(result["NAME"] as! String)
-                    restaurantName.append(result["COMPANY"] as! String)
-                    restaurantId.append(result["COMPANY_ID"] as! String)
+                    print(result["item_id"] as! String)
+                    
+                    itemsId.append(result["item_id"] as! String)
+                    itemsImage.append(result["primary_image"] as! String)
+                    itemsName.append(result["item_name"] as! String)
+                    restaurantsName.append(result["vendor_name"] as! String)
+                    itemsShortDescription.append(result["item_short_description"] as! String)
                 }
-                
+                print(itemsId)
                 DispatchQueue.main.async {
-                    if self.delegate != nil{
-                        self.delegate.itemsDownloaded(hasResults: haveResults, itemIds: itemId, dataTables: dataTable, itemNames: itemName, restaurantNames: restaurantName, restaurantIds: restaurantId, itemImages: itemImage)
-                    }
+                    print(itemsId.count)
+                    self.delegate.itemsDownloaded(hasResults: haveResults, itemsId: itemsId, itemsNames: itemsName, restaurantsNames: restaurantsName, itemsImages: itemsImage, itemsShortDescription: itemsShortDescription)
+
                 }
             }
         }catch{
-            DispatchQueue.main.async{
-                self.delegate.itemsDownloaded(hasResults: false, itemIds: Array(), dataTables: Array(), itemNames: Array(), restaurantNames: Array(), restaurantIds: Array(), itemImages: Array())
-            }
+            print("JSON Error")
+            print(error.localizedDescription)
+            
+            let str = String(data: self.jsonData, encoding: .utf8)
+            print("JSON Data")
+            print(str)
         }
         
     }

@@ -10,9 +10,8 @@ import UIKit
 
 class ResultCellViewController: UITableViewCell{
   
-    @IBOutlet weak var itemName: UILabel!
-    
+    @IBOutlet weak var itemName: UILabel!    
     @IBOutlet weak var restaurantName: UILabel!
-    
     @IBOutlet weak var itemImage: UIImageView!
+    @IBOutlet weak var itemShortDescription: UITextView!
 }
