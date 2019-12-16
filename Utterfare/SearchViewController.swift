@@ -8,16 +8,20 @@
 
 import UIKit
 import CoreLocation
+import SDWebImage
 
-class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, CLLocationManagerDelegate, SearchControllerProtocol, UITextFieldDelegate{
 
+class SearchViewController: UIViewController,CLLocationManagerDelegate, ExplorerItemsProtocol, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource{
+
+    @IBOutlet weak var searchInput: UISearchBar!
+    @IBOutlet weak var locationField: UITextField!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var explorerCollectionView: UICollectionView!
     
+    let locationText = NSMutableAttributedString(string: "Location - ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)])
     
-    @IBOutlet weak var searchTermsInput: UITextField!
-    @IBOutlet weak var searchDistancePicker: UIPickerView!
-    @IBOutlet weak var locationButton: UIButton!
-    @IBOutlet weak var searchButton : UIButton!
-    
+    var explorerItems: ExplorerItems!
+    var searchLocation: String = String()
     var jsonData : Data = Data()
     var displayDistance = ["1 mi.", "2 mi.", "5 mi.", "10 mi.", "15 mi.", "20 mi.", "25 mi."]
     var distances = ["1","2","5", "10", "15", "20", "25"]
@@ -27,90 +31,86 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     let locationManager = CLLocationManager()
     var manualLocation : Bool = Bool()
     var zip : String = String(), city: String = String(), state : String = String(), currentLocation : String = String()
-    var itemName : NSArray = NSArray(), itemImages : NSArray = NSArray(), restaurantNames : NSArray = NSArray(), itemDescriptions : NSArray = NSArray(), restaurantURLs : NSArray = NSArray(), restaurantDistances : NSArray = NSArray(), restaurantPhones : NSArray = NSArray(), restaurantAddresses : NSArray = NSArray()
+    var itemIds: NSArray = NSArray(), itemImages: NSArray = NSArray()
     
-    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    
-    /**
-     * Allow the user to manually input their location.
-     * When the user taps the button an alert will present itself, which will have a textfield allowing the user to input their own location.
-     */
-    @IBAction func changeLocationButtonPressed(_ sender: Any) {
-        let changeLocationAction = UIAlertController(title: "Change Location", message: "", preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: {
-            alert-> Void in
-            self.locationManager.stopUpdatingLocation()
-            self.currentLocation = (changeLocationAction.textFields?.first!.text)!
-            self.locationButton.setTitle(self.currentLocation, for: .normal)
-            self.manualLocation = true
-        })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        changeLocationAction.addTextField(configurationHandler: {(locationTextField) -> Void in
-            if self.manualLocation == true{
-                locationTextField.text = self.currentLocation
-            }else{
-                locationTextField.text = self.city + ", " + self.state
-            }
-            locationTextField.placeholder = "Zip Code or City, St"
-        })
-        changeLocationAction.addAction(defaultAction)
-        changeLocationAction.addAction(cancelAction)
-        self.present(changeLocationAction, animated: true, completion: nil)
+    func updateCurrentSearchLocation(location: String){
+        print("Update")
+        self.searchLocation = location
+        self.locationField.text = self.searchLocation
+        
+        self.locationText.replaceCharacters(in: NSRange(11..<(self.locationText.length)), with: NSAttributedString(string: self.searchLocation))
+        
+        self.locationField.attributedText = self.locationText
+        
     }
     
-    /**
-     * Get the downloaded items and assign them to their class variables
-     */
-    func itemsDownloaded(hasResults: Bool, itemIds: Array<String>, dataTables: Array<String>, itemNames: Array<String>, restaurantNames: Array<String>, restaurantIds: Array<String>, itemImages: Array<String>) {
-        if hasResults == true{
-            let vc = storyboard?.instantiateViewController(withIdentifier: "ResultsViewController") as! ResultsViewController
-            vc.terms = self.searchTerms
-            vc.distance = self.distance
-            vc.location = self.currentLocation
-            vc.itemIds = itemIds
-            vc.dataTables = dataTables
-            vc.itemNames = itemNames
-            vc.restaurantNames = restaurantNames
-            vc.restaurantIds = restaurantIds
-            vc.itemImages = itemImages
-            
-            activityIndicatorView.stopAnimating()
-            self.navigationController?.pushViewController(vc, animated: true);
-            
-        }else{
-            let alert = UIAlertController(title: "No Results", message: "Let's try something else. It looks like your search didn't return any results", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated:true, completion: nil)
-            
-            activityIndicatorView.stopAnimating()
-        }
+    @IBAction func changeSearchLocation(){
+        self.locationField.resignFirstResponder()
+        
+        let locationVc = storyboard?.instantiateViewController(withIdentifier: "Location View Controller") as! LocationViewController
+        locationVc.mainViewController = self
+        
+        self.navigationController?.pushViewController(locationVc, animated: true)
+    }
+    
+    func downloadExplorerItems(itemIds: NSArray, itemImages: NSArray){
+        // Set the data
+        self.itemIds = itemIds
+        self.itemImages = itemImages
+        
+        // Reload the explorer view data
+        self.explorerCollectionView.reloadData()
+        
+        // Hide the activity indicator
+        activityIndicatorView.stopAnimating()
     }
     
     /*
-     * The search button was tapped.
-     * This will initiate the search
+     * Set the image content in the reusable explorer cells
      */
-    @IBAction func performSearchButtonPressed(_ sender: Any) {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print(self.itemImages[indexPath.row])
         
-        self.view.endEditing(true);
-        self.searchTerms = (searchTermsInput.text)!
+        let cell = explorerCollectionView.dequeueReusableCell(withReuseIdentifier: "explorerCollectionViewCell", for: indexPath) as! ExplorerCollectionViewCellController
+        //cell.itemImage.sd_setImage(with: URL(string: self.itemImages[indexPath.row] as! String))
         
-        activityIndicatorView.startAnimating()
-        let searchModel = SearchModel()
-        searchModel.delegate = self
-        self.offset = "0";
-        searchModel.doSearch(terms: self.searchTerms, distance: self.distance, location: self.currentLocation, offset: "0")
+        cell.itemImage.sd_setImage(with: URL(string: self.itemImages[indexPath.row] as! String), placeholderImage: UIImage(named: "home"))
+        cell.backgroundColor = UIColor(hue: 0, saturation: 0, brightness: 0, alpha: 1.0)
+        
+        let size = explorerCollectionView.collectionViewLayout.collectionViewContentSize.width/3
+        cell.sizeThatFits(CGSize(width: size, height: size))
+        
+        return cell
         
     }
     
+    /*
+     * Set the number of cells
+     */
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.itemIds.count
+    }
+    
+    /*
+     * Handle cell selection
+     */
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(itemIds[indexPath.row])
+    }
+    
+    
+    
+    /*
+     * Do the search on submit
+     */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true);
-        self.searchTerms = (searchTermsInput.text)!
+        self.searchTerms = (searchInput.text)!
         
         activityIndicatorView.startAnimating()
         
         let searchModel = SearchModel()
-        searchModel.delegate = self
+        //searchModel.delegate = self
         self.offset = "0"
         searchModel.doSearch(terms: self.searchTerms, distance: self.distance, location: self.currentLocation, offset: self.offset)
         return false
@@ -123,18 +123,6 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         return 1
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return distances.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return displayDistance[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.distance = distances[row]
-    }
-        
     // Get the user's location
     func getUserLocation(){
         self.locationManager.requestAlwaysAuthorization()
@@ -145,7 +133,6 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }else{
-            self.locationButton.setTitle("Set Your Location", for: .normal)
         }
     }
     
@@ -159,22 +146,36 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     * Get the user's location
     */
     func getAddress(){
+        
+        
         let location = CLLocation(latitude: self.latitude, longitude: self.longitude)
         CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error)->Void in
             if error != nil{
                 return
             }
+            
             if (placemarks != nil) {
                 if (placemarks?.count)! > 0{
                     let placemark = (placemarks?[0])! as CLPlacemark
                     self.zip = placemark.postalCode!
                     self.city = placemark.subThoroughfare! + " " + placemark.thoroughfare! + ", " + placemark.locality!
                     self.state = placemark.administrativeArea!
-                    self.locationButton.setTitle(self.city + ", " + self.state, for: UIControl.State.normal)
                     self.currentLocation = String(describing: placemark.location?.coordinate.latitude as! Double) + ":" +  String(describing: placemark.location?.coordinate.longitude as! Double)
+                    
+                    let attributedCurrentLocation:NSAttributedString = NSAttributedString(string: self.city + ", " + self.state + " " + self.zip, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)])
+                                        
+                    let locationText = NSMutableAttributedString(string: "Location - ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)])
+                    
+                    locationText.append(attributedCurrentLocation)
+                                        
+                    self.locationField.attributedText = locationText
+                    self.explorerItems.getExplorerItems(currentLocation: attributedCurrentLocation.string)
                 }
             }
+             
         })
+        
+        
     }
     
     func requestLocation()->Bool{
@@ -202,17 +203,17 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        
         title = "Utterfare"
-        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
-        self.navigationController?.navigationBar.tintColor = UIColor(red: 0.01, green: 0.66, blue: 0.96, alpha: 1.0)
-       // activityIndicatorView.hidesWhenStopped = true
-        //self.searchButton.layer.cornerRadius = 2
-        //self.searchDistancePicker.delegate = self
-        //self.searchDistancePicker.dataSource = self
-        //self.searchTermsInput.delegate = self
         
-        //self.distance = distances[0]
+        self.explorerCollectionView.delegate = self
+        self.explorerCollectionView.dataSource = self
+        
+        self.explorerItems = ExplorerItems()
+        self.explorerItems.delegate = self
+        //UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+        //self.navigationController?.navigationBar.tintColor = UIColor(red: 0.01, green: 0.66, blue: 0.96, alpha: 1.0)
+        
+        //activityIndicatorView.stopAnimating()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -223,6 +224,7 @@ class SearchViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        //self.locationField.isUserInteractionEnabled = false
     }
 }
 

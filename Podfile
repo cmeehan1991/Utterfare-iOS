@@ -8,7 +8,9 @@ target 'Utterfare' do
   # Pods for Utterfare
 
   pod ‘SDWebImage’, ‘~>3.8’
-  
+  pod 'GooglePlaces'
+  pod 'GoogleMaps'
+
   target 'UtterfareTests' do
     inherit! :search_paths
     # Pods for testing

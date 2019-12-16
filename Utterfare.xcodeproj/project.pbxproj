@@ -24,11 +24,15 @@
 		A230CB162087F31C00282618 /* UserInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A230CB152087F31C00282618 /* UserInformationController.swift */; };
 		A230CB1A2087F34600282618 /* UserInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A230CB192087F34600282618 /* UserInformationModel.swift */; };
 		A238836F20597DE30041F6FF /* ViewItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A238836E20597DE30041F6FF /* ViewItemModel.swift */; };
+		A23F3CF523A3ED27000546DC /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23F3CF423A3ED27000546DC /* LocationViewController.swift */; };
+		A23F3CF723A3F337000546DC /* LocationTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23F3CF623A3F337000546DC /* LocationTableViewCellController.swift */; };
 		A265CF622077C66500D104BB /* RequestPasswordResetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265CF612077C66500D104BB /* RequestPasswordResetController.swift */; };
 		A265CF642077C69500D104BB /* RequestPasswordResetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265CF632077C69500D104BB /* RequestPasswordResetModel.swift */; };
 		A27C6634206EBFB200015274 /* MyItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C6633206EBFB200015274 /* MyItemsViewController.swift */; };
 		A27C6636206ED80B00015274 /* MyItemsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C6635206ED80B00015274 /* MyItemsModel.swift */; };
 		A27C6638206ED82500015274 /* MyItemsTableCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C6637206ED82500015274 /* MyItemsTableCellController.swift */; };
+		A2930D6623A2E292004384A0 /* ExplorerCollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2930D6523A2E292004384A0 /* ExplorerCollectionViewCellController.swift */; };
+		A2930D6823A2EC63004384A0 /* ExplorerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2930D6723A2EC63004384A0 /* ExplorerProtocol.swift */; };
 		A2AB1F981DF7578C009928BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AB1F971DF7578C009928BF /* AppDelegate.swift */; };
 		A2AB1F9D1DF7578C009928BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2AB1F9B1DF7578C009928BF /* Main.storyboard */; };
 		A2AB1F9F1DF7578C009928BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2AB1F9E1DF7578C009928BF /* Assets.xcassets */; };
@@ -88,11 +92,15 @@
 		A230CB152087F31C00282618 /* UserInformationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationController.swift; sourceTree = "<group>"; };
 		A230CB192087F34600282618 /* UserInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationModel.swift; sourceTree = "<group>"; };
 		A238836E20597DE30041F6FF /* ViewItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewItemModel.swift; sourceTree = "<group>"; };
+		A23F3CF423A3ED27000546DC /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		A23F3CF623A3F337000546DC /* LocationTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCellController.swift; sourceTree = "<group>"; };
 		A265CF612077C66500D104BB /* RequestPasswordResetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPasswordResetController.swift; sourceTree = "<group>"; };
 		A265CF632077C69500D104BB /* RequestPasswordResetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPasswordResetModel.swift; sourceTree = "<group>"; };
 		A27C6633206EBFB200015274 /* MyItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyItemsViewController.swift; sourceTree = "<group>"; };
 		A27C6635206ED80B00015274 /* MyItemsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyItemsModel.swift; sourceTree = "<group>"; };
 		A27C6637206ED82500015274 /* MyItemsTableCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyItemsTableCellController.swift; sourceTree = "<group>"; };
+		A2930D6523A2E292004384A0 /* ExplorerCollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerCollectionViewCellController.swift; sourceTree = "<group>"; };
+		A2930D6723A2EC63004384A0 /* ExplorerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerProtocol.swift; sourceTree = "<group>"; };
 		A2AB1F941DF7578C009928BF /* Utterfare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Utterfare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2AB1F971DF7578C009928BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2AB1F9C1DF7578C009928BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -247,6 +255,15 @@
 			name = User;
 			sourceTree = "<group>";
 		};
+		A23F3CF323A3ECB0000546DC /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				A23F3CF423A3ED27000546DC /* LocationViewController.swift */,
+				A23F3CF623A3F337000546DC /* LocationTableViewCellController.swift */,
+			);
+			name = Location;
+			sourceTree = "<group>";
+		};
 		A265CF602077C65100D104BB /* Password Reset */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +275,15 @@
 				A20178F72077E3A40058E190 /* NewPasswordModel.swift */,
 			);
 			name = "Password Reset";
+			sourceTree = "<group>";
+		};
+		A2930D6423A2E26B004384A0 /* Explorer */ = {
+			isa = PBXGroup;
+			children = (
+				A2930D6523A2E292004384A0 /* ExplorerCollectionViewCellController.swift */,
+				A2930D6723A2EC63004384A0 /* ExplorerProtocol.swift */,
+			);
+			name = Explorer;
 			sourceTree = "<group>";
 		};
 		A2AB1F8B1DF7578C009928BF = {
@@ -285,6 +311,8 @@
 		A2AB1F961DF7578C009928BF /* Utterfare */ = {
 			isa = PBXGroup;
 			children = (
+				A23F3CF323A3ECB0000546DC /* Location */,
+				A2930D6423A2E26B004384A0 /* Explorer */,
 				A2C836ED22D7C252009C78A3 /* Home */,
 				A2E6AA432090C5B2002E93B7 /* Tab Bar Controller */,
 				A230CB142087F30500282618 /* User */,
@@ -374,6 +402,7 @@
 				A2AB1F911DF7578C009928BF /* Frameworks */,
 				A2AB1F921DF7578C009928BF /* Resources */,
 				48E226189BF9A9297E49887B /* [CP] Embed Pods Frameworks */,
+				BA30C4FCF0DFCE9D1B93B765 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -557,6 +586,30 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BA30C4FCF0DFCE9D1B93B765 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D1709F3C706622EB39411A83 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -591,14 +644,17 @@
 				A27C6638206ED82500015274 /* MyItemsTableCellController.swift in Sources */,
 				A216CC751E200F3E00A5951C /* ResultCellViewController.swift in Sources */,
 				A27C6634206EBFB200015274 /* MyItemsViewController.swift in Sources */,
+				A2930D6823A2EC63004384A0 /* ExplorerProtocol.swift in Sources */,
 				A20178F62077E39C0058E190 /* NewPasswordController.swift in Sources */,
 				A2B00E451E22A5D9004CACCF /* SearchModel.swift in Sources */,
 				A2E6AA452090C5C3002E93B7 /* MainTabBarController.swift in Sources */,
 				A230CB162087F31C00282618 /* UserInformationController.swift in Sources */,
 				A216CC771E20170600A5951C /* ViewItemController.swift in Sources */,
+				A23F3CF523A3ED27000546DC /* LocationViewController.swift in Sources */,
 				A265CF622077C66500D104BB /* RequestPasswordResetController.swift in Sources */,
 				A20178F42077E38C0058E190 /* PasswordResetCodeModel.swift in Sources */,
 				A20178F22077E3500058E190 /* PasswordResetCodeController.swift in Sources */,
+				A23F3CF723A3F337000546DC /* LocationTableViewCellController.swift in Sources */,
 				A27C6636206ED80B00015274 /* MyItemsModel.swift in Sources */,
 				A265CF642077C69500D104BB /* RequestPasswordResetModel.swift in Sources */,
 				A21169C22088C41400F3BD1B /* UpdatePasswordController.swift in Sources */,
@@ -607,6 +663,7 @@
 				A21CCFA8206D1F1E001C5797 /* UserSignInModel.swift in Sources */,
 				A20178FF207FA8A00058E190 /* CustomCodeField.swift in Sources */,
 				A2AFF9A0206FCB8A008851F9 /* UserSignUpViewController.swift in Sources */,
+				A2930D6623A2E292004384A0 /* ExplorerCollectionViewCellController.swift in Sources */,
 				A238836F20597DE30041F6FF /* ViewItemModel.swift in Sources */,
 				A20178F82077E3A40058E190 /* NewPasswordModel.swift in Sources */,
 				A2C836EF22D7C26A009C78A3 /* Home Controller.swift in Sources */,
@@ -718,7 +775,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "85f40b80-0c06-47a4-bc02-98ae598b841d";
@@ -776,7 +833,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "85f40b80-0c06-47a4-bc02-98ae598b841d";
 				SDKROOT = iphoneos;

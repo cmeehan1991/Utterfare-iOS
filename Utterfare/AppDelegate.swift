@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,11 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        UIApplication.shared.statusBarStyle = .lightContent
+        /*UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().barTintColor = UIColor(red:0.01, green:0.66, blue:0.96, alpha:1.0)
         UINavigationBar.appearance().tintColor = UIColor(red: 0.01, green: 0.66, blue: 0.96, alpha: 1.0)
         UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().backgroundColor = UIColor(red: 96, green: 125, blue: 139, alpha: 1.0)
+        UINavigationBar.appearance().backgroundColor = UIColor(red: 96, green: 125, blue: 139, alpha: 1.0)*/
+        
+        GMSPlacesClient.provideAPIKey("AIzaSyBNOJbx_2Q5h8f0ONZ4Abf5ULE0w4B-VTc")
         
         return true
     }
