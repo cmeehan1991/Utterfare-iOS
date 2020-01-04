@@ -48,7 +48,8 @@ class UpdatePasswordController: UIViewController, UITextFieldDelegate, UpdatePas
         let userInformationModel: UserInformationModel = UserInformationModel()
         userInformationModel.delegateUpdatePassword = self
         self.assignValues()
-        userInformationModel.userInformation(action: "update_password", userId: defaults.string(forKey: "USER_ID")!, firstName: String(), lastName: String(), city: String(), state: String(), emailAddress: String(), password: self.newPassword)
+        /*
+        userInformationModel.userInformation(action: "update_password", userId: defaults.string(forKey: "USER_ID")!, firstName: String(), lastName: String(), city: String(), state: String(), emailAddress: String(), password: self.newPassword)*/
         self.loadingView = customAlert.loadingAlert(uiView: self.view)
         self.view.addSubview(self.loadingView)
     }

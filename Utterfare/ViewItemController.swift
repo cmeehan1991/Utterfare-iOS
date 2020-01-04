@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import FBSDKShareKit
 
 class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemProtocol{
    
@@ -140,8 +141,23 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
         self.itemNameLabel.text = self.itemName
         self.restaurantNameButton.setTitleColor(UIColor.black, for: .normal)
         self.restaurantNameButton.setTitle(self.companyName, for: .normal)
-        //self.restaurantURLButton.setTitle(self.url, for: .normal)
-        //self.restaurantPhoneNumberButton.setTitle(self.phone, for: UIControlState.normal)
+       
+        print(self.url)
+        
+        if(self.url != "" && self.url != "Link"){
+            self.restaurantURLButton.setTitle(self.url, for: .normal)
+        }else{
+            self.restaurantURLButton.isHidden = true
+            
+            self.restaurantURLButton.frame = CGRect(x: self.restaurantURLButton.frame.origin.x, y: self.restaurantURLButton.frame.origin.y, width: 0, height: 0)
+        }
+        
+        if(self.phone != ""){
+            self.restaurantPhoneNumberButton.setTitle("Tel: \(self.phone)", for: .normal)
+        }else{
+            self.restaurantPhoneNumberButton.isHidden = true
+        }
+        
         self.itemImageView.sd_setImage(with: URL(string: self.itemImage))
         self.itemDescriptionTextArea.text = self.itemDescription
         self.title = "Utterfare"
@@ -156,10 +172,18 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
         self.loadingView = customAlert.loadingAlert(uiView: self.view)
         self.view.addSubview(loadingView)
         self.myItems.delegateAddItem = self
-        self.myItems.addItem(userId: self.defaults.string(forKey: "USER_ID")!, itemId: self.itemId, itemName: self.itemName, dataTable: self.dataTable, itemImageUrl: self.itemImage)
+        self.myItems.addItem(userId: self.defaults.string(forKey: "USER_ID")!, itemId: self.itemId)
+    }
+    
+    @objc func shareItemAction(){
+        let activityViewController = UIActivityViewController(activityItems: ["https://www.utterfare.com/#!/single?id=" + itemId], applicationActivities: nil)
+         
+        
+        self.present(activityViewController, animated: true)
     }
     
     @objc func saveItemAction(){
+        
         let isSignedIn = defaults.bool(forKey: "IS_LOGGED_IN")
         if isSignedIn{
             let alert = UIAlertController(title: "Save Item", message: "Save this item to your favorites.", preferredStyle: .actionSheet)
@@ -179,7 +203,13 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
     }
     
     func saveItemButton() -> UIBarButtonItem{
-        let item = UIBarButtonItem(barButtonSystemItem: .action, target: self, action:#selector(saveItemAction))
+        let item = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action:#selector(saveItemAction))
+        item.tintColor = UIColor.white
+        return item
+    }
+    
+    func shareItemButton() -> UIBarButtonItem{
+        let item = UIBarButtonItem(barButtonSystemItem: .action, target: self, action:#selector(shareItemAction))
         item.tintColor = UIColor.white
         return item
     }
@@ -189,8 +219,8 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
        
         viewItemModel.delegate = self
         viewItemModel.doSearch(itemId: itemId)
-
-        self.navigationItem.rightBarButtonItem = saveItemButton()
+        
+        self.navigationItem.rightBarButtonItems = [saveItemButton(), shareItemButton()]
         
         activityIndicator.startAnimating()
         scrollView.isHidden = true

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Utterfare.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>armv7</string>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>079B32E525A4A9F4C57F3BD4F7EC5E3A819BECF6</string>
+				<key>dateExpires</key>
+				<string>9/3/20</string>
+				<key>type</key>
+				<string>iOS Development</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>079B32E525A4A9F4C57F3BD4F7EC5E3A819BECF6</string>
+						<key>dateExpires</key>
+						<string>9/3/20</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>SDWebImage.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>B76P79Q988</string>
+						<key>name</key>
+						<string>Connor Meehan</string>
+					</dict>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>B76P79Q988.com.Utterfare</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>B76P79Q988</string>
+				<key>get-task-allow</key>
+				<true/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>B76P79Q988.com.Utterfare</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>Utterfare.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>bc2d02ff-c221-4567-8b79-7215e911b07a</string>
+				<key>name</key>
+				<string>iOS Team Provisioning Profile: *</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>B76P79Q988</string>
+				<key>name</key>
+				<string>Connor Meehan</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

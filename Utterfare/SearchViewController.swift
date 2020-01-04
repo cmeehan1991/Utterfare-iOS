@@ -11,12 +11,14 @@ import CoreLocation
 import SDWebImage
 
 
-class SearchViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, SearchControllerProtocol, UITextFieldDelegate{
+class SearchViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, SearchControllerProtocol, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
+    
 
     @IBOutlet weak var searchInput: UITextField!
     @IBOutlet weak var locationField: UITextField!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var resultsTable: UITableView!
+    @IBOutlet weak var searchDistancePickerView: UIPickerView!
     
     var searchModel: SearchModel!
     let locationText = NSMutableAttributedString(string: "Location - ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)])
@@ -28,10 +30,11 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
     let locationManager = CLLocationManager()
     var zip : String = String(), city: String = String(), state : String = String(), currentLocation : String = String()
     var itemsId: Array<String> = Array(), itemsName: Array<String> = Array(), restaurantsName: Array<String> = Array(), itemsImage: Array<String> = Array(), itemsShortDescription: Array<String> = Array()
-    
+    let distancesValue: Array<String> = ["1", "2", "5", "10", "15", "20", "25"]
+    var distancesOptions: Array<String> = ["1 Mile", "2 Miles", "5 Miles", "10 Miles", "15 Miles", "20 Miles", "25 Miles"]
     func itemsDownloaded(hasResults: Bool, itemsId: Array<String>, itemsNames itemsName: Array<String>, restaurantsNames restaurantsName: Array<String>, itemsImages itemsImage: Array<String>, itemsShortDescription: Array<String>) {
                 
-        if hasResults == true{
+        if hasResults == true && itemsId.count > 0{
             
             self.itemsId = itemsId
             self.itemsName = itemsName
@@ -43,13 +46,41 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
             self.resultsTable.isHidden = false
             self.activityIndicatorView.stopAnimating()
         }else{
+            print("No results")
             handleNoResults()
         }
     }
     
     func handleNoResults(){
-        print("No results")
+        let label = UILabel()
+        label.text = "No Results\nTry something different"
+        label.textAlignment = .center
+        
+        self.resultsTable.backgroundView = label
+        self.resultsTable.separatorStyle = .none
+        self.resultsTable.reloadData()
+        self.resultsTable.isHidden = false
     }
+      
+    
+    
+    /*
+     * Set the picker view values
+     */
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return distancesOptions[row]
+    }
+    
+    /*
+     * Set the number of rows in the distances picker view
+     */
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return distancesValue.count
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }   
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -70,7 +101,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "ViewItemController") as! ViewItemController
-        vc.itemId = self.itemsId[indexPath.row] as! String
+        vc.itemId = self.itemsId[indexPath.row]
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -79,7 +110,8 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
         self.searchLocation = location
         self.locationField.text = self.searchLocation
         
-        self.locationText.replaceCharacters(in: NSRange(11..<(self.locationText.length)), with: NSAttributedString(string: self.searchLocation))
+        self.locationText.replaceCharacters(in: NSRange(11..<(self.locationText.length)), with: NSAttributedString(string: self.searchLocation, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]))
+        
         
         self.locationField.attributedText = self.locationText
         
@@ -99,22 +131,28 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
      */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true);
-                
+        
         self.searchTerms = searchInput.text!
         
         activityIndicatorView.startAnimating()
-
+        activityIndicatorView.isHidden = false
+        
         self.offset = "0"
         self.page = "1"
-        
-
-        searchModel.doSearch(terms: self.searchTerms, distance: self.distance, location: self.currentLocation, offset: self.offset, page: self.page)
-        
+        self.distance = self.distancesValue[self.searchDistancePickerView.selectedRow(inComponent: 0)]
+        if self.resultsTable.isHidden == false{
+            self.resultsTable.isHidden = true
+            self.activityIndicatorView.startAnimating()
+            self.activityIndicatorView.isHidden = false
+        }
+        searchModel.doSearch(terms: self.searchTerms, distance: self.distance, location: self.searchLocation, offset: self.offset, page: self.page)
+                
         return false
     }
     
     // Get the user's location
     func getUserLocation(){
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         
@@ -135,7 +173,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
     * Get the user's location
     */
     func getAddress(){
-        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         let location = CLLocation(latitude: self.latitude, longitude: self.longitude)
         CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error)->Void in
             if error != nil{
@@ -145,18 +183,27 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
             if (placemarks != nil) {
                 if (placemarks?.count)! > 0{
                     let placemark = (placemarks?[0])! as CLPlacemark
+                    
+                    // Check if an exact address is available, if not then we just use the city/state
+                    if placemark.subThoroughfare != nil{
+                        self.currentLocation = placemark.subThoroughfare! + " " + placemark.thoroughfare! + ", " + placemark.locality! + ", " + placemark.administrativeArea! + ", " + placemark.postalCode!
+                    }else{
+                        self.currentLocation = placemark.locality! + ", " + placemark.administrativeArea! + ", " + placemark.postalCode!
+                    }
+                    
                     self.zip = placemark.postalCode!
                     self.city = placemark.subThoroughfare! + " " + placemark.thoroughfare! + ", " + placemark.locality!
                     self.state = placemark.administrativeArea!
 
                     self.currentLocation = self.city + ", " + self.state + " " + self.zip
-                    let attributedCurrentLocation:NSAttributedString = NSAttributedString(string: self.city + ", " + self.state + " " + self.zip, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)])
-                                        
-                    let locationText = NSMutableAttributedString(string: "Location - ", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)])
+                    let attributedCurrentLocation:NSAttributedString = NSAttributedString(string:self.currentLocation, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)])
+
+                    self.searchLocation = self.currentLocation
                     
-                    locationText.append(attributedCurrentLocation)
+                    self.locationText.append(attributedCurrentLocation)
                                         
-                    self.locationField.attributedText = locationText
+                    self.locationField.attributedText = self.locationText
+                    self.locationManager.stopUpdatingLocation()
                 }
             }
              
@@ -203,6 +250,11 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
         self.searchModel = SearchModel()
         self.searchModel.delegate = self
         getUserLocation()
+        
+        // Initialize the distance picker view
+        self.searchDistancePickerView.delegate = self
+        self.searchDistancePickerView.dataSource = self
+        self.searchDistancePickerView.selectRow(3, inComponent: 0, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {

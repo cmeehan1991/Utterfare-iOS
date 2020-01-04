@@ -8,11 +8,15 @@
 
 import Foundation
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
-class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDelegate{
+class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDelegate, LoginButtonDelegate{
+    
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var loginButton: UIButton!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -21,59 +25,55 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     var loadingView: UIView = UIView()
     let backToItem: Bool = Bool()
     var username: String = String(), password: String = String()
-    var activeField: UITextField = UITextField()
-
+    var userInformationVC: UserInformationController!
+    var userItemsVC: MyItemsViewController!
     
+    /*
+     * Handle the user sign in protocol
+     */
     func userSignIn(isSignedIn: Bool, userId: String) {
-        DispatchQueue.main.async {
-            self.handleResponse(isSignedIn: isSignedIn, userId: userId)
-        }
-    }
-    
-    func handleResponse(isSignedIn: Bool, userId: String){
+        print(userId)
         defaults.set(isSignedIn, forKey: "IS_LOGGED_IN")
         defaults.set(userId, forKey: "USER_ID")
         if isSignedIn{
-            self.goToView()
             self.loadingView.removeFromSuperview()
+            self.dismiss(animated: true, completion: {
+                if self.userItemsVC != nil{
+                    self.userItemsVC.getItems()
+                }else{
+                    self.userInformationVC.getUserInformation()
+                }
+            })
         }else{
             self.loadingView.removeFromSuperview()
-            self.showErrorAlert()
+            
+            let alert = UIAlertController(title: "Sign In Error", message: "The username and password combination did not match what we have on file. Please try again.", preferredStyle: .alert)
+            let dismissAction = UIAlertAction(title: "Ok", style: .cancel, handler: {alert in
+                self.passwordTextField.text! = ""
+                self.usernameTextField.becomeFirstResponder()
+                self.view.isUserInteractionEnabled = true
+
+            })
+            
+            alert.addAction(dismissAction)
+        
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
-    func showErrorAlert(){
-        
-    }
-    
-    func goToView(){
-        let vcs = self.navigationController?.viewControllers
-        if (vcs?.count)! > 1{
-            self.navigationController?.popViewController(animated: true)
-            self.dismiss(animated: true, completion: nil)
-        }else{
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MyItemsViewController") as! MyItemsViewController
-            self.navigationController?.pushViewController(vc, animated: true)        }
-
-    }
-    
+    /*
+     * Sign in action
+     * This is called by both the @IBAction and button touch
+     */
     func signIn(){
         self.view.isUserInteractionEnabled = false
         self.view.addSubview(loadingView)
         
         let signInModel = UserSignInModel()
+        signInModel.delegate = self
         signInModel.signIn(username: username, password: password)
     }
-    
-    func loadingIndicatorView() -> UIActivityIndicatorView{
-        let loadingIndicator : UIActivityIndicatorView = UIActivityIndicatorView(style: .whiteLarge) as UIActivityIndicatorView
-        loadingIndicator.center = self.view.center;
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.style = UIActivityIndicatorView.Style.whiteLarge
-        loadingIndicator.startAnimating()
-        
-        return loadingIndicator
-    }
+
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == usernameTextField{
@@ -86,19 +86,66 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
             self.password = passwordTextField.text!
             
             passwordTextField.resignFirstResponder()
+            
             self.signIn()
         }
         return true
+    }
+
+    /*
+     * Handle the Facebook login button response
+     */
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        if result!.isCancelled {
+            print("Cancelled")
+            return
+        }
+
+        let connection = GraphRequestConnection()
+        
+        connection.add(GraphRequest(graphPath: "/me", parameters: ["fields":"id, email, name"])) { httpResponse, result, error  in
+        
+            if error != nil{
+                print("Graph Error: \(error?.localizedDescription)")
+                return
+            }
+            
+            let result = result as? [String:String]
+            let fbid: String = result!["id"]!
+            let email: String = result!["email"]!
+            let name: String = result!["name"]!
+            
+            self.handleFacebookUser(fbid: fbid, email: email, name: name)
+            
+        }
+        connection.start()
+        
+    }
+    
+    /*
+     * Sign the user in or sign them up after logging in with Facebook
+     */
+    func handleFacebookUser(fbid:String, email: String, name: String){
+        
+        let signInModel = UserSignInModel()
+        signInModel.delegate = self
+        signInModel.signInFacebook(fbid: fbid, email: email, name: name)
+    }
+    
+    /*
+     * Handle the Facebook Logout
+     */
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        self.defaults.set(nil, forKey: "FB_USER_ID")
+        self.defaults.set(nil, forKey: "USER_ID")
+        self.defaults.set(false, forKey: "IS_LOGGED_IN")
     }
     
     @IBAction func signInButtonAction(){
         username = usernameTextField.text!
         password = passwordTextField.text!
         
-        //self.present(loadingAlert, animated: true, completion: nil)
-        let signInModel = UserSignInModel()
-        signInModel.delegate = self
-        signInModel.signIn(username: username, password: password)
+        self.signIn()
     }
      
     @IBAction func forgotUsernamePasswordButtonAction(){
@@ -119,40 +166,14 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     }
     
     @IBAction func signUpButtonAction(){
+        print("Sign Up")
         let vc: UserSignUpViewController = self.storyboard?.instantiateViewController(withIdentifier: "UserSignUpViewController") as! UserSignUpViewController
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        self.activeField = textField
-        return true
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-            let aRect = self.view.frame
-            if !aRect.contains(self.activeField.frame.origin){
-                self.scrollView.scrollRectToVisible(aRect, animated: true)
-            }
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        let contentInsets = UIEdgeInsets.zero
-        self.scrollView.contentInset = contentInsets
-        self.scrollView.scrollIndicatorInsets = contentInsets
-        
-    }
-    
-    deinit{
-        NotificationCenter.default.removeObserver(self)
+        self.present(vc, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        print("View will appear")
         self.navigationController?.dismiss(animated: false, completion: nil)
         self.navigationController?.navigationBar.isUserInteractionEnabled = false
         
@@ -161,14 +182,33 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loadingView = customAlert.loadingAlert(uiView: self.view)
+               
+         self.loadingView = customAlert.loadingAlert(uiView: self.view)
         
         // Set the textfield delegate to self
         usernameTextField.delegate = self
         passwordTextField.delegate = self
         
-        // Set the facebook login button
-       
+        if let accessToken = AccessToken.current{
+            
+            self.defaults.set(accessToken.userID, forKey: "FB_USER_ID")
+            self.defaults.set(true, forKey: "IS_LOGGED_IN")
+            
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        // Create the Facebook login button
+        let fbLoginButton: FBLoginButton = FBLoginButton()
+        fbLoginButton.center = self.view.center
+        fbLoginButton.delegate = self
+        
+        fbLoginButton.frame = CGRect(x: self.loginButton.frame.origin.x, y: self.loginButton.frame.origin.y + self.loginButton.frame.size.height + 8, width: self.loginButton.frame.width, height: self.loginButton.frame.height)
+        
+        self.view.addSubview(fbLoginButton)
+        
+        // Set the requested permissions
+        fbLoginButton.permissions = ["email", "public_profile"]
+        
         // Disable interaction with the navigation controller
         self.navigationController?.dismiss(animated: true, completion: nil)
         self.navigationController?.navigationBar.isUserInteractionEnabled = false
@@ -177,7 +217,7 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
         scrollView.keyboardDismissMode = .interactive
         
     }
-
+    
     override func loadView(){
         super.loadView()
         let isLoggedIn: Bool = defaults.bool(forKey: "IS_LOGGED_IN")
@@ -188,10 +228,5 @@ class UserSignInController: UIViewController, UserSignInProtocol, UITextFieldDel
         
         self.usernameTextField.delegate = self
         self.passwordTextField.delegate = self
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
-    
 }

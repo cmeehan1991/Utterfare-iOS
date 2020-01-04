@@ -10,5 +10,7 @@ import UIKit
 
 class MyItemsTableCellController: UITableViewCell{
     @IBOutlet weak var itemName: UILabel!
+    @IBOutlet weak var vendorName: UILabel!
     @IBOutlet weak var itemImage: UIImageView!
+    @IBOutlet weak var shortDescription: UITextView!
 }

@@ -14,21 +14,22 @@ protocol UserSignUpProtocol: class {
 
 class UserSignupModel: NSObject{
     weak var delegate: UserSignUpProtocol!
-    func signUp(password: String, email: String, firstName: String, lastName: String, city: String, state: String){
-        let url = URL(string: "https://www.utterfare.com/includes/mobile/users/Users.php")
+    func signUp(emailAddress: String, cellPhone: String, firstName: String, lastName: String, city: String, state: String, postalCode: String,gender: String, birthday: String, password: String){
+        let url = URL(string: "https://www.utterfare.com/includes/php/Users.php")
         var request = URLRequest(url: url!)
         request.httpMethod = "POST"
         
         var parameters = "action=" + "new_user"
-        parameters += "&username=" + email
-        parameters += "&password=" + password
-        parameters += "&email=" + email
+        parameters += "&email=" + emailAddress
+        parameters += "&cell_phone=" + cellPhone
         parameters += "&first_name=" + firstName
         parameters += "&last_name=" + lastName
         parameters += "&city=" + city
         parameters += "&state=" + state
-        
-        print(parameters)
+        parameters += "&postal_code=" + postalCode
+        parameters += "&gender=" + gender
+        parameters += "&birthday=" + birthday
+        parameters += "&password=" + password
         
         request.httpBody = parameters.data(using: .utf8)
         
@@ -43,11 +44,14 @@ class UserSignupModel: NSObject{
     }
     
     func parseData(data: Data){
+        let str = String(data: data, encoding: .utf8)
+        
+        print(str)
         do{
             let jsonResponse = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSDictionary
-            let success: Bool = jsonResponse["SUCCESS"] as! Bool
-            let response = jsonResponse["RESPONSE"] as! String
-            let userId = jsonResponse["ID"] as! String
+            let success: Bool = jsonResponse["success"] as! Bool
+            let response = jsonResponse["response"] as! String
+            let userId = jsonResponse["user_id"] as! String
             
             DispatchQueue.main.async{
                 self.delegate.userSignUp(success: success, response: response, userId: userId)

@@ -48,27 +48,20 @@ class ViewItemModel: NSObject{
             let result = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary
 
             let companyName = result!["vendor_name"] as! String
+    
+            let address = result!["address"] as! String
+
             
-            let address = try JSONSerialization.jsonObject(with: Data((result!["address"] as! String).utf8), options: .allowFragments) as? NSDictionary
+            let telephoneNumber = result!["telephone"] as? String ?? ""
             
-            var fullAddress = address!["_primary_address"] as! String
-            
-            if address!["_secondary_address"] as? String != ""{
-                fullAddress += ", " + String(address!["_secondary_address"] as! String)
-            }
-            
-            fullAddress += ", " + String(address!["_city"] as! String)
-            fullAddress += ", " + String(address!["_state"] as! String)
-            fullAddress += ", " + String(address!["postal_code"] as! String)
-            
-            let phone = result!["telephone"] as! String
+            print(telephoneNumber)
             let link = "Link"//result["URL"] as! String
             let itemName = result!["item_name"] as! String
             let itemDescription = result!["item_description"] as! String
-            let itemImage = result!["primary_image"] as! String
+            let itemImage = result!["primary_image"] as? String ?? "https://www.utterfare.com/assets/img/UF%20Logo.png"
             if self.delegate != nil{
                 DispatchQueue.main.async{
-                    self.delegate.itemsDownloaded(companyName: companyName, address: fullAddress, phone: phone, link: link, itemName: itemName, itemDescription: itemDescription, itemImage: itemImage)
+                    self.delegate.itemsDownloaded(companyName: companyName, address: address, phone: telephoneNumber, link: link, itemName: itemName, itemDescription: itemDescription, itemImage: itemImage)
                 }
             }
         }catch{

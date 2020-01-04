@@ -7,54 +7,81 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
-class UserInformationController: UIViewController, UITextFieldDelegate, GetUserInformationProtocol, SetUserInformationProtocol, RemoveUserProtocol{
+class UserInformationController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, GetUserInformationProtocol, SetUserInformationProtocol, RemoveUserProtocol{
+    
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var primaryAddressField: UITextField!
+    @IBOutlet weak var secondaryAddressField: UITextField!
     @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var stateTextField: UITextField!
+    @IBOutlet weak var postalCodeTextField: UITextField!
+    @IBOutlet weak var cellPhoneTextField: UITextField!
     @IBOutlet weak var emailAddressTextField: UITextField!
+    @IBOutlet weak var genderPickerView: UIPickerView!
+    @IBOutlet weak var birthdayPickerView: UIDatePicker!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     
+    var loadingView: UIView!
+    let formatter = DateFormatter()
     let defaults = UserDefaults()
     let customAlert: CustomAlerts = CustomAlerts()
     let userInformationModel: UserInformationModel = UserInformationModel()
-    var loadingView: UIView = UIView()
-    var firstName: String = String(), lastName: String = String(), city: String = String(), state: String = String(), emailAddress: String = String()
+    
     var activeField: UITextField = UITextField()
+    var genders: Array<String> = ["N/A", "Male", "Female", "Other"]
     
-
+    func getUserInformationProtocol(status: Bool, firstName: String, lastName: String, primaryAddress: String, secondaryAddress: String, city: String, state: String, postalCode: String, emailAddress: String, birthday: String, cellPhone: String, gender: String) {
+        
+        firstNameTextField.text = firstName
+        lastNameTextField.text = lastName
+        primaryAddressField.text = primaryAddress
+        secondaryAddressField.text = secondaryAddress
+        cityTextField.text = city
+        stateTextField.text = state
+        postalCodeTextField.text = postalCode
+        emailAddressTextField.text = emailAddress
+        cellPhoneTextField.text = cellPhone
+        genderPickerView.selectRow(genders.firstIndex(of: gender)!, inComponent: 0, animated: true)
+        
+        
+        let formattedBirthday = formatter.date(from: birthday)
+        birthdayPickerView.date = formattedBirthday!
+        
+        
+        //self.loadingView.removeFromSuperview()
+       // self.view.isUserInteractionEnabled = true
+        
+    }
     
-    func setVariables(){
-        self.firstName = firstNameTextField.text!
-        self.lastName = lastNameTextField.text!
-        self.city = cityTextField.text!
-        self.state = stateTextField.text!
-        self.emailAddress = emailAddressTextField.text!
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return genders.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return genders[row]
     }
     
     func setUserInformationProtocol(status: Bool, response: String){
-        self.loadingView.removeFromSuperview()
+        //self.loadingView.removeFromSuperview()
+        //self.view.isUserInteractionEnabled = true
         if status{
            let alert = customAlert.successAlert(title: "User Updated", message: "Your information has been successfully updated.")
             self.present(alert, animated: true, completion: nil)
         }
+        
     }
     
-    func getUserInformationProtocol(status: Bool, response: String, firstName: String, lastName: String, city: String, state: String, emailAddress: String){
-        self.view.isUserInteractionEnabled = true
-        self.loadingView.removeFromSuperview()
-        if status{
-            firstNameTextField.text = firstName
-            lastNameTextField.text = lastName
-            cityTextField.text = city
-            stateTextField.text = state
-            emailAddressTextField.text = emailAddress
-        }
-    }
     
     func removeUserProtocol(status: Bool, response: String){
-        self.loadingView.removeFromSuperview()
+        //self.loadingView.removeFromSuperview()
         if status{
             defaults.set(false, forKey: "IS_LOGGED_IN")
             defaults.set("", forKey:"USER_ID")
@@ -67,19 +94,13 @@ class UserInformationController: UIViewController, UITextFieldDelegate, GetUserI
     }
     
     func getUserInformation(){
-        self.view.isUserInteractionEnabled = false
-        self.view.addSubview(loadingView)
+        //self.view.isUserInteractionEnabled = true
+        //self.view.addSubview(loadingView)
         self.userInformationModel.delegateGetUser = self
-        userInformationModel.userInformation(action: "get_user", userId: defaults.string(forKey: "USER_ID")!, firstName: firstName, lastName: lastName, city: city,  state: state, emailAddress: emailAddress, password: String())
+
+        userInformationModel.getUserInformation(userId: defaults.string(forKey: "USER_ID")!)
     }
-    
-    func setUserInformation(){
-        setVariables()
-        self.view.isUserInteractionEnabled = false
-        self.view.addSubview(loadingView)
-        self.userInformationModel.delegateSetUser = self
-        userInformationModel.userInformation(action: "set_user", userId: defaults.string(forKey: "USER_ID")!, firstName: firstName, lastName: lastName, city: city, state: state, emailAddress: emailAddress, password: String())
-    }
+
     
     func removeUserAccount(){
         let alert = UIAlertController(title: "Permanently Delete Account", message: "Are you sure you want to permanently delete your account. You will not be able to access your account data and your CANNOT be recovered once you do this.", preferredStyle: .actionSheet)
@@ -87,7 +108,7 @@ class UserInformationController: UIViewController, UITextFieldDelegate, GetUserI
             self.view.isUserInteractionEnabled = false
             self.view.addSubview(self.loadingView)
             self.userInformationModel.delegateRemoveUser = self
-            self.userInformationModel.userInformation(action: "remove_user", userId: self.defaults.string(forKey: "USER_ID")!, firstName: String(), lastName: String(), city: String(), state: String(), emailAddress: String(), password: String())
+            self.userInformationModel.removeUser(userId: self.defaults.string(forKey:"USER_ID")!)
         })
         let cancelAction = UIAlertAction(title:"Cancel", style: .cancel, handler: nil)
         
@@ -103,7 +124,15 @@ class UserInformationController: UIViewController, UITextFieldDelegate, GetUserI
     }
     
     @IBAction func saveUserInformation(){
-        setUserInformation()
+        //self.view.isUserInteractionEnabled = false
+        //self.view.addSubview(loadingView)
+        self.userInformationModel.delegateSetUser = self
+        
+        // Format the birthday date to string
+        let birthday = formatter.string(from: birthdayPickerView.date)
+        
+        
+        userInformationModel.saveUserInformation(firstName: firstNameTextField.text!, lastName: lastNameTextField.text!, primaryAddress:primaryAddressField.text!, secondaryAddress: secondaryAddressField.text!, city: cityTextField.text!, state: stateTextField.text!, postalCode: postalCodeTextField.text!, email: emailAddressTextField.text!, cellPhone: cellPhoneTextField.text!, birthday: birthday, gender: genders[genderPickerView.selectedRow(inComponent: 0)], userId: self.defaults.string(forKey: "USER_ID")!)
     }
     
     @IBAction func updatePasswordAction(){
@@ -118,32 +147,18 @@ class UserInformationController: UIViewController, UITextFieldDelegate, GetUserI
     @IBAction func logOutAction(){
         defaults.set(String(), forKey: "USER_ID")
         defaults.set(false, forKey: "IS_LOGGED_IN")
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "UserSignInController") as! UserSignInController
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        self.activeField = textField
-        return true
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-            let aRect = self.view.frame
-            if !aRect.contains(self.activeField.frame.origin){
-                self.scrollView.scrollRectToVisible(aRect, animated: true)
-            }
+        defaults.set("", forKey: "USER_FB_ID")
+        if AccessToken.current != nil{
+            let loginManager = LoginManager()
+            loginManager.logOut()
         }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        let contentInsets = UIEdgeInsets.zero
-        self.scrollView.contentInset = contentInsets
-        self.scrollView.scrollIndicatorInsets = contentInsets
         
+        self.loadView()
+         let vc : UserSignInController = self.storyboard?.instantiateViewController(withIdentifier: "UserSignInController") as! UserSignInController
+                   vc.userInformationVC = self
+                   self.present(vc, animated: true, completion: nil)
     }
-    
+
     deinit{
         NotificationCenter.default.removeObserver(self)
     }
@@ -152,21 +167,42 @@ class UserInformationController: UIViewController, UITextFieldDelegate, GetUserI
         super.viewDidLoad()
         
         // Initialize the loading view
-        loadingView = customAlert.loadingAlert(uiView: self.view)
+        //loadingView = customAlert.loadingAlert(uiView: self.view)
+
         
-        // Get the user's information
-        getUserInformation()
+        self.genderPickerView.delegate = self
+        self.genderPickerView.dataSource = self
         
-        // Set textfields delegate
-        self.firstNameTextField.delegate = self
-        self.lastNameTextField.delegate = self
-        self.cityTextField.delegate = self
-        self.stateTextField.delegate = self
-        self.emailAddressTextField.delegate = self
+        self.contentView.sizeToFit()
+        self.scrollView.contentSize.height = self.contentView.frame.size.height
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        
+        formatter.dateFormat = "yyyy-MM-dd"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        let isLoggedIn = defaults.bool(forKey: "IS_LOGGED_IN")
+        if !isLoggedIn{
+            let vc : UserSignInController = self.storyboard?.instantiateViewController(withIdentifier: "UserSignInController") as! UserSignInController
+            vc.userInformationVC = self
+            self.present(vc, animated: true, completion: nil)
+            
+        }else{
+            // Get the user's information
+            getUserInformation()
+
+            self.contentView.sizeToFit()
+            self.scrollView.contentSize.height = self.contentView.frame.size.height
+        }
+        
+    }
+    
+    override func loadView() {
+        super.loadView()
+        // Check if the user is logged in.
+        // If not we are going to redirect them to the login page.
+        
     }
     
 }

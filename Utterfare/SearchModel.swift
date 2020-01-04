@@ -65,9 +65,7 @@ class SearchModel: NSObject{
                 
                 for i in 0..<(results.count){
                     let result = results[i] as! NSDictionary
-                    
-                    print(result["item_id"] as! String)
-                    
+                                        
                     itemsId.append(result["item_id"] as! String)
                     itemsImage.append(result["primary_image"] as! String)
                     itemsName.append(result["item_name"] as! String)

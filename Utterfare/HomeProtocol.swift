@@ -112,11 +112,16 @@ class HomeItems: NSObject{
                         self.delegate.downloadLocalPicks(itemIds: itemIds, itemNames: itemNames, itemImages: itemImageUrls)
                     }
                 }
+            }else{
+                DispatchQueue.main.async{
+                    self.delegate.downloadTopPicks(itemIds: NSArray(), itemNames: NSArray(), itemImages: NSArray())
+                    self.delegate.downloadTopItems(itemIds: NSArray(), itemNames: NSArray(), itemImages: NSArray())
+                    self.delegate.downloadLocalPicks(itemIds: NSArray(), itemNames: NSArray(), itemImages: NSArray())
+                }
             }
         }catch{
             print("JSON Error: ", error.localizedDescription )
             let str = String(data: data, encoding: .utf8)
-            print(str)
         }
     }
 }

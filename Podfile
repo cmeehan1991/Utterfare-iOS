@@ -9,7 +9,13 @@ target 'Utterfare' do
 
   pod ‘SDWebImage’, ‘~>3.8’
   pod 'GooglePlaces'
-  pod 'GoogleMaps'
+  pod 'GoogleMaps' 
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKLoginKit'
+  pod 'FBSDKShareKit'
+ 
 
   target 'UtterfareTests' do
     inherit! :search_paths

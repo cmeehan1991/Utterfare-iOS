@@ -10,7 +10,7 @@ import Foundation
 
 
 protocol GetUserInformationProtocol: class{
-    func getUserInformationProtocol(status: Bool, response: String, firstName: String, lastName: String, city: String, state: String, emailAddress: String)
+    func getUserInformationProtocol(status: Bool, firstName: String, lastName: String, primaryAddress: String, secondaryAddress: String, city: String, state: String, postalCode: String, emailAddress: String, birthday: String, cellPhone: String, gender: String)
 }
 
 protocol SetUserInformationProtocol: class{
@@ -31,24 +31,68 @@ class UserInformationModel: NSObject{
     weak var delegateSetUser: SetUserInformationProtocol!
     weak var delegateRemoveUser: RemoveUserProtocol!
     weak var delegateUpdatePassword: UpdatePasswordProtocol!
+    let requestUrl = URL(string: "https://www.utterfare.com/includes/php/Users.php")
+    
+    func updatePassword(userId: String, password: String){
+        
+    }
+    
+    /*
+     * Remove the user
+     */
+    func removeUser(userId: String){
+        
+    }
+    
+    /*
+     * Save the User's information
+     */
+    func saveUserInformation(firstName: String, lastName: String, primaryAddress: String, secondaryAddress: String, city: String, state: String, postalCode: String, email: String, cellPhone: String, birthday: String, gender: String, userId: String){
+        var request = URLRequest(url: requestUrl!)
+        request.httpMethod = "post"
+        
+        var parameters = "action=set_user"
+        parameters += "&user_id=" + userId
+        parameters += "&first_name=" + firstName
+        parameters += "&last_name=" + lastName
+        parameters += "&primary_address=" + primaryAddress
+        parameters += "&secondary_address=" + secondaryAddress
+        parameters += "&city=" + city
+        parameters += "&state=" + state
+        parameters += "&postal_code=" + postalCode
+        parameters += "&email=" + email
+        parameters += "&telephone_number=" + cellPhone
+        parameters += "&gender=" + gender
+        parameters += "&birthday=" + birthday
+        
+        print(parameters)
+        
+        request.httpBody = parameters.data(using: .utf8)
+        
+        let task = URLSession.shared.dataTask(with: request){
+            data, response, error in
+            if error != nil{
+                print("Task error \(error?.localizedDescription ?? "No message")")
+                return
+            }
+            
+            self.parseSetUserInformation(data: data!)
+        }
+        
+        task.resume()
+    }
     
     /**
      * Handles the request & task
      * Actions: get_user, set_user, remove_user, update_password
      */
-    func userInformation(action: String, userId: String, firstName: String, lastName: String, city: String, state: String, emailAddress: String, password: String){
-        let requestUrl = URL(string: "https://www.utterfare.com/includes/mobile/users/Users.php")
+    func getUserInformation(userId: String){
+
         var request = URLRequest(url: requestUrl!)
         request.httpMethod = "post"
         
-        var parameters = "action=" + action
+        var parameters = "action=get_user"
         parameters += "&user_id=" + userId
-        parameters += "&first_name=" + firstName
-        parameters += "&last_name=" + lastName
-        parameters += "&city=" + city
-        parameters += "&state=" + state
-        parameters += "&email_address=" + emailAddress
-        parameters += "&password=" + password
         request.httpBody = parameters.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: request){
@@ -57,21 +101,8 @@ class UserInformationModel: NSObject{
                 print("Task Error: \(String(describing: error?.localizedDescription))")
                 return
             }
-            switch(action){
-            case "get_user":
-                self.parseGetUserInformation(data: data!)
-                break
-            case "set_user":
-                self.parseSetUserInformation(data: data!)
-                break
-            case "remove_user":
-                self.parseRemoveUser(data: data!)
-                break
-            case "update_password":
-                self.parseUpdatePassword(data: data!)
-                break
-            default: break
-            }
+            self.parseGetUserInformation(data: data!)
+                
         }
         task.resume()
     }
@@ -80,24 +111,29 @@ class UserInformationModel: NSObject{
     * Parse user information and send it back to the controller
     */
     private func parseGetUserInformation(data: Data){
+
         do{
             let jsonResponse = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSDictionary
             
             if jsonResponse["SUCCESS"] as! Bool {
-                let firstName: String = jsonResponse["FIRST_NAME"] as! String
-                let lastName: String = jsonResponse["LAST_NAME"] as! String
-                let city: String = jsonResponse["CITY"] as! String
-                let state: String = jsonResponse["STATE"] as! String
-                let emailAddress: String = jsonResponse["EMAIL"] as! String
-                print(jsonResponse)
+                let firstName: String = jsonResponse["first_name"] as? String ?? ""
+                let lastName: String = jsonResponse["last_name"] as? String ?? ""
+                let primaryAddress = jsonResponse["primary_address"] as? String ?? ""
+                let secondaryAddress = jsonResponse["secondary_address"] as? String ?? ""
+                let city: String = jsonResponse["city"] as? String ?? ""
+                let state: String = jsonResponse["state"] as? String ?? ""
+                let postalCode = jsonResponse["postal_code"] as? String ?? ""
+                let emailAddress: String = jsonResponse["email"] as? String ?? ""
+                let cellPhone = jsonResponse["cell_phone"] as? String ?? ""
+                let gender = jsonResponse["gender"] as? String ?? "N/A"
+                let birthday = jsonResponse["birthday"] as? String ?? "1991-06-30"
+                
+                
                 DispatchQueue.main.async {
-                    self.delegateGetUser.getUserInformationProtocol(status: true, response: jsonResponse["RESPONSE"] as! String, firstName: firstName, lastName: lastName, city: city, state: state, emailAddress: emailAddress)
+                    self.delegateGetUser.getUserInformationProtocol(status: true, firstName: firstName, lastName: lastName, primaryAddress: primaryAddress, secondaryAddress: secondaryAddress, city: city, state: state, postalCode: postalCode, emailAddress: emailAddress, birthday: birthday, cellPhone: cellPhone, gender: gender)
                 }
             }
         }catch{
-            DispatchQueue.main.async {
-                self.delegateGetUser.getUserInformationProtocol(status: false, response: error.localizedDescription, firstName: "", lastName: "", city: "", state: "", emailAddress: "")
-            }
             print("JSON Error: \(error.localizedDescription)")
         }
     }
@@ -106,6 +142,9 @@ class UserInformationModel: NSObject{
      * Parse response from setting the user information and send it back to the controller
      */
     private func parseSetUserInformation(data: Data){
+        let str = String(data: data, encoding: .utf8)
+        print(str)
+        
         do{
             let jsonResponse = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSDictionary
             

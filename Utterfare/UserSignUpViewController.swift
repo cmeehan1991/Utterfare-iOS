@@ -8,35 +8,67 @@
 
 import UIKit
 
-class UserSignUpViewController: UIViewController, UITextFieldDelegate, UserSignUpProtocol{
+class UserSignUpViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UserSignUpProtocol, UITextFieldDelegate{
     
+    @IBOutlet weak var emailAddressTextField: UITextField!
+    @IBOutlet weak var cellPhoneTextField: UITextField!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var stateTextField: UITextField!
-    @IBOutlet weak var emailAddressTextField: UITextField!
+    @IBOutlet weak var postalCodeTextField: UITextField!
+    @IBOutlet weak var genderPickerView: UIPickerView!
+    @IBOutlet weak var birthdayPickerView: UIDatePicker!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
-    @IBOutlet var keyboardHeighLayoutConstraint: NSLayoutConstraint?
+    
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     
     let defaults = UserDefaults.standard
     let customAlert = CustomAlerts()
     var loadingView: UIView = UIView()
     var activeField: UITextField = UITextField()
     var password: String = String(), confirmPassword: String = String(), email: String = String(), firstName: String = String(), lastName: String = String(), city: String = String(), state: String = String()
+    var genders: Array<String> = ["", "Male", "Female", "Other"]
     
+    /*
+     * Set the row values for the gender pickerview
+     */
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return genders[row]
+    }
+    
+    /*
+     * Set the number of components (columns) in the picker view
+     */
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    /*
+     * Set the number of items in the gender pickerview
+     */
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return genders.count
+    }
+    
+    /*
+     * Handle the response from the user signing up
+     */
     func userSignUp(success: Bool, response: String, userId: String) {
         self.loadingView.removeFromSuperview()
-        if success{
-            defaults.set(userId, forKey: "USER_ID")
-            defaults.set(true, forKey: "IS_LOGGED_IN")
+
+        if success == true{
             goToView()
         }else{
             explainFail(fail: response)
         }
     }
     
+    /*
+     * If signing up failed, explain why to the user.
+     */
     func explainFail(fail: String){
         let alert = UIAlertController(title: "Error", message: fail, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -44,48 +76,64 @@ class UserSignUpViewController: UIViewController, UITextFieldDelegate, UserSignU
         self.present(alert, animated: true, completion: nil)
     }
     
+    /*
+     * Go to the previous view controller
+     */
     func goToView(){
-        let vc: MyItemsViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyItemsViewController") as! MyItemsViewController
-        self.navigationController?.pushViewController(vc, animated: true)
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func signUp(){
-        self.loadingView = customAlert.loadingAlert(uiView: self.view)
-        self.view.addSubview(self.loadingView)
-        let signUpModel: UserSignupModel = UserSignupModel()
-        signUpModel.delegate = self
-        signUpModel.signUp(password: password, email: email, firstName: firstName, lastName: lastName, city: city, state: state)
-    }
-    
+    /*
+     * Validate the required user inputs
+     * Required: email, password, birthday, city, postal code, cellphone number
+     */
     func validateInformation() -> Bool{
-        if email.isEmpty{
+        
+        if(emailAddressTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines) == "" || emailAddressTextField.text!.isEmpty){
             return false
         }
-        if password.isEmpty{
+        
+        if(cellPhoneTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines) == "" || cellPhoneTextField.text!.isEmpty){
             return false
         }
-        if password != confirmPassword {
+        
+        if(firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines) == "" || firstNameTextField.text!.isEmpty){
+            return false
+        }
+        
+        if(lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines) == "" || lastNameTextField.text!.isEmpty){
+            return false
+        }
+        
+        if(cityTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines) == "" || cityTextField.text!.isEmpty){
+            return false
+        }
+        
+        if(postalCodeTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines) == "" || postalCodeTextField.text!.isEmpty){
+            return false
+        }
+        
+        if(passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines) == "" || passwordTextField.text!.isEmpty || passwordTextField.text! != confirmPasswordTextField.text!){
             return false
         }
         
         return true
     }
     
-    @IBAction func popNavigation(){
-        self.navigationController?.popViewController(animated: true)
-    }
-    
+
+    /*
+     * Handle the sign up button on touch up inside
+     */
     @IBAction func signUpAction(){
-        password = self.passwordTextField.text!
-        confirmPassword = self.confirmPasswordTextField.text!
-        email = self.emailAddressTextField.text!
-        firstName = self.firstNameTextField.text!
-        lastName = self.lastNameTextField.text!
-        city = self.cityTextField.text!
-        state = self.stateTextField.text!
-        if validateInformation() {
-            signUp()
+        if validateInformation() == true{
+            let signUpModel: UserSignupModel = UserSignupModel()
+            signUpModel.delegate = self
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let birthday = dateFormatter.string(from: birthdayPickerView.date)
+            
+            signUpModel.signUp(emailAddress: emailAddressTextField.text!, cellPhone: cellPhoneTextField.text!, firstName: firstNameTextField.text!, lastName: lastNameTextField.text!, city: cityTextField.text!, state: stateTextField.text!, postalCode: postalCodeTextField.text!, gender: genders[genderPickerView.selectedRow(inComponent: 0)], birthday: birthday, password: passwordTextField.text!)
         }else{
             let alert = UIAlertController(title: "Invalid Info", message: "Please check to make sure you entered all the required information.", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -94,83 +142,31 @@ class UserSignUpViewController: UIViewController, UITextFieldDelegate, UserSignU
         }
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch(textField){
-        case firstNameTextField:
-            self.firstNameTextField.resignFirstResponder()
-            self.lastNameTextField.becomeFirstResponder()
-            break
-        case lastNameTextField:
-            self.lastNameTextField.resignFirstResponder()
-            self.cityTextField.becomeFirstResponder()
-            break
-        case cityTextField:
-            self.cityTextField.resignFirstResponder()
-            self.stateTextField.becomeFirstResponder()
-            break
-        case stateTextField:
-            self.stateTextField.resignFirstResponder()
-            self.emailAddressTextField.becomeFirstResponder()
-            break
-        case emailAddressTextField:
-            self.emailAddressTextField.resignFirstResponder()
-            self.passwordTextField.becomeFirstResponder()
-            break
-        case passwordTextField:
-            self.passwordTextField.resignFirstResponder()
-            self.confirmPasswordTextField.becomeFirstResponder()
-            break
-        case confirmPasswordTextField:
-            self.confirmPasswordTextField.resignFirstResponder()
-            self.view.endEditing(true)
-            self.signUpAction()
-            break
-        default: break
-        }
-        return true
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("Did begin editing")
+        
+        let top = textField.frame.origin.y - 40
+        let point = CGPoint(x: 0, y: top)
+        self.scrollView.setContentOffset(point, animated: true)
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        self.activeField = textField
-        return true
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-            let aRect = self.view.frame
-            if !aRect.contains(self.activeField.frame.origin){
-                self.scrollView.scrollRectToVisible(aRect, animated: true)
-            }
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        let contentInsets = UIEdgeInsets.zero
-        self.scrollView.contentInset = contentInsets
-        self.scrollView.scrollIndicatorInsets = contentInsets
-
-    }
-    
-    deinit{
-        NotificationCenter.default.removeObserver(self)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set textfields delegate
-        self.firstNameTextField.delegate = self
-        self.lastNameTextField.delegate = self
-        self.cityTextField.delegate = self
-        self.stateTextField.delegate = self
-        self.emailAddressTextField.delegate = self
-        self.passwordTextField.delegate = self
-        self.confirmPasswordTextField.delegate = self
+        self.genderPickerView.delegate = self
+        self.genderPickerView.dataSource = self
         
-        //NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardNotification(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        self.contentView.sizeToFit()
+        self.scrollView.contentSize.height = self.contentView.frame.size.height + 100
+        
+        print(self.contentView.frame.size)
+        print(self.scrollView.contentSize)
+        
+        self.emailAddressTextField.becomeFirstResponder()
+        
+        self.confirmPasswordTextField.delegate = self
+        self.passwordTextField.delegate = self
     }
 }

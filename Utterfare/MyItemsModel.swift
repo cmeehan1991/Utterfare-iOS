@@ -9,7 +9,7 @@
 import Foundation
 
 protocol GetItemsProtocol: class{
-    func getItemsProtocol(hasItems: Bool, itemIds: Array<String>, dataTabes: Array<String>, itemNames: Array<String>, itemImages: Array<String>)
+    func getItemsProtocol(hasItems: Bool, userItemsId: Array<String>, itemsId: Array<String>, itemsName: Array<String>, itemsShortDescription: Array<String>, itemsImage: Array<String>, itemsVendorName: Array<String>)
 }
 
 protocol RemoveItemsProtocol: class{
@@ -24,25 +24,18 @@ class MyItemsModel: NSObject{
     weak var delegateGetItems: GetItemsProtocol!
     weak var delegateRemoveItem: RemoveItemsProtocol!
     weak var delegateAddItem: AddItemProtocol!
-    let requestUrl = URL(string: "https://www.utterfare.com/includes/mobile/items/UserItems.php")
+    let requestUrl = URL(string: "https://www.utterfare.com/includes/php/UsersItems.php")
 
     /*
     * Add an item to the user's saved items
     */
-    func addItem(userId: String, itemId: String, itemName: String, dataTable: String, itemImageUrl: String){
+    func addItem(userId: String, itemId: String){
         var request: URLRequest = URLRequest(url: requestUrl!)
         request.httpMethod = "post"
         
         var parameters = "action=" + "add_item"
         parameters += "&user_id=" + userId
         parameters += "&item_id=" + itemId
-        parameters += "&item_name=" + itemName
-        parameters += "&data_table=" + dataTable
-        parameters += "&item_image_url=" + itemImageUrl
-        
-        print(parameters)
-        
-        print(parameters)
         
         request.httpBody = parameters.data(using: .utf8)
         
@@ -66,9 +59,7 @@ class MyItemsModel: NSObject{
         
         var parameters = "action=" + "get_items"
         parameters += "&user_id=" + userId
-        
-        print(parameters)
-        
+                
         urlRequest.httpBody = parameters.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: urlRequest){
@@ -85,15 +76,15 @@ class MyItemsModel: NSObject{
     /*
     * Remove the selected item
     */
-    func removeItem(userId: String, itemId: String, dataTable: String){
+    func removeItem(userId: String, itemId: String, userItemId: String){
         var request: URLRequest = URLRequest(url: requestUrl!)
         request.httpMethod = "post"
         
         var parameters = "action=" + "remove_item"
         parameters += "&user_id=" + userId
         parameters += "&item_id=" + itemId
-        parameters += "&data_table=" + dataTable
-        
+        parameters += "&user_item_id=" + userItemId
+                
         request.httpBody = parameters.data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: request){
@@ -111,6 +102,7 @@ class MyItemsModel: NSObject{
     * Handle the response from the server when adding an item to the user's favorites
     */
     func parseAddItem(data: Data){
+        
         do{
             let jsonResponse = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSDictionary
             DispatchQueue.main.async {
@@ -125,24 +117,30 @@ class MyItemsModel: NSObject{
     * Parse the data returned from the requested user's items
     */
     private func parseGetItems(data: Data){
-        print(String.init(data: data, encoding: .utf8))
+        let str = String(data: data, encoding: .utf8)
+        print(str)
         do{
             let jsonResponse = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSArray
             if let results = jsonResponse{
-                var itemIds: Array<String> = Array()
-                var dataTables: Array<String> = Array()
-                var itemNames: Array<String> = Array()
-                var itemImages: Array<String> = Array()
+                var userItemsId: Array<String> = Array()
+                var itemsId: Array<String> = Array()
+                var itemsName: Array<String> = Array()
+                var itemsShortDescription: Array<String> = Array()
+                var itemsImage: Array<String> = Array()
+                var itemsVendorName: Array<String> = Array()
+                
                 for i in 0..<(results.count){
                     let item = results[i] as! NSDictionary
-
-                    itemIds.append(item["ITEM_ID"] as! String)
-                    dataTables.append(item["ITEM_DATA_TABLE"] as! String)
-                    itemNames.append(item["ITEM_NAME"] as! String)
-                    itemImages.append(item["ITEM_IMAGE_URL"] as! String)
+                    
+                    userItemsId.append(item["user_item_id"] as! String)
+                    itemsId.append(item["item_id"] as! String)
+                    itemsName.append(item["item_name"] as! String)
+                    itemsShortDescription.append(item["item_short_description"] as! String)
+                    itemsImage.append(item["primary_image"] as! String)
+                    itemsVendorName.append(item["vendor_name"] as! String)
                 }
                 DispatchQueue.main.async {
-                    self.delegateGetItems.getItemsProtocol(hasItems: results.count > 0, itemIds: itemIds, dataTabes: dataTables, itemNames: itemNames, itemImages: itemImages)
+                    self.delegateGetItems.getItemsProtocol(hasItems: results.count > 0, userItemsId: userItemsId, itemsId: itemsId, itemsName: itemsName, itemsShortDescription: itemsShortDescription, itemsImage: itemsImage, itemsVendorName: itemsVendorName)
                 }
             }
         }catch{
@@ -154,6 +152,8 @@ class MyItemsModel: NSObject{
     * Parse the response after removing the item
     */
     private func parseRemoveItem(data: Data){
+        let str = String(data: data, encoding: .utf8)
+        print(str)
         do{
             let jsonResponse = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSDictionary
             

@@ -11,12 +11,14 @@ import UIKit
 import SDWebImage
 
 class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GetItemsProtocol, RemoveItemsProtocol{
+
+    
     
     @IBOutlet weak var itemsTableView: UITableView!
     
     let defaults = UserDefaults.standard
     var itemsModel: MyItemsModel = MyItemsModel()
-    var itemIds: Array<String> = Array<String>(), itemNames: Array = Array<String>(), itemImages: Array = Array<String>(), itemDatatables: Array = Array<String>()
+    var userItemsId: Array<String> = Array(), itemsId: Array<String> = Array(), itemsName: Array<String> = Array(), itemsImage: Array<String> = Array(), itemsShortDescription: Array<String> = Array(), itemsVendorName: Array<String> = Array()
     let customAlert: CustomAlerts = CustomAlerts()
     var indexToRemove: IndexPath = IndexPath()
     var loadingView: UIView = UIView()
@@ -32,12 +34,15 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*
     * Get items protocol
     */
-    func getItemsProtocol(hasItems: Bool, itemIds: Array<String>, dataTabes: Array<String>, itemNames: Array<String>, itemImages: Array<String>) {
+    func getItemsProtocol(hasItems: Bool, userItemsId: Array<String>, itemsId: Array<String>, itemsName: Array<String>, itemsShortDescription: Array<String>, itemsImage: Array<String>, itemsVendorName: Array<String>) {
         if hasItems{
-            self.itemIds = itemIds
-            self.itemImages = itemImages
-            self.itemNames = itemNames
-            self.itemDatatables = dataTabes
+            self.userItemsId = userItemsId
+            self.itemsId = itemsId
+            self.itemsName = itemsName
+            self.itemsShortDescription = itemsShortDescription
+            self.itemsImage = itemsImage
+            self.itemsVendorName = itemsVendorName
+            
             self.itemsTableView.reloadData()
         }
         self.loadingView.removeFromSuperview()
@@ -49,10 +54,11 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func removeItemsProtocol(status: Bool, response: String) {
         self.loadingView.removeFromSuperview()
         if status{
-            self.itemIds.remove(at: self.indexToRemove.row)
-            self.itemNames.remove(at: self.indexToRemove.row)
-            self.itemImages.remove(at: self.indexToRemove.row)
-            self.itemDatatables.remove(at: self.indexToRemove.row)
+            self.userItemsId.remove(at: self.indexToRemove.row)
+            self.itemsId.remove(at: self.indexToRemove.row)
+            self.itemsName.remove(at: self.indexToRemove.row)
+            self.itemsShortDescription.remove(at: self.indexToRemove.row)
+            self.itemsImage.remove(at: self.indexToRemove.row)
             self.itemsTableView.deleteRows(at: [self.indexToRemove], with: .fade)
         }else{
             let alert = customAlert.errorAlert(title: "Failed to Delete Item", message: response)
@@ -64,7 +70,7 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
     * Dynamically loads the correct number of rows in the table
     */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemIds.count
+        return itemsId.count
     }
     
     /*
@@ -72,9 +78,11 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let itemsCell: MyItemsTableCellController = itemsTableView.dequeueReusableCell(withIdentifier: "ItemCell") as! MyItemsTableCellController
-        itemsCell.itemName.text = itemNames[indexPath.row]
-        let itemImageUrl = itemImages[indexPath.row]
-        itemsCell.itemImage.sd_setImage(with: URL(string: itemImageUrl), placeholderImage: UIImage(named:"placeholder.png"))
+        
+        itemsCell.itemName.text = itemsName[indexPath.row]
+        itemsCell.vendorName.text = itemsVendorName[indexPath.row]
+        itemsCell.shortDescription.text = itemsShortDescription[indexPath.row]
+        itemsCell.itemImage.sd_setImage(with: URL(string: itemsImage[indexPath.row]), placeholderImage: UIImage(named:"placeholder.png"))
         return itemsCell
     }
     
@@ -100,8 +108,8 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
     */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ViewItemController") as! ViewItemController
-        vc.itemId = self.itemIds[indexPath.row]
-        vc.dataTable = self.itemDatatables[indexPath.row]
+        vc.itemId = self.itemsId[indexPath.row]
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -111,7 +119,7 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
     * that they actually want tot delete that item.
     */
     func removeItem(){
-        let removeConfirm = UIAlertController(title: "Delete Item", message: "Are you sure you want to permanently delete \(itemNames[indexToRemove.row]) from your saved items? This action cannot be undone.", preferredStyle: .actionSheet)
+        let removeConfirm = UIAlertController(title: "Delete Item", message: "Are you sure you want to permanently delete \(itemsName[indexToRemove.row]) from your saved items? This action cannot be undone.", preferredStyle: .actionSheet)
         let confirmRemoval = UIAlertAction(title: "Delete", style: .destructive, handler: handleDeleteItem)
         let cancelRemoval = UIAlertAction(title:"Cancel", style: .cancel, handler: nil)
         
@@ -132,10 +140,10 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let indexPath = self.indexToRemove.row
         
         let userId = self.defaults.string(forKey: "USER_ID")
-        let itemId = self.itemIds[indexPath]
-        let dataTable = self.itemDatatables[indexPath]
+        let itemId = self.itemsId[indexPath]
+        let userItemId = self.userItemsId[indexPath]
         
-        self.itemsModel.removeItem(userId: userId!, itemId: itemId, dataTable: dataTable)
+        self.itemsModel.removeItem(userId: userId!, itemId: itemId, userItemId: userItemId)
     }
     
     func getItems(){
@@ -161,6 +169,11 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let loggedIn: Bool = defaults.bool(forKey: "IS_LOGGED_IN")
         if loggedIn{
             getItems()
+        }else{
+            let vc : UserSignInController = self.storyboard?.instantiateViewController(withIdentifier: "UserSignInController") as! UserSignInController
+            //self.navigationController?.pushViewController(vc, animated: true)
+            vc.userItemsVC = self
+            self.present(vc, animated: true, completion: nil)
         }
     }
     
@@ -170,16 +183,10 @@ class MyItemsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Deletagate and set the datasource for the items table.
         self.itemsTableView.delegate = self
         self.itemsTableView.dataSource = self
+        self.itemsTableView.allowsSelection = true
     }
     
     override func loadView(){
-        super.loadView()        
-        // Check if the user is logged in.
-        // If not we are going to redirect them to the login page.
-        let isLoggedIn = defaults.bool(forKey: "IS_LOGGED_IN")
-        if !isLoggedIn{
-            let vc : UserSignInController = self.storyboard?.instantiateViewController(withIdentifier: "UserSignInController") as! UserSignInController
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+        super.loadView()
     }
 }

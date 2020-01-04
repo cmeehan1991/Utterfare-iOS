@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		439A565D90D512DC5EDC44BD /* Pods_Utterfare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9C29510AA1D594FB8B313B /* Pods_Utterfare.framework */; };
 		A20178F22077E3500058E190 /* PasswordResetCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20178F12077E3500058E190 /* PasswordResetCodeController.swift */; };
 		A20178F42077E38C0058E190 /* PasswordResetCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20178F32077E38C0058E190 /* PasswordResetCodeModel.swift */; };
 		A20178F62077E39C0058E190 /* NewPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20178F52077E39C0058E190 /* NewPasswordController.swift */; };
@@ -27,6 +26,7 @@
 		A23F3CF523A3ED27000546DC /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23F3CF423A3ED27000546DC /* LocationViewController.swift */; };
 		A23F3CF723A3F337000546DC /* LocationTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23F3CF623A3F337000546DC /* LocationTableViewCellController.swift */; };
 		A23F3CF923A78E2C000546DC /* ExplorerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23F3CF823A78E2C000546DC /* ExplorerViewController.swift */; };
+		A24E006D23AC16B40064C857 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24E006C23AC16B40064C857 /* CustomViews.swift */; };
 		A265CF622077C66500D104BB /* RequestPasswordResetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265CF612077C66500D104BB /* RequestPasswordResetController.swift */; };
 		A265CF642077C69500D104BB /* RequestPasswordResetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265CF632077C69500D104BB /* RequestPasswordResetModel.swift */; };
 		A27C6634206EBFB200015274 /* MyItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27C6633206EBFB200015274 /* MyItemsViewController.swift */; };
@@ -44,12 +44,13 @@
 		A2AFF9A0206FCB8A008851F9 /* UserSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AFF99F206FCB8A008851F9 /* UserSignUpViewController.swift */; };
 		A2AFF9A2206FCDC1008851F9 /* UserSignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AFF9A1206FCDC1008851F9 /* UserSignUpModel.swift */; };
 		A2B00E451E22A5D9004CACCF /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B00E441E22A5D9004CACCF /* SearchModel.swift */; };
-		A2C836EF22D7C26A009C78A3 /* Home Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C836EE22D7C26A009C78A3 /* Home Controller.swift */; };
+		A2C836EF22D7C26A009C78A3 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C836EE22D7C26A009C78A3 /* HomeController.swift */; };
 		A2C836F122D7C405009C78A3 /* CollectionViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C836F022D7C405009C78A3 /* CollectionViewCellController.swift */; };
 		A2C836F722D7C6A7009C78A3 /* HomeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C836F622D7C6A7009C78A3 /* HomeProtocol.swift */; };
 		A2E6AA452090C5C3002E93B7 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2E6AA442090C5C3002E93B7 /* MainTabBarController.swift */; };
-		E2F6981F33B3258ACDEF8034 /* Pods_UtterfareUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA5E46EA3B9C26C49DFDFFB /* Pods_UtterfareUITests.framework */; };
-		F290D91E831E20B3B672A3D3 /* Pods_UtterfareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09E843D5DA1C138C7E25A19B /* Pods_UtterfareTests.framework */; };
+		E2731FF0CA0D7E4913CD5D07 /* Pods_UtterfareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36CC57F76371145359072E87 /* Pods_UtterfareTests.framework */; };
+		E46CC5A3A4B05F347768BAAA /* Pods_Utterfare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1879A51E380F8E75C567F0 /* Pods_Utterfare.framework */; };
+		F62ACC36D1EE02152A8D9440 /* Pods_UtterfareUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A6E31C92CBAD1B5E67E2872 /* Pods_UtterfareUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,13 +71,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04942A706D9F2AEEFA0B81DF /* Pods-UtterfareUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtterfareUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UtterfareUITests/Pods-UtterfareUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		068C34851883620C30C92EFE /* Pods-Utterfare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Utterfare.release.xcconfig"; path = "Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare.release.xcconfig"; sourceTree = "<group>"; };
-		09E843D5DA1C138C7E25A19B /* Pods_UtterfareTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UtterfareTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		191438673DBEAE6FE1C10B26 /* Pods-UtterfareUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtterfareUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UtterfareUITests/Pods-UtterfareUITests.release.xcconfig"; sourceTree = "<group>"; };
-		4221C6E5957A61B8DBFB4ECD /* Pods-UtterfareTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtterfareTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UtterfareTests/Pods-UtterfareTests.debug.xcconfig"; sourceTree = "<group>"; };
-		609F55E0384BD3FC6B2C3E86 /* Pods-UtterfareTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtterfareTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UtterfareTests/Pods-UtterfareTests.release.xcconfig"; sourceTree = "<group>"; };
-		9E448123B855267EBE06B77A /* Pods-Utterfare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Utterfare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare.debug.xcconfig"; sourceTree = "<group>"; };
+		3348062A488FC8E12527C764 /* Pods-UtterfareTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtterfareTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UtterfareTests/Pods-UtterfareTests.debug.xcconfig"; sourceTree = "<group>"; };
+		36CC57F76371145359072E87 /* Pods_UtterfareTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UtterfareTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		776B35646DC8C22547D3C344 /* Pods-UtterfareUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtterfareUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UtterfareUITests/Pods-UtterfareUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		7A0A9AEFFF7085A147724968 /* Pods-Utterfare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Utterfare.release.xcconfig"; path = "Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare.release.xcconfig"; sourceTree = "<group>"; };
+		89570B32A1AAF4BC014C6F2B /* Pods-UtterfareUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtterfareUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UtterfareUITests/Pods-UtterfareUITests.release.xcconfig"; sourceTree = "<group>"; };
+		9A6E31C92CBAD1B5E67E2872 /* Pods_UtterfareUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UtterfareUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20178F12077E3500058E190 /* PasswordResetCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetCodeController.swift; sourceTree = "<group>"; };
 		A20178F32077E38C0058E190 /* PasswordResetCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetCodeModel.swift; sourceTree = "<group>"; };
 		A20178F52077E39C0058E190 /* NewPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordController.swift; sourceTree = "<group>"; };
@@ -96,6 +96,7 @@
 		A23F3CF423A3ED27000546DC /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		A23F3CF623A3F337000546DC /* LocationTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCellController.swift; sourceTree = "<group>"; };
 		A23F3CF823A78E2C000546DC /* ExplorerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerViewController.swift; sourceTree = "<group>"; };
+		A24E006C23AC16B40064C857 /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 		A265CF612077C66500D104BB /* RequestPasswordResetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPasswordResetController.swift; sourceTree = "<group>"; };
 		A265CF632077C69500D104BB /* RequestPasswordResetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPasswordResetModel.swift; sourceTree = "<group>"; };
 		A27C6633206EBFB200015274 /* MyItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyItemsViewController.swift; sourceTree = "<group>"; };
@@ -119,12 +120,13 @@
 		A2AFF99F206FCB8A008851F9 /* UserSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpViewController.swift; sourceTree = "<group>"; };
 		A2AFF9A1206FCDC1008851F9 /* UserSignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpModel.swift; sourceTree = "<group>"; };
 		A2B00E441E22A5D9004CACCF /* SearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
-		A2C836EE22D7C26A009C78A3 /* Home Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Home Controller.swift"; sourceTree = "<group>"; };
+		A2C836EE22D7C26A009C78A3 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		A2C836F022D7C405009C78A3 /* CollectionViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellController.swift; sourceTree = "<group>"; };
 		A2C836F622D7C6A7009C78A3 /* HomeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProtocol.swift; sourceTree = "<group>"; };
 		A2E6AA442090C5C3002E93B7 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
-		CBA5E46EA3B9C26C49DFDFFB /* Pods_UtterfareUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UtterfareUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE9C29510AA1D594FB8B313B /* Pods_Utterfare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Utterfare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3A1C83160A7DBEEDFBF025B /* Pods-UtterfareTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtterfareTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UtterfareTests/Pods-UtterfareTests.release.xcconfig"; sourceTree = "<group>"; };
+		A6B2BB389A0C39E8758E6E75 /* Pods-Utterfare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Utterfare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare.debug.xcconfig"; sourceTree = "<group>"; };
+		CC1879A51E380F8E75C567F0 /* Pods_Utterfare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Utterfare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2AB1FCA1DF770B3009928BF /* CoreLocation.framework in Frameworks */,
-				439A565D90D512DC5EDC44BD /* Pods_Utterfare.framework in Frameworks */,
+				E46CC5A3A4B05F347768BAAA /* Pods_Utterfare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,7 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F290D91E831E20B3B672A3D3 /* Pods_UtterfareTests.framework in Frameworks */,
+				E2731FF0CA0D7E4913CD5D07 /* Pods_UtterfareTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,22 +151,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2F6981F33B3258ACDEF8034 /* Pods_UtterfareUITests.framework in Frameworks */,
+				F62ACC36D1EE02152A8D9440 /* Pods_UtterfareUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		71A8B28643A203BC8391E1D1 /* Pods */ = {
+		334FABE954B652908A238FA3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9E448123B855267EBE06B77A /* Pods-Utterfare.debug.xcconfig */,
-				068C34851883620C30C92EFE /* Pods-Utterfare.release.xcconfig */,
-				4221C6E5957A61B8DBFB4ECD /* Pods-UtterfareTests.debug.xcconfig */,
-				609F55E0384BD3FC6B2C3E86 /* Pods-UtterfareTests.release.xcconfig */,
-				04942A706D9F2AEEFA0B81DF /* Pods-UtterfareUITests.debug.xcconfig */,
-				191438673DBEAE6FE1C10B26 /* Pods-UtterfareUITests.release.xcconfig */,
+				A6B2BB389A0C39E8758E6E75 /* Pods-Utterfare.debug.xcconfig */,
+				7A0A9AEFFF7085A147724968 /* Pods-Utterfare.release.xcconfig */,
+				3348062A488FC8E12527C764 /* Pods-UtterfareTests.debug.xcconfig */,
+				A3A1C83160A7DBEEDFBF025B /* Pods-UtterfareTests.release.xcconfig */,
+				776B35646DC8C22547D3C344 /* Pods-UtterfareUITests.debug.xcconfig */,
+				89570B32A1AAF4BC014C6F2B /* Pods-UtterfareUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -266,6 +268,14 @@
 			name = Location;
 			sourceTree = "<group>";
 		};
+		A24E006923AC168F0064C857 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				A24E006C23AC16B40064C857 /* CustomViews.swift */,
+			);
+			name = "Custom Views";
+			sourceTree = "<group>";
+		};
 		A265CF602077C65100D104BB /* Password Reset */ = {
 			isa = PBXGroup;
 			children = (
@@ -297,7 +307,7 @@
 				A2AB1FB61DF7578C009928BF /* UtterfareUITests */,
 				A2AB1F951DF7578C009928BF /* Products */,
 				A2AB1FC81DF770B3009928BF /* Frameworks */,
-				71A8B28643A203BC8391E1D1 /* Pods */,
+				334FABE954B652908A238FA3 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -314,6 +324,7 @@
 		A2AB1F961DF7578C009928BF /* Utterfare */ = {
 			isa = PBXGroup;
 			children = (
+				A24E006923AC168F0064C857 /* Custom Views */,
 				A23F3CF323A3ECB0000546DC /* Location */,
 				A2930D6423A2E26B004384A0 /* Explorer */,
 				A2C836ED22D7C252009C78A3 /* Home */,
@@ -368,9 +379,9 @@
 			isa = PBXGroup;
 			children = (
 				A2AB1FC91DF770B3009928BF /* CoreLocation.framework */,
-				DE9C29510AA1D594FB8B313B /* Pods_Utterfare.framework */,
-				09E843D5DA1C138C7E25A19B /* Pods_UtterfareTests.framework */,
-				CBA5E46EA3B9C26C49DFDFFB /* Pods_UtterfareUITests.framework */,
+				CC1879A51E380F8E75C567F0 /* Pods_Utterfare.framework */,
+				36CC57F76371145359072E87 /* Pods_UtterfareTests.framework */,
+				9A6E31C92CBAD1B5E67E2872 /* Pods_UtterfareUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -378,7 +389,7 @@
 		A2C836ED22D7C252009C78A3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				A2C836EE22D7C26A009C78A3 /* Home Controller.swift */,
+				A2C836EE22D7C26A009C78A3 /* HomeController.swift */,
 				A2C836F022D7C405009C78A3 /* CollectionViewCellController.swift */,
 				A2C836F622D7C6A7009C78A3 /* HomeProtocol.swift */,
 			);
@@ -400,12 +411,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A2AB1FBC1DF7578C009928BF /* Build configuration list for PBXNativeTarget "Utterfare" */;
 			buildPhases = (
-				D1709F3C706622EB39411A83 /* [CP] Check Pods Manifest.lock */,
+				EA0BFF788C838B6C2D5B5887 /* [CP] Check Pods Manifest.lock */,
 				A2AB1F901DF7578C009928BF /* Sources */,
 				A2AB1F911DF7578C009928BF /* Frameworks */,
 				A2AB1F921DF7578C009928BF /* Resources */,
-				48E226189BF9A9297E49887B /* [CP] Embed Pods Frameworks */,
-				BA30C4FCF0DFCE9D1B93B765 /* [CP] Copy Pods Resources */,
+				FF793BBDE6251363E2A76970 /* [CP] Embed Pods Frameworks */,
+				D46F937DDB239B65D60F294D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -420,7 +431,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A2AB1FBF1DF7578C009928BF /* Build configuration list for PBXNativeTarget "UtterfareTests" */;
 			buildPhases = (
-				B8B727BD4B3523FAD09CF9DC /* [CP] Check Pods Manifest.lock */,
+				C06C3213D2F1D11129A69AC2 /* [CP] Check Pods Manifest.lock */,
 				A2AB1FA41DF7578C009928BF /* Sources */,
 				A2AB1FA51DF7578C009928BF /* Frameworks */,
 				A2AB1FA61DF7578C009928BF /* Resources */,
@@ -439,7 +450,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A2AB1FC21DF7578C009928BF /* Build configuration list for PBXNativeTarget "UtterfareUITests" */;
 			buildPhases = (
-				A502747B37F21B164D055D7C /* [CP] Check Pods Manifest.lock */,
+				B4FC8E08A08DCE038F41C491 /* [CP] Check Pods Manifest.lock */,
 				A2AB1FAF1DF7578C009928BF /* Sources */,
 				A2AB1FB01DF7578C009928BF /* Frameworks */,
 				A2AB1FB11DF7578C009928BF /* Resources */,
@@ -474,12 +485,11 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = B76P79Q988;
 						LastSwiftMigration = 1130;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						TestTargetID = A2AB1F931DF7578C009928BF;
 					};
 					A2AB1FB21DF7578C009928BF = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = B76P79Q988;
 						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 						TestTargetID = A2AB1F931DF7578C009928BF;
@@ -534,34 +544,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		48E226189BF9A9297E49887B /* [CP] Embed Pods Frameworks */ = {
+		B4FC8E08A08DCE038F41C491 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A502747B37F21B164D055D7C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-UtterfareUITests-checkManifestLockResult.txt",
 			);
@@ -570,16 +566,20 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B8B727BD4B3523FAD09CF9DC /* [CP] Check Pods Manifest.lock */ = {
+		C06C3213D2F1D11129A69AC2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-UtterfareTests-checkManifestLockResult.txt",
 			);
@@ -588,7 +588,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BA30C4FCF0DFCE9D1B93B765 /* [CP] Copy Pods Resources */ = {
+		D46F937DDB239B65D60F294D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -612,22 +612,58 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D1709F3C706622EB39411A83 /* [CP] Check Pods Manifest.lock */ = {
+		EA0BFF788C838B6C2D5B5887 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Utterfare-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF793BBDE6251363E2A76970 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Utterfare/Pods-Utterfare-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -639,6 +675,7 @@
 			files = (
 				A21CCFA3206D1DAB001C5797 /* UserSignInController.swift in Sources */,
 				A2C836F122D7C405009C78A3 /* CollectionViewCellController.swift in Sources */,
+				A24E006D23AC16B40064C857 /* CustomViews.swift in Sources */,
 				A216CC701E200A6100A5951C /* SearchViewController.swift in Sources */,
 				A20178FC2077E5BF0058E190 /* CustomAlerts.swift in Sources */,
 				A230CB1A2087F34600282618 /* UserInformationModel.swift in Sources */,
@@ -669,7 +706,7 @@
 				A2930D6623A2E292004384A0 /* ExplorerCollectionViewCellController.swift in Sources */,
 				A238836F20597DE30041F6FF /* ViewItemModel.swift in Sources */,
 				A20178F82077E3A40058E190 /* NewPasswordModel.swift in Sources */,
-				A2C836EF22D7C26A009C78A3 /* Home Controller.swift in Sources */,
+				A2C836EF22D7C26A009C78A3 /* HomeController.swift in Sources */,
 				A2C836F722D7C6A7009C78A3 /* HomeProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -761,6 +798,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = B76P79Q988;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -781,10 +819,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "85f40b80-0c06-47a4-bc02-98ae598b841d";
+				OTHER_LDFLAGS = "-ObjC";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -828,6 +867,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = B76P79Q988;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -836,17 +876,20 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "85f40b80-0c06-47a4-bc02-98ae598b841d";
+				OTHER_LDFLAGS = "-ObjC";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -854,16 +897,19 @@
 		};
 		A2AB1FBD1DF7578C009928BF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9E448123B855267EBE06B77A /* Pods-Utterfare.debug.xcconfig */;
+			baseConfigurationReference = A6B2BB389A0C39E8758E6E75 /* Pods-Utterfare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = B76P79Q988;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Utterfare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Utterfare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -876,16 +922,19 @@
 		};
 		A2AB1FBE1DF7578C009928BF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 068C34851883620C30C92EFE /* Pods-Utterfare.release.xcconfig */;
+			baseConfigurationReference = 7A0A9AEFFF7085A147724968 /* Pods-Utterfare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = B76P79Q988;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Utterfare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Utterfare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -898,15 +947,21 @@
 		};
 		A2AB1FC01DF7578C009928BF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4221C6E5957A61B8DBFB4ECD /* Pods-UtterfareTests.debug.xcconfig */;
+			baseConfigurationReference = 3348062A488FC8E12527C764 /* Pods-UtterfareTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B76P79Q988;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = UtterfareTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.UtterfareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Utterfare.app/Utterfare";
@@ -915,15 +970,21 @@
 		};
 		A2AB1FC11DF7578C009928BF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 609F55E0384BD3FC6B2C3E86 /* Pods-UtterfareTests.release.xcconfig */;
+			baseConfigurationReference = A3A1C83160A7DBEEDFBF025B /* Pods-UtterfareTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B76P79Q988;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = UtterfareTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.UtterfareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Utterfare.app/Utterfare";
@@ -932,14 +993,19 @@
 		};
 		A2AB1FC31DF7578C009928BF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 04942A706D9F2AEEFA0B81DF /* Pods-UtterfareUITests.debug.xcconfig */;
+			baseConfigurationReference = 776B35646DC8C22547D3C344 /* Pods-UtterfareUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = B76P79Q988;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = UtterfareUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.UtterfareUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = Utterfare;
@@ -948,14 +1014,19 @@
 		};
 		A2AB1FC41DF7578C009928BF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 191438673DBEAE6FE1C10B26 /* Pods-UtterfareUITests.release.xcconfig */;
+			baseConfigurationReference = 89570B32A1AAF4BC014C6F2B /* Pods-UtterfareUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = B76P79Q988;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = UtterfareUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cbmwebdevelopment.UtterfareUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = Utterfare;

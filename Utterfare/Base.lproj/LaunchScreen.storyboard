@@ -19,20 +19,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Utterfare Base Logo - No Background" translatesAutoresizingMaskIntoConstraints="NO" id="vU2-DJ-jY7">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Utterfare Base Logo - No Background" translatesAutoresizingMaskIntoConstraints="NO" id="vU2-DJ-jY7">
                                 <rect key="frame" x="112.5" y="258.5" width="150" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="89K-k8-Az8"/>
-                                    <constraint firstAttribute="width" constant="150" id="cS0-PJ-h4b"/>
+                                    <constraint firstAttribute="height" constant="150" id="3tl-es-vx9"/>
+                                    <constraint firstAttribute="width" constant="150" id="c35-yC-dNV"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="vU2-DJ-jY7" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1tV-G6-gnz"/>
-                            <constraint firstItem="vU2-DJ-jY7" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="A5w-Rc-jtr"/>
-                            <constraint firstItem="vU2-DJ-jY7" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="KCV-3G-EXN"/>
-                            <constraint firstItem="vU2-DJ-jY7" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="asC-V2-2oj"/>
+                            <constraint firstItem="vU2-DJ-jY7" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="GUe-bf-7KG"/>
+                            <constraint firstItem="vU2-DJ-jY7" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="XNt-4c-tj0"/>
+                            <constraint firstItem="vU2-DJ-jY7" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="tgO-X0-sW3"/>
+                            <constraint firstItem="vU2-DJ-jY7" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="zGp-wO-Y3E"/>
                         </constraints>
                     </view>
                 </viewController>

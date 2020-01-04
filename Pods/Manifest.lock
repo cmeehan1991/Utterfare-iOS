@@ -1,31 +1,66 @@
 PODS:
-  - GoogleMaps (3.0.3):
-    - GoogleMaps/Maps (= 3.0.3)
-  - GoogleMaps/Base (3.0.3)
-  - GoogleMaps/Maps (3.0.3):
+  - FacebookCore (0.9.0):
+    - FBSDKCoreKit (~> 5.0)
+  - FacebookLogin (0.9.0):
+    - FacebookCore (~> 0.9.0)
+    - FBSDKCoreKit (~> 5.0)
+    - FBSDKLoginKit (~> 5.0)
+  - FBSDKCoreKit (5.13.1):
+    - FBSDKCoreKit/Basics (= 5.13.1)
+    - FBSDKCoreKit/Core (= 5.13.1)
+  - FBSDKCoreKit/Basics (5.13.1)
+  - FBSDKCoreKit/Core (5.13.1):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (5.13.1):
+    - FBSDKLoginKit/Login (= 5.13.1)
+  - FBSDKLoginKit/Login (5.13.1):
+    - FBSDKCoreKit (~> 5.0)
+  - FBSDKShareKit (5.13.1):
+    - FBSDKShareKit/Share (= 5.13.1)
+  - FBSDKShareKit/Share (5.13.1):
+    - FBSDKCoreKit (~> 5.0)
+  - GoogleMaps (3.7.0):
+    - GoogleMaps/Maps (= 3.7.0)
+  - GoogleMaps/Base (3.7.0)
+  - GoogleMaps/Maps (3.7.0):
     - GoogleMaps/Base
-  - GooglePlaces (3.0.3):
-    - GoogleMaps/Base (= 3.0.3)
-  - SDWebImage (3.8.2):
-    - SDWebImage/Core (= 3.8.2)
-  - SDWebImage/Core (3.8.2)
+  - GooglePlaces (3.7.0):
+    - GoogleMaps/Base (= 3.7.0)
+  - SDWebImage (3.8.3):
+    - SDWebImage/Core (= 3.8.3)
+  - SDWebImage/Core (3.8.3)
 
 DEPENDENCIES:
+  - FacebookCore
+  - FacebookLogin
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKShareKit
   - GoogleMaps
   - GooglePlaces
   - SDWebImage (~> 3.8)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - FacebookCore
+    - FacebookLogin
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - FBSDKShareKit
     - GoogleMaps
     - GooglePlaces
     - SDWebImage
 
 SPEC CHECKSUMS:
-  GoogleMaps: fd5c9fa58871781b9fb94d4936f19c69fe60ce32
-  GooglePlaces: f09e76993c9c3ee4af8f4f7f535bb94d6aa3b649
-  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
+  FacebookLogin: 6cee9fd6e1fe976fe8f7eec199e27b28b14f5d63
+  FBSDKCoreKit: 8fb98209109fb684937f05d534305edb18c20207
+  FBSDKLoginKit: c7c6ffd9ca9ea45aee32361840af040ad8f6706a
+  FBSDKShareKit: 8a0e4d7172c7b706991c834cff2bf74e7b4726e3
+  GoogleMaps: 55da829c68aa931f3ae982b9e341cc2f3d89c587
+  GooglePlaces: a62077320f9d64239245af63aa1aa136393ebeb6
+  SDWebImage: a72e880a8fe0f7fc31efe15aaed443c074d2a80c
 
-PODFILE CHECKSUM: 750d43cf4053dbf5591328e510540556e10c885d
+PODFILE CHECKSUM: 3b05e56a3918a8c5282c289aaa38b92733cd5ea6
 
 COCOAPODS: 1.5.3

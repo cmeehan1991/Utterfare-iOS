@@ -33,14 +33,24 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
         self.currentLocationTableView.reloadData()
     }
     
+    /*
+     * Handle errors with the places location controller
+     */
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didFailAutocompleteWithError error: Error) {
         print("Error: ", error.localizedDescription)
     }
     
+    /*
+     * Set the number of rows in the table.
+     * There is only going to be 1 row, which will be the current location selectable row.
+     */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
+    /*
+     * Set the content for the table view cell
+     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = currentLocationTableView.dequeueReusableCell(withIdentifier: "CurrentLocationCell") as! LocationTableviewCellController
         cell.currentLocationLabel.text = currentLocation
@@ -57,28 +67,43 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
+    /*
+     * Handle the row selection.
+     * This just determines if we are using the current location
+     */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected")
         let cell = currentLocationTableView.dequeueReusableCell(withIdentifier: "CurrentLocationCell") as! LocationTableviewCellController
-        
-        if(currentLocationSelected){
-            if #available(iOS 13.0, *){
+                
+        if #available(iOS 13.0, *) {
+            if(currentLocationSelected == true){
+                currentLocationSelected = false
+                self.searchController?.searchBar.text = ""
                 cell.selectedImageView.image = UIImage(systemName: "circle")
-            }
-        }else{
-            if #available(iOS 13.0, *) {
+            }else{
+                currentLocationSelected = true
+                self.selectedLocation = self.currentLocation
+                self.searchController?.searchBar.text = self.selectedLocation
                 cell.selectedImageView.image = UIImage(systemName: "largecircle.fill.circle")
             }
+        }else{
+            cell.selectedImageView.image = UIImage()
         }
+        self.currentLocationTableView.reloadData()
     }
     
-    @IBAction func sendLocationBack(){
+    /*
+     * Handle the save button being tapped
+     * Passing the data back to the main view controller then popping the current view controller
+     */
+    @objc func saveLocationAction(){
         mainViewController.updateCurrentSearchLocation(location: self.selectedLocation)
         self.navigationController?.popViewController(animated: true)
     }
     
+    /*
+     * Show the places autocomplete table
+     */
     @objc func showLocationAutocomplete(){
-        print("Show location autocomplete")
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
         
@@ -99,6 +124,11 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
     // Handle the user's selection
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         print("Place: \(place)")
+        self.currentLocationSelected = false
+        self.selectedLocation = place.formattedAddress!
+        self.searchController?.searchBar.text = self.selectedLocation
+        self.currentLocationTableView.reloadData()
+        
         dismiss(animated: true, completion: nil)
     }
     
@@ -133,33 +163,62 @@ class LocationViewController: UIViewController, UITableViewDelegate, UITableView
                 
                 if let place = place{
                     self.currentLocation = place.formattedAddress?.components(separatedBy: ", ").joined(separator: ", ") as! String
+                    self.selectedLocation = self.currentLocation
                     self.currentLocationTableView.reloadData()
                     self.currentLocationSelected = true
                     self.searchController?.searchBar.text = self.currentLocation
-                    
-                    
+
                 }
             }
         })
     }
         
+    func addNavigationItems(){
+        let backButtonItem = UIButton(type: .custom)
+        
+       
+        backButtonItem.setTitle("Back", for: .normal)
+        backButtonItem.addTarget(self, action: Selector("backNavigation"), for: .touchUpInside)
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButtonItem)
+        
+        let saveLocationButtonItem = UIButton(type: .custom)
+        
+        saveLocationButtonItem.setTitle("Save", for: .normal)
+        saveLocationButtonItem.addTarget(self, action: Selector("saveLocationAction"), for: .touchUpInside)
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: saveLocationButtonItem)
+    }
+    
+    /*
+     * Handl the back navigation.
+     * Just popping the view controller
+     */
+    @objc func backNavigation(){
+        self.navigationController?.popViewController(animated: true)
+    }
     override func viewDidLoad(){
         
+        // Set up the navigation bac
+       addNavigationItems()
         
+        //self.navigationController?.navigationBar.backItem = barBackItem
+        
+        // Set up the location table view
         self.currentLocationTableView.delegate = self
         self.currentLocationTableView.dataSource = self
+        self.currentLocationTableView.allowsSelection = true
         
-        
+        // Instantiate the results view controller for the Google Places search
         resultsViewController = GMSAutocompleteResultsViewController()
         resultsViewController?.delegate = self
         
         searchController = UISearchController(searchResultsController: resultsViewController)
         searchController?.searchResultsUpdater = resultsViewController
         
-        // Put the search bar in the navigation bar
-        searchController?.searchBar.sizeToFit()
-        //navigationItem.titleView = searchController?.searchBar
         self.currentLocationTableView.tableHeaderView = searchController?.searchBar
+        
+        self.searchController?.searchBar.frame.origin.y = 0
         
         // When UISearchController presents the results view, present it in
         // this view controller, not one further up in the chain
