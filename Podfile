@@ -8,8 +8,7 @@ target 'Utterfare' do
   # Pods for Utterfare
 
   pod ‘SDWebImage’, ‘~>3.8’
-  pod 'GooglePlaces'
-  pod 'GoogleMaps' 
+  pod 'GooglePlaces' 
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FBSDKCoreKit'

@@ -19,11 +19,7 @@ PODS:
     - FBSDKShareKit/Share (= 5.13.1)
   - FBSDKShareKit/Share (5.13.1):
     - FBSDKCoreKit (~> 5.0)
-  - GoogleMaps (3.7.0):
-    - GoogleMaps/Maps (= 3.7.0)
   - GoogleMaps/Base (3.7.0)
-  - GoogleMaps/Maps (3.7.0):
-    - GoogleMaps/Base
   - GooglePlaces (3.7.0):
     - GoogleMaps/Base (= 3.7.0)
   - SDWebImage (3.8.3):
@@ -36,7 +32,6 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
-  - GoogleMaps
   - GooglePlaces
   - SDWebImage (~> 3.8)
 
@@ -61,6 +56,6 @@ SPEC CHECKSUMS:
   GooglePlaces: a62077320f9d64239245af63aa1aa136393ebeb6
   SDWebImage: a72e880a8fe0f7fc31efe15aaed443c074d2a80c
 
-PODFILE CHECKSUM: 3b05e56a3918a8c5282c289aaa38b92733cd5ea6
+PODFILE CHECKSUM: 441b1e632932815d89e8d7e00480460222a21f48
 
 COCOAPODS: 1.5.3

@@ -213,13 +213,17 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     func requestLocation()->Bool{
         var approved = false
-        let locationURL = URL(string: "App-Prefs:root=Privacy&path=LOCATION")
+        
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else{
+            return false
+        }
+
         let alert = UIAlertController(title: "Request Location", message: "Please allow Utterfare to access your location. Your location will be used to provide more accurate search results and will be displayed on the search window. Your location will not be shared with other users or vendors.", preferredStyle: UIAlertController.Style.alert)
         let cancelAction = UIAlertAction(title:"Cancel", style: .cancel, handler:{_ in
             approved = false
         })
         let approveAction = UIAlertAction(title:"Settings", style: .default, handler: {_ in
-            UIApplication.shared.open(locationURL!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler:nil)
+            UIApplication.shared.open(settingsUrl, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler:nil )
             approved = true
         })
         alert.addAction(cancelAction)

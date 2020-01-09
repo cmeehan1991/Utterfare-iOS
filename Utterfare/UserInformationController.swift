@@ -49,6 +49,7 @@ class UserInformationController: UIViewController, UITextFieldDelegate, UIPicker
         
         
         let formattedBirthday = formatter.date(from: birthday)
+        
         birthdayPickerView.date = formattedBirthday!
         
         

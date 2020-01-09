@@ -246,6 +246,7 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         scrollView.isScrollEnabled = true
 
         scrollView.contentSize = contentView.frame.size
+        scrollView.contentSize.height = scrollView.contentSize.height + 100
     }
     
     
