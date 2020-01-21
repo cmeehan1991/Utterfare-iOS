@@ -18,8 +18,8 @@ class SearchModel: NSObject{
     var jsonData : Data = Data()
     
     func doSearch(terms: String, distance: String, location: String, page: String){
-        //let requestURL = URL(string: "https://www.utterfare.com/includes/php/search.php")
-        let requestURL = URL(string: "http://localhost/utterfare/includes/php/search.php")
+        let requestURL = URL(string: "https://www.utterfare.com/includes/php/search.php")
+        
         var request = URLRequest(url: requestURL!)
         request.httpMethod = "POST"
         

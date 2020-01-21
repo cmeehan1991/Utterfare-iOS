@@ -14,8 +14,8 @@ protocol HomeItemsProtocol{
 
 class HomeItems: NSObject{
     var delegate: HomeItemsProtocol!
-    //let requestUrl = URL(string: "https://www.utterfare.com/includes/php/search.php")
-    let requestUrl = URL(string: "http://localhost/utterfare/includes/php/search.php")
+    let requestUrl = URL(string: "https://www.utterfare.com/includes/php/search.php")
+    
     
     func getHomeItems(address: String, numberOfItems: String, page: String){
         var request = URLRequest(url: requestUrl!)
