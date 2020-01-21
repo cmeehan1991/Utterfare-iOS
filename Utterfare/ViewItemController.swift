@@ -158,7 +158,7 @@ class ViewItemController: UIViewController, ViewItemControllerProtocol, AddItemP
             self.restaurantPhoneNumberButton.isHidden = true
         }
         
-        self.itemImageView.sd_setImage(with: URL(string: self.itemImage))
+        self.itemImageView.sd_setImage(with: URL(string: self.itemImage), placeholderImage: UIImage(named: "Utterfare Base Logo - No Background"))
         self.itemDescriptionTextArea.text = self.itemDescription
         self.title = "Utterfare"
         

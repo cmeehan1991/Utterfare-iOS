@@ -26,7 +26,7 @@ class ResultsViewController: UIViewController, UITableViewDataSource, UITableVie
         self.navigationController?.popViewController(animated: true)
     }
     
-    func itemsDownloaded(hasResults: Bool, itemsId: Array<String>, itemsNames: Array<String>, restaurantsNames: Array<String>, itemsImages: Array<String>, itemsShortDescription: Array<String>){}
+    func itemsDownloaded(hasResults: Bool, itemsId: NSArray, itemsNames: NSArray, restaurantsNames: NSArray, itemsImages:NSArray, itemsShortDescription: NSArray){}
     
     func indexPath()->[IndexPath]{
         let indexPath = [IndexPath(item: resultsTable.numberOfRows(inSection: resultsTable.numberOfSections - 1)-1, section: resultsTable.numberOfSections-1)]

@@ -13,11 +13,7 @@ import CoreLocation
 
 class HomeController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CLLocationManagerDelegate, HomeItemsProtocol{
 
-    @IBOutlet weak var topItemsCollectionView: UICollectionView!
-    @IBOutlet weak var topPicksCollectionView: UICollectionView!
-    @IBOutlet weak var nearbyPicksCollectionView: UICollectionView!
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var homeMasonryCollectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
@@ -27,121 +23,102 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var longitude : CLLocationDegrees = CLLocationDegrees()
     var address: String = String()
     var gotAddress: Bool = false
+    private let refreshControl = UIRefreshControl()
+    var page: Int = 1;
+    var updating: Bool = false
     
-    var topItemsIds: NSArray = NSArray(), topPicksIds: NSArray = NSArray(), nearbyItemsIds: NSArray = NSArray(), topItemsImages: NSArray = NSArray(), topPicksImages: NSArray = NSArray(), nearbyItemsImages: NSArray = NSArray(), topItemsNames: NSArray = NSArray(), topPicksNames: NSArray = NSArray(), nearbyItemsNames: NSArray = NSArray()
+    var homeItemsIds: NSMutableArray = NSMutableArray(), homeItemsNames: NSMutableArray = NSMutableArray(), homeItemsImages: NSMutableArray = NSMutableArray()
     
-    func downloadTopItems(itemIds: NSArray, itemNames: NSArray, itemImages: NSArray) {
-        self.topItemsIds = itemIds
-        self.topItemsImages = itemImages
-        self.topItemsNames = itemNames
+    func downloadHomeItems(itemIds: NSArray, itemNames: NSArray, itemImages: NSArray) {
+        if updating == false || self.homeItemsIds.count == 0 {
+            self.homeItemsIds = itemIds as! NSMutableArray
+            self.homeItemsNames = itemNames as! NSMutableArray
+            self.homeItemsImages = itemImages as! NSMutableArray
+        }else{
+            
+            self.homeItemsIds.addObjects(from: itemIds as! [String])
+            self.homeItemsNames.addObjects(from: itemNames as! [String])
+            self.homeItemsImages.addObjects(from: itemImages as! [String])
+
+        }
+        self.homeMasonryCollectionView.reloadData()
+        self.homeMasonryCollectionView.isHidden = false
         
-        self.topItemsCollectionView.reloadData()
-    }
-    
-    func downloadTopPicks(itemIds: NSArray, itemNames: NSArray, itemImages: NSArray) {
-    
-        if itemIds.count > 0{
-            self.topPicksIds = itemIds
-            self.topPicksImages = itemImages
-            self.topPicksNames = itemNames
-            
-            self.topPicksCollectionView.reloadData()
-        }else{
-            self.handleNoResults(collectionView: self.topPicksCollectionView)
-
+        if self.activityIndicator.isAnimating{
+            self.activityIndicator.stopAnimating()
+        }
+        
+        if self.updating == true{
+            self.updating = false
+        }
+        
+        if self.refreshControl.isRefreshing{
+            self.refreshControl.endRefreshing()
         }
     }
-    
-    func downloadLocalPicks(itemIds: NSArray, itemNames: NSArray, itemImages: NSArray) {
-
-        if itemIds.count > 0{
-            self.nearbyItemsIds = itemIds
-            self.nearbyItemsImages = itemImages
-            self.nearbyItemsNames = itemNames
-            
-            self.nearbyPicksCollectionView.reloadData()
-            
-            scrollView.isHidden = false
-            activityIndicator.stopAnimating()
-        }else{
-            self.handleNoResults(collectionView: self.nearbyPicksCollectionView)
-        }
-    }
-    
+        
     func handleNoResults(collectionView: UICollectionView){
         let label = UILabel()
         label.text = "There are no items nearby"
         label.textAlignment = .center
         
         collectionView.backgroundView = label
-        //collectionView.separatorStyle = .none
         collectionView.reloadData()
         collectionView.isHidden = false
         
         activityIndicator.stopAnimating()
-        scrollView.isHidden = false
     }
-    
+        
     /*
     * Set the number of items in the collection view
     */
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.topItemsCollectionView{
-            return topItemsIds.count
-        }
-        
-        if collectionView == self.topPicksCollectionView{
-            return topPicksIds.count
-        }
-        
-        if collectionView == self.nearbyPicksCollectionView{
-            return nearbyItemsIds.count
-        }
-        
-        return 0
+        return self.homeItemsIds.count
     }
-    
-    
+        
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.topItemsCollectionView{
-            let cell = topItemsCollectionView.dequeueReusableCell(withReuseIdentifier: "topItemsCell", for: indexPath) as! CollectionViewCellController
-            cell.itemTitle.text = self.topItemsNames[indexPath.row] as? String
-            cell.itemImage.sd_setImage(with: URL(string: self.topItemsImages[indexPath.row] as! String))
-            return cell
-        }
+       let cell = homeMasonryCollectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionViewCell", for: indexPath) as! CollectionViewCellController
         
-        if collectionView == self.topPicksCollectionView{
-            let cell = topPicksCollectionView.dequeueReusableCell(withReuseIdentifier: "topPicksCell", for: indexPath) as! CollectionViewCellController
-            cell.itemTitle.text = self.topPicksNames[indexPath.row] as? String
-            cell.itemImage.sd_setImage(with: URL(string: self.topPicksImages[indexPath.row] as! String))
-            return cell
-        }
+        cell.itemTitle.text = self.homeItemsNames[indexPath.item] as? String
+        cell.itemImage.sd_setImage(with: URL(string: self.homeItemsImages[indexPath.row] as! String), placeholderImage: UIImage(named: "Utterfare Base Logo - No Background"))
+        cell.itemImage.frame.size = CGSize(width: cell.frame.size.width, height: cell.frame.size.width)
         
-        if collectionView == self.nearbyPicksCollectionView{
-            let cell = nearbyPicksCollectionView.dequeueReusableCell(withReuseIdentifier: "nearbyItemsCell", for: indexPath) as! CollectionViewCellController
-            cell.itemTitle.text = self.nearbyItemsNames[indexPath.row] as? String
-            cell.itemImage.sd_setImage(with: URL(string: self.nearbyItemsImages[indexPath.row] as! String))
-            return cell
-        }
         
-        return UICollectionViewCell()
-    }
+        cell.frame.size = CGSize(width: collectionView.contentSize.width/2 - 24, height: collectionView.contentSize.width/2 - 24)
+        
+        return cell
 
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
+        let padding: CGFloat = 6
+        let collectionViewSize = collectionView.frame.size.width - padding
+        
+        return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var selectedItemId: String = String()
-        if collectionView == self.topItemsCollectionView{
-            selectedItemId = self.topItemsIds[indexPath.row] as! String
-        }else if collectionView == self.topPicksCollectionView{
-            selectedItemId = self.topPicksIds[indexPath.row] as! String
-        }else if collectionView == self.nearbyPicksCollectionView{
-            selectedItemId = self.nearbyItemsIds[indexPath.row] as! String
-        }
+
+        selectedItemId = self.homeItemsIds[indexPath.row] as! String
         
         let vc = storyboard?.instantiateViewController(withIdentifier: "ViewItemController") as? ViewItemController
         
         vc?.itemId = selectedItemId
         
         self.navigationController?.pushViewController(vc!, animated: true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if(offsetY > (contentHeight - scrollView.frame.size.height - 500) && updating == false){
+            self.page = self.page + 1
+            self.getHomeItems(address: self.address, page: String(describing: page))
+            updating = true
+        }
+        
     }
     
     func handleManualLocation(alertAction: UIAlertAction!){
@@ -183,14 +160,12 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         locationManager.stopUpdatingLocation()
     }
     
-    func getHomeItems(address: String){
+    func getHomeItems(address: String, page: String){
         
         let homeItems = HomeItems()
         homeItems.delegate = self
         
-        homeItems.getTopItems()
-        homeItems.getRecommendations(address: self.address)
-        homeItems.getLocalItems(address: self.address)
+        homeItems.getHomeItems(address: self.address, numberOfItems: "25", page: page)
     }
     /**
      * Get the user's location
@@ -215,10 +190,15 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
                     }else{
                         self.address = placemark.locality! + ", " + placemark.administrativeArea! + ", " + placemark.postalCode!
                     }
-                    self.getHomeItems(address: self.address)
+                    
+                    self.getHomeItems(address: self.address, page: "1")
                 }
             }
         })
+    }
+    
+    @objc func refreshHomeView(sender: Any){
+        self.getHomeItems(address: self.address, page: "1")
     }
     
     override func loadView() {
@@ -227,27 +207,53 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        self.homeMasonryCollectionView.allowsSelection = true
         
     }
     override func viewDidLoad(){
+        super.viewDidLoad()
+
         getUserLocation()
         
-        self.topItemsCollectionView.dataSource = self
-        self.topItemsCollectionView.delegate = self
-        self.topPicksCollectionView.dataSource = self
-        self.topPicksCollectionView.delegate = self
-        self.nearbyPicksCollectionView.dataSource = self
-        self.nearbyPicksCollectionView.delegate = self
+        self.homeMasonryCollectionView.dataSource = self
+        self.homeMasonryCollectionView.delegate = self
         
-        contentView.sizeToFit()
+        // Add refresh control to the collectionview
+        self.homeMasonryCollectionView.refreshControl = self.refreshControl
         
-        scrollView.isHidden = true
+        
+        self.refreshControl.addTarget(self, action: #selector(self.refreshHomeView(sender:)), for: .valueChanged)
+        let color = UIColor(displayP3Red: 0.25, green: 0.72, blue: 0.85, alpha: 1.0)
+        let attributes = [NSAttributedString.Key.foregroundColor: color]
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Fetching Items..", attributes: attributes)
+        self.refreshControl.tintColor = color
+        
         activityIndicator.startAnimating()
-        scrollView.isScrollEnabled = true
-
-        scrollView.contentSize = contentView.frame.size
-        scrollView.contentSize.height = scrollView.contentSize.height + 100
+        
+        
+    }
+}
+/*
+extension HomeController: MasonryLayoutDelegate{
+    func collectionView(_ collectionView: UICollectionView, heightForObjectAtIndexPath indexPath: IndexPath) -> CGFloat {
+        
+        let imageUrl: String = homeItemsImages[indexPath.item] as! String
+        let url = URL(string: imageUrl)
+        var image: UIImage = UIImage()
+        if let data = try? Data(contentsOf: url!){
+            image = UIImage(data: data)!
+        }
+        
+        var cellSize = image.size.height
+        if image.size.height > collectionView.frame.size.width/2 || cellSize == 0{
+            let imageSize = collectionView.frame.size.width/2 - 24
+            cellSize = imageSize
+        }
+                
+        return cellSize
     }
     
-    
-}
+    func theNumberOfItemsInCollectionView() -> Int {
+        return homeItemsIds.count
+    }
+}*/

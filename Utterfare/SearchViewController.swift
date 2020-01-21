@@ -26,22 +26,34 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
     var searchLocation: String = String()
     var latitude: CLLocationDegrees = CLLocationDegrees(), longitude: CLLocationDegrees = CLLocationDegrees()
     var jsonData : Data = Data()
-    var distance : String = String("10"), searchTerms : String = String(), offset: String = String(), page: String = String()
+    var distance : String = String("10"), searchTerms : String = String(), page: Int = 1
+    var updating: Bool = false
     let locationManager = CLLocationManager()
     var zip : String = String(), city: String = String(), state : String = String(), currentLocation : String = String()
-    var itemsId: Array<String> = Array(), itemsName: Array<String> = Array(), restaurantsName: Array<String> = Array(), itemsImage: Array<String> = Array(), itemsShortDescription: Array<String> = Array()
+    
+    var itemsId: NSMutableArray = NSMutableArray(), itemsName: NSMutableArray = NSMutableArray(), restaurantsName: NSMutableArray = NSMutableArray(), itemsImage: NSMutableArray = NSMutableArray(), itemsShortDescription: NSMutableArray = NSMutableArray()
+   
     let distancesValue: Array<String> = ["1", "2", "5", "10", "15", "20", "25"]
     var distancesOptions: Array<String> = ["1 Mile", "2 Miles", "5 Miles", "10 Miles", "15 Miles", "20 Miles", "25 Miles"]
-    func itemsDownloaded(hasResults: Bool, itemsId: Array<String>, itemsNames itemsName: Array<String>, restaurantsNames restaurantsName: Array<String>, itemsImages itemsImage: Array<String>, itemsShortDescription: Array<String>) {
+    
+    func itemsDownloaded(hasResults: Bool, itemsId: NSArray, itemsNames: NSArray, restaurantsNames: NSArray, itemsImages: NSArray, itemsShortDescription: NSArray) {
                 
         if hasResults == true && itemsId.count > 0{
+            if updating == false {
+                self.itemsId = itemsId as! NSMutableArray
+                self.itemsName = itemsNames as! NSMutableArray
+                self.restaurantsName = restaurantsNames as! NSMutableArray
+                self.itemsImage = itemsImages as! NSMutableArray
+                self.itemsShortDescription = itemsShortDescription as! NSMutableArray
+            }else{
+                self.itemsId.addObjects(from: itemsId as! [String])
+                self.itemsName.addObjects(from: itemsNames as! [String])
+                self.restaurantsName.addObjects(from: restaurantsName as! [String])
+                self.itemsImage.addObjects(from: itemsImages as! [String])
+                self.itemsShortDescription.addObjects(from: itemsShortDescription as! [String])
+                updating = false
+            }
             
-            self.itemsId = itemsId
-            self.itemsName = itemsName
-            self.restaurantsName = restaurantsName
-            self.itemsImage = itemsImage
-            self.itemsShortDescription = itemsShortDescription
-                        
             self.resultsTable.reloadData()
             self.resultsTable.isHidden = false
             self.activityIndicatorView.stopAnimating()
@@ -63,6 +75,20 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
     }
       
     
+    /*
+     * Load more items
+     */
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let yOffset = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+
+        if (yOffset > (contentHeight - scrollView.frame.size.height - 250) && self.itemsId.count % 10 == 0 && updating == false){
+            self.page = self.page + 1
+            searchModel.doSearch(terms: self.searchTerms, distance: self.distance, location: self.searchLocation, page: String(describing: page))
+            updating = true
+        }
+    }
     
     /*
      * Set the picker view values
@@ -80,15 +106,24 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
-    }   
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.distance = distancesValue[row]
+        self.page = 1
+        
+        if !self.searchTerms.isEmpty{
+            searchModel.doSearch(terms: searchTerms, distance: self.distance, location: self.searchLocation, page: "1")
+        }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = resultsTable.dequeueReusableCell(withIdentifier: "ResultCell") as! ResultCellViewController
-        cell.itemName.text = self.itemsName[indexPath.row]
-        cell.restaurantName.text = self.restaurantsName[indexPath.row]
-        cell.itemImage.sd_setImage(with: URL(string: self.itemsImage[indexPath.row]))
-        cell.itemShortDescription.text = self.itemsShortDescription[indexPath.row]
+        cell.itemName.text = self.itemsName[indexPath.row] as? String
+        cell.restaurantName.text = self.restaurantsName[indexPath.row] as? String
+        cell.itemImage.sd_setImage(with: URL(string: self.itemsImage[indexPath.row] as! String),  placeholderImage: UIImage(named: "Utterfare Base Logo - No Background") )
+        cell.itemShortDescription.text = self.itemsShortDescription[indexPath.row] as? String
         cell.itemShortDescription.textContainer.lineBreakMode = .byWordWrapping
         cell.itemShortDescription.sizeToFit()
         
@@ -101,7 +136,7 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "ViewItemController") as! ViewItemController
-        vc.itemId = self.itemsId[indexPath.row]
+        vc.itemId = self.itemsId[indexPath.row] as! String
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -137,15 +172,14 @@ class SearchViewController: UIViewController, CLLocationManagerDelegate, UITable
         activityIndicatorView.startAnimating()
         activityIndicatorView.isHidden = false
         
-        self.offset = "0"
-        self.page = "1"
+        self.page = 1
         self.distance = self.distancesValue[self.searchDistancePickerView.selectedRow(inComponent: 0)]
         if self.resultsTable.isHidden == false{
             self.resultsTable.isHidden = true
             self.activityIndicatorView.startAnimating()
             self.activityIndicatorView.isHidden = false
         }
-        searchModel.doSearch(terms: self.searchTerms, distance: self.distance, location: self.searchLocation, offset: self.offset, page: self.page)
+        searchModel.doSearch(terms: self.searchTerms, distance: self.distance, location: self.searchLocation, page: String(describing:self.page))
                 
         return false
     }

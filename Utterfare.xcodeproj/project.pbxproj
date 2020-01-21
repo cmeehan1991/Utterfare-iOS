@@ -26,6 +26,7 @@
 		A23F3CF523A3ED27000546DC /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23F3CF423A3ED27000546DC /* LocationViewController.swift */; };
 		A23F3CF723A3F337000546DC /* LocationTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23F3CF623A3F337000546DC /* LocationTableViewCellController.swift */; };
 		A23F3CF923A78E2C000546DC /* ExplorerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23F3CF823A78E2C000546DC /* ExplorerViewController.swift */; };
+		A24D73F923CF5743009779EC /* MasonryLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24D73F823CF5743009779EC /* MasonryLayout.swift */; };
 		A24E006D23AC16B40064C857 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24E006C23AC16B40064C857 /* CustomViews.swift */; };
 		A265CF622077C66500D104BB /* RequestPasswordResetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265CF612077C66500D104BB /* RequestPasswordResetController.swift */; };
 		A265CF642077C69500D104BB /* RequestPasswordResetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A265CF632077C69500D104BB /* RequestPasswordResetModel.swift */; };
@@ -96,6 +97,7 @@
 		A23F3CF423A3ED27000546DC /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		A23F3CF623A3F337000546DC /* LocationTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCellController.swift; sourceTree = "<group>"; };
 		A23F3CF823A78E2C000546DC /* ExplorerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerViewController.swift; sourceTree = "<group>"; };
+		A24D73F823CF5743009779EC /* MasonryLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasonryLayout.swift; sourceTree = "<group>"; };
 		A24E006C23AC16B40064C857 /* CustomViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 		A265CF612077C66500D104BB /* RequestPasswordResetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPasswordResetController.swift; sourceTree = "<group>"; };
 		A265CF632077C69500D104BB /* RequestPasswordResetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPasswordResetModel.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				A2C836EE22D7C26A009C78A3 /* HomeController.swift */,
 				A2C836F022D7C405009C78A3 /* CollectionViewCellController.swift */,
 				A2C836F622D7C6A7009C78A3 /* HomeProtocol.swift */,
+				A24D73F823CF5743009779EC /* MasonryLayout.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -680,6 +683,7 @@
 				A2AFF9A2206FCDC1008851F9 /* UserSignUpModel.swift in Sources */,
 				A27C6638206ED82500015274 /* MyItemsTableCellController.swift in Sources */,
 				A216CC751E200F3E00A5951C /* ResultCellViewController.swift in Sources */,
+				A24D73F923CF5743009779EC /* MasonryLayout.swift in Sources */,
 				A27C6634206EBFB200015274 /* MyItemsViewController.swift in Sources */,
 				A2930D6823A2EC63004384A0 /* ExplorerProtocol.swift in Sources */,
 				A20178F62077E39C0058E190 /* NewPasswordController.swift in Sources */,

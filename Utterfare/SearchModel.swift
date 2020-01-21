@@ -10,25 +10,24 @@ import Foundation
 import UIKit
 
 protocol SearchControllerProtocol: class{
-    func itemsDownloaded(hasResults: Bool, itemsId: Array<String>, itemsNames: Array<String>, restaurantsNames: Array<String>, itemsImages: Array<String>, itemsShortDescription: Array<String>)
+    func itemsDownloaded(hasResults: Bool, itemsId: NSArray, itemsNames: NSArray, restaurantsNames: NSArray, itemsImages: NSArray, itemsShortDescription: NSArray)
 }
 
 class SearchModel: NSObject{
     weak var delegate: SearchControllerProtocol!
-    var location : String = String(), terms : String = String(), offset : String = String(), distance : String = String()
     var jsonData : Data = Data()
     
-    func doSearch(terms: String, distance: String, location: String, offset: String, page: String){
-        let requestURL = URL(string: "https://www.utterfare.com/includes/php/search.php")
+    func doSearch(terms: String, distance: String, location: String, page: String){
+        //let requestURL = URL(string: "https://www.utterfare.com/includes/php/search.php")
+        let requestURL = URL(string: "http://localhost/utterfare/includes/php/search.php")
         var request = URLRequest(url: requestURL!)
         request.httpMethod = "POST"
         
         var parameters = "terms=" + terms
         parameters += "&distance=" + distance
         parameters += "&location=" + location
-        parameters += "&offset=" + offset
         parameters += "&page=" + page
-        parameters += "&limit=" + "25"
+        parameters += "&limit=" + "10"
         parameters += "&action=search"
             
         request.httpBody = parameters.data(using: .utf8)
@@ -57,24 +56,22 @@ class SearchModel: NSObject{
                 haveResults = true;
             }
             if let results = jsonResults {
-                var itemsId : Array<String> = Array()
-                var itemsImage : Array<String> = Array()
-                var itemsName : Array<String> = Array()
-                var restaurantsName : Array<String> = Array()
-                var itemsShortDescription : Array<String> = Array()
+                let itemsId : NSMutableArray = NSMutableArray()
+                let itemsImage : NSMutableArray = NSMutableArray()
+                let itemsName : NSMutableArray = NSMutableArray()
+                let restaurantsName : NSMutableArray = NSMutableArray()
+                let itemsShortDescription : NSMutableArray = NSMutableArray()
                 
                 for i in 0..<(results.count){
                     let result = results[i] as! NSDictionary
                                         
-                    itemsId.append(result["item_id"] as! String)
-                    itemsImage.append(result["primary_image"] as! String)
-                    itemsName.append(result["item_name"] as! String)
-                    restaurantsName.append(result["vendor_name"] as! String)
-                    itemsShortDescription.append(result["item_short_description"] as! String)
+                    itemsId.add(result["item_id"] as! String)
+                    itemsImage.add(result["primary_image"] as! String)
+                    itemsName.add(result["item_name"] as! String)
+                    restaurantsName.add(result["vendor_name"] as! String)
+                    itemsShortDescription.add(result["item_short_description"] as! String)
                 }
-                print(itemsId)
                 DispatchQueue.main.async {
-                    print(itemsId.count)
                     self.delegate.itemsDownloaded(hasResults: haveResults, itemsId: itemsId, itemsNames: itemsName, restaurantsNames: restaurantsName, itemsImages: itemsImage, itemsShortDescription: itemsShortDescription)
 
                 }
