@@ -11,7 +11,7 @@ import UIKit
 import SDWebImage
 import CoreLocation
 
-class HomeController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, CLLocationManagerDelegate, HomeItemsProtocol{
+class HomeController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CLLocationManagerDelegate, HomeItemsProtocol{
 
     @IBOutlet weak var homeMasonryCollectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -30,7 +30,13 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var homeItemsIds: NSMutableArray = NSMutableArray(), homeItemsNames: NSMutableArray = NSMutableArray(), homeItemsImages: NSMutableArray = NSMutableArray()
     
     func downloadHomeItems(itemIds: NSArray, itemNames: NSArray, itemImages: NSArray) {
+        if(itemIds.count == 0){
+            self.handleNoResults(collectionView: self.homeMasonryCollectionView)
+            return
+        }
         if updating == false || self.homeItemsIds.count == 0 {
+
+            
             self.homeItemsIds = itemIds as! NSMutableArray
             self.homeItemsNames = itemNames as! NSMutableArray
             self.homeItemsImages = itemImages as! NSMutableArray
@@ -67,6 +73,14 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collectionView.isHidden = false
         
         activityIndicator.stopAnimating()
+        
+        if self.refreshControl.isRefreshing{
+            self.refreshControl.endRefreshing()
+        }
+        
+        if self.updating == true{
+            self.updating = false
+        }
     }
         
     /*
@@ -84,18 +98,24 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.itemImage.frame.size = CGSize(width: cell.frame.size.width, height: cell.frame.size.width)
         
         
-        cell.frame.size = CGSize(width: collectionView.contentSize.width/2 - 24, height: collectionView.contentSize.width/2 - 24)
+        cell.frame.size = CGSize(width: (collectionView.contentSize.width/2)-12, height: collectionView.contentSize.width/2 - 12)
         
         return cell
 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
-        let padding: CGFloat = 6
+        //let flowLayout = collectionView as? UICollectionViewFlowLayout
+        //let space: CGFloat = (flowLayout?.minimumInteritemSpacing ?? 0.0) + (flowLayout?.sectionInset.left ?? 0.0) + (flowLayout?.sectionInset.right ?? 0.0)
+        
+        //let size:CGFloat = (collectionView.frame.size.width - space) / 2.0
+        
+        let padding: CGFloat = 50
         let collectionViewSize = collectionView.frame.size.width - padding
         
         return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var selectedItemId: String = String()
@@ -108,7 +128,7 @@ class HomeController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         self.navigationController?.pushViewController(vc!, animated: true)
     }
-    
+        
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
